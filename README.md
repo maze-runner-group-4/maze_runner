@@ -1,1 +1,12 @@
 # maze_runner
+
+functions:
+find_player_start
+find_goal
+draw_maze
+draw_player
+draw_goal
+move_player
+is_valid_move
+check_find_goal
+check_game_win
