@@ -1,4 +1,6 @@
 import pygame
+import os
+from maze_maps import Maze_maps
 
 
 BLACK = (0, 0, 0)
@@ -16,80 +18,62 @@ class MazeGame:
 
         self.clock = pygame.time.Clock()
 
-        self.player_pos = self.find_player_start(maze)
-        self.goal = self.find_goal(maze)
-
+        # self.player_pos = self.find_player_start(maze)
+        # self.goal = self.find_goal(maze)
+        # self.treasure = self.find_treasure(maze)
         self.maze = maze
         self.cell_width = self.window_width // len(self.maze[0])
         self.cell_height = self.window_height // len(self.maze)
         self.border_size = 5
 
+    def draw_maze(self):
+        for row in range(len(self.maze)):
+            for column in range(len(self.maze[0])):
+                if self.maze[row][column] == "X":
+                    wall_cell_image = pygame.image.load(os.path.join("Assets","wall_cell.png"))
+                    wall_cell = pygame.transform.scale(wall_cell_image,(self.cell_width,self.cell_height))
+                    self.window.blit(wall_cell,(column * self.cell_width, row * self.cell_height))
 
-
+    
+    
     def run(self):
         running = True
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_UP:
-                        self.move_player("up")
-                    elif event.key == pygame.K_DOWN:
-                        self.move_player("down")
-                    elif event.key == pygame.K_LEFT:
-                        self.move_player("left")
-                    elif event.key == pygame.K_RIGHT:
-                        self.move_player("right")
+                # elif event.type == pygame.KEYDOWN:
+                #     if event.key == pygame.K_UP:
+                #         self.move_player("up")
+                #     elif event.key == pygame.K_DOWN:
+                #         self.move_player("down")
+                #     elif event.key == pygame.K_LEFT:
+                #         self.move_player("left")
+                #     elif event.key == pygame.K_RIGHT:
+                #         self.move_player("right")
 
             self.window.fill(BLACK)
 
             self.draw_maze()
-            self.draw_player()
-            self.draw_goal()
-
-            if self.check_find_goal():
-                print("Congratulations! You Win!")
-                running = False
+            # self.draw_player()
+            # self.draw_goal()
+            self.draw_treasure()
+            # if self.check_find_goal():
+            #     print("Congratulations! You Win!")
+            #     running = False
 
 
             pygame.display.flip()
-            self.clock.tick(60)
+            self.clock.tick(30)
 
         pygame.quit()
 
 
-# Set up the maze grid
-maze = [
-    "XXXXXXXXXXXXXXXXXXXXXXXXX",
-    "XP XXXXXXX          XXXXX",
-    "X  XXXXXXX  XXXXXX  XXXXX",
-    "X       XX  XXXXXX  XXXXX",
-    "X       XX  XXX        XX",
-    "XXXXXX  XX  XXX        XX",
-    "XXXXXX  XX  XXXXXX  XXXXX",
-    "XXXXXX  XX    XXXX  XXXXX",
-    "X  XXX        XXXXT XXXXX",
-    "X  XXX  XXXXXXXXXXXXXXXXX",
-    "X         XXXXXXXXXXXXXXX",
-    "X                XXXXXXXX",
-    "XXXXXXXXXXXX     XXXXX  X",
-    "XXXXXXXXXXXXXXX  XXXXX  X",
-    "XXX  XXXXXXXXXX         X",
-    "XXX                     X",
-    "XXX         XXXXXXXXXXXXX",
-    "XXXXXXXXXX  XXXXXXXXXXXXX",
-    "XXXXXXXXXX              X",
-    "XX   XXXXX              X",
-    "XX   XXXXXXXXXXXXX  XXXXX",
-    "XX    XXXXXXXXXXXX  XXXXX",
-    "XX          XXXX        X",
-    "XXXX                 T  X",
-    "XXXXXXXXXXXXXXXXXXXXXXXXX"
-]
+
+
 
 # Create an instance of the MazeGame class
-game = MazeGame(800, 600, maze)
+game = MazeGame(1200, 900, Maze_maps.maze_treasure)
 
 # Run the game
 game.run()
