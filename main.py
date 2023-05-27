@@ -18,13 +18,43 @@ class MazeGame:
 
         self.clock = pygame.time.Clock()
 
-        # self.player_pos = self.find_player_start(maze)
-        # self.goal = self.find_goal(maze)
-        # self.treasure = self.find_treasure(maze)
+        self.player_pos = self.find_player_start(maze)
+        self.goal = self.find_goal(maze)
+        self.treasure = self.find_treasure(maze)
         self.maze = maze
         self.cell_width = self.window_width // len(self.maze[0])
         self.cell_height = self.window_height // len(self.maze)
         self.border_size = 5
+
+    def find_player_start(self, maze):
+        for row in range(len(maze)):
+            for col in range(len(maze[row])):
+                if maze[row][col] == "P":
+                    return (row, col)  
+        return None  
+
+    def find_goal(self, maze):
+        for row in range(len(maze)):
+            for col in range(len(maze[row])):
+                if maze[row][col] == "G":
+                    return (row, col)  
+        return None  
+    
+    def find_treasure(self, maze):
+        for row in range(len(maze)):
+            for col in range(len(maze[row])):
+                if maze[row][col] == "T":
+                    return (row, col)   
+        return None  
+    
+    def draw_treasure(self):
+        for row in range(len(self.maze)):
+            for col in range(len(self.maze[row])):
+                if self.maze[row][col] == "T":
+                    treasure_cell_image = pygame.image.load(os.path.join("Assets","IMG_9986.png"))
+                    treasure_image = pygame.transform.scale(treasure_cell_image,(self.cell_width,self.cell_height))
+                    self.window.blit(treasure_image,(col* self.cell_width,row* self.cell_height))
+
 
     def draw_maze(self):
         for row in range(len(self.maze)):
