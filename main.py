@@ -65,22 +65,31 @@ class MazeGame:
                     self.window.blit(wall_cell,(column * self.cell_width, row * self.cell_height))
     
     def draw_player(self):
-        player_rect = pygame.Rect(
-            self.player_pos[1] * self.cell_width + self.border_size,
-            self.player_pos[0] * self.cell_height + self.border_size,
-            self.cell_width - self.border_size * 2,
-            self.cell_height - self.border_size * 2
-        )
-        pygame.draw.rect(self.window, RED, player_rect)
+        # player_rect = pygame.Rect(
+        #     self.player_pos[1] * self.cell_width + self.border_size,
+        #     self.player_pos[0] * self.cell_height + self.border_size,
+        #     self.cell_width - self.border_size * 2,
+        #     self.cell_height - self.border_size * 2
+        # )
+        # pygame.draw.rect(self.window, RED, player_rect)
+        player_cell_image = pygame.image.load(os.path.join("Assets","IMG_0011.png"))
+        player_cell = pygame.transform.scale(player_cell_image,(self.cell_width,self.cell_height))
+        self.window.blit(player_cell,(self.player_pos[1] * self.cell_width, self.player_pos[0] * self.cell_height))
+
 
     def draw_goal(self):
-        goal_rect = pygame.Rect(
-            self.goal[1] * self.cell_width + self.border_size,
-            self.goal[0] * self.cell_height + self.border_size,
-            self.cell_width - self.border_size * 2,
-            self.cell_height - self.border_size * 2
-        )
-        pygame.draw.rect(self.window, GREEN, goal_rect)
+        # goal_rect = pygame.Rect(
+        #     self.goal[1] * self.cell_width + self.border_size,
+        #     self.goal[0] * self.cell_height + self.border_size,
+        #     self.cell_width - self.border_size * 2,
+        #     self.cell_height - self.border_size * 2
+        # )
+        # pygame.draw.rect(self.window, GREEN, goal_rect)
+        goal_cell_image = pygame.image.load(os.path.join("Assets","IMG_9998.png"))
+        goal_cell = pygame.transform.scale(goal_cell_image,(self.cell_width,self.cell_height))
+        self.window.blit(goal_cell,(self.goal[1] * self.cell_width, self.goal[0] * self.cell_height))
+
+
     def move_player(self, direction):
         new_row = self.player_pos[0]
         new_col = self.player_pos[1]
@@ -132,16 +141,16 @@ class MazeGame:
 
 
             pygame.display.flip()
-            self.clock.tick(30)
+            self.clock.tick(60)
 
         pygame.quit()
 
 
 
+if __name__ == "__main__":
 
+    # Create an instance of the MazeGame class
+    game = MazeGame(1600, 900, Maze_maps.maze_hard2)
 
-# Create an instance of the MazeGame class
-game = MazeGame(1200, 900, Maze_maps.maze_treasure)
-
-# Run the game
-game.run()
+    # Run the game
+    game.run()
