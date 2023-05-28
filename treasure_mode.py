@@ -2,6 +2,7 @@ from main import MazeGame
 from maze_maps import Maze_maps
 import pygame
 import pygame.mixer
+import os
 BLACK = (0, 0, 0)
 WHITE = "indigo"
 RED = (255, 0, 0)
@@ -12,8 +13,10 @@ class Treasure(MazeGame):
         pygame.mixer.init()
         self.treasure_score = 0
         self.treasure2_score = 0
-        self.treasure_sound = pygame.mixer.Sound("Assets/Coin_Collect.wav")
+        self.half_treasures = self.treasure_list//2
+        self.treasure_sound = pygame.mixer.Sound(os.path.join("Assets","Mario_Coin_Sound_-_Sound_Effect_HD.wav"))
         self.score_FONT = pygame.font.SysFont('comicsans',30)
+        self.goal_draw = False
 
 
     def calculate_score_for_treasure(self,player):
@@ -41,12 +44,27 @@ class Treasure(MazeGame):
         if self.maze[self.new_row][self.new_col] == "T":
                     # Remove the treasure from the maze
                     self.maze[self.new_row][self.new_col] = " "
-                    # self.treasure_sound.play()  # Play the sound effect
+                    self.treasure_list-=1
+                    self.treasure_sound.play()  # Play the sound effect
                     self.calculate_score_for_treasure(player)
                     self.treasure_sound.play()
-              
+                    
+        if self.treasure_score >self.half_treasures or self.treasure2_score >self.half_treasures :
+            self.check_winner()
+        elif self.treasure_score == self.half_treasures == self.treasure2_score :
+            self.goal_draw =True
 
-    def run(self):
+              
+    def check_winner(self):
+        if self.treasure_score > self.treasure2_score:
+            winner_text = "Congratulations! Blue Win!"
+            self.draw_winner(winner_text)
+            pygame.quit()
+        elif self.treasure2_score > self.treasure_score:
+            winner_text = "Congratulations! Red Win!"
+            self.draw_winner(winner_text)
+            pygame.quit()
+    def run(self,multi=False):
         running = True
         while running:
             for event in pygame.event.get():
@@ -73,14 +91,20 @@ class Treasure(MazeGame):
 
             self.draw_maze()
             self.draw_player(self.player_pos[0],self.player_pos[1],1)
-            self.draw_player(self.player_2_pos[0],self.player_2_pos[1],2)
-            self.draw_goal()
+            if multi:
+                self.draw_player(self.player_2_pos[0],self.player_2_pos[1],2)
+            if self.goal_draw:    
+                self.draw_goal()
+                # self.check_find_goal()
+                if self.check_find_goal():
+                    running = False
             self.draw_treasure()
             self.draw_score(10,10,1)
-            self.draw_score(self.window_width-200,10,2)
-            if self.check_find_goal():
-                self.check_find_goal()
-                running = False
+            if multi:
+                self.draw_score(self.window_width-200,10,2)
+            # if self.check_find_goal():
+            #     self.check_find_goal()
+                # running = False
 
 
             pygame.display.flip()
@@ -88,7 +112,7 @@ class Treasure(MazeGame):
 
         pygame.quit()
 
+if __name__ == "__main__":
+    game = Treasure(1600, 900, Maze_maps.maze_treasure)
 
-game = Treasure(1200, 900, Maze_maps.maze_treasure)
-
-game.run()
+    game.run(True)

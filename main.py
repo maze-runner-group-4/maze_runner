@@ -17,7 +17,7 @@ class MazeGame:
         self.window = pygame.display.set_mode((self.window_width, self.window_height))
         pygame.display.set_caption("Maze Game")
         self.WINNER_FONT = pygame.font.SysFont('comicsans', 100)
-
+        self.treasure_list = 0
         self.clock = pygame.time.Clock()
 
         self.player_pos = self.find_player_start(maze,"P")
@@ -49,8 +49,10 @@ class MazeGame:
         for row in range(len(maze)):
             for col in range(len(maze[row])):
                 if maze[row][col] == "T":
-                    return [row, col]   
-        return None  
+                    self.treasure_list+=1
+                    
+                     
+         
     
     def draw_treasure(self):
         for row in range(len(self.maze)):
@@ -59,6 +61,7 @@ class MazeGame:
                     treasure_cell_image = pygame.image.load(os.path.join("Assets","IMG_9986.png"))
                     treasure_image = pygame.transform.scale(treasure_cell_image,(self.cell_width,self.cell_height))
                     self.window.blit(treasure_image,(col* self.cell_width,row* self.cell_height))
+                    
 
 
     def draw_maze(self):
@@ -143,7 +146,7 @@ class MazeGame:
             return False
         return True
     
-    def run(self):
+    def run(self,multi=False):
         running = True
         while running:
             for event in pygame.event.get():
@@ -170,11 +173,12 @@ class MazeGame:
 
             self.draw_maze()
             self.draw_player(self.player_pos[0],self.player_pos[1],1)
-            self.draw_player(self.player_2_pos[0],self.player_2_pos[1],2)
+            if multi:
+                self.draw_player(self.player_2_pos[0],self.player_2_pos[1],2)
             self.draw_goal()
             self.draw_treasure()
             if self.check_find_goal():
-                self.check_find_goal()
+                # self.check_find_goal()
                 running = False
 
 
@@ -188,7 +192,7 @@ class MazeGame:
 if __name__ == "__main__":
 
     # Create an instance of the MazeGame class
-    game = MazeGame(1000, 500, Maze_maps.maze_hard2)
+    game = MazeGame(1000, 500, Maze_maps.maze_treasure)
 
     # Run the game
-    game.run()
+    game.run(True)
