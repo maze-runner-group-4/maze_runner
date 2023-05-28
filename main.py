@@ -24,9 +24,11 @@ class MazeGame:
         self.player_2_pos = self.find_player_start(maze,"L")
         self.goal = self.find_goal(maze)
         self.treasure = self.find_treasure(maze)
-        self.maze = maze
+        self.maze = [[cell for cell in row] for row in maze]
         self.cell_width = self.window_width // len(self.maze[0])
         self.cell_height = self.window_height // len(self.maze)
+        self.new_col = 0
+        self.new_row = 0
         
 
     def find_player_start(self, maze,Char):
@@ -85,11 +87,11 @@ class MazeGame:
 
     def check_find_goal(self):
         if self.player_pos[0] == self.goal[0] and self.player_pos[1]==self.goal[1]:
-            winner_text = "Congratulations! You Win!"
+            winner_text = "Congratulations! Blue Win!"
             self.draw_winner(winner_text)
             return True
         elif self.player_2_pos[0] == self.goal[0] and self.player_2_pos[1]==self.goal[1]:
-            winner_text = "Congratulations! You Win!"
+            winner_text = "Congratulations! Red Win!"
             self.draw_winner(winner_text)
             return True
         return False
@@ -101,38 +103,38 @@ class MazeGame:
         pygame.display.update()
         pygame.time.delay(1000)
 
+    
+
     def move_player(self, direction,player):
-        new_col = 0
-        new_row = 0
         if player == 2:
-         new_row = self.player_pos[0]
-         new_col = self.player_pos[1]
+         self.new_row = self.player_pos[0]
+         self.new_col = self.player_pos[1]
         elif player == 1:
-            new_row = self.player_2_pos[0]
-            new_col = self.player_2_pos[1]
+           self. new_row = self.player_2_pos[0]
+           self. new_col = self.player_2_pos[1]
         if direction == "up":
-            new_row -= 1
+            self.new_row -= 1
         elif direction == "down":
-            new_row += 1
+           self. new_row += 1
         elif direction == "left":
-            new_col -= 1
+          self.  new_col -= 1
         elif direction == "right":
-            new_col += 1
+          self.  new_col += 1
 
         if direction == "w":
-            new_row -= 1
+           self. new_row -= 1
         elif direction == "s":
-            new_row += 1
+          self.  new_row += 1
         elif direction == "a":
-            new_col -= 1
+          self.  new_col -= 1
         elif direction == "d":
-            new_col += 1
-        if self.is_valid_move(new_row, new_col):
+          self.  new_col += 1
+        if self.is_valid_move(self.new_row,self. new_col):
             if player == 2:
-                self.player_pos = (new_row, new_col)
+                self.player_pos = (self.new_row, self.new_col)
             if player == 1:
-                self.player_2_pos = (new_row, new_col)
-                
+                self.player_2_pos = (self.new_row, self.new_col)
+           
 
     def is_valid_move(self, row, col):
         if row < 0 or row >= len(self.maze) or col < 0 or col >= len(self.maze[0]):

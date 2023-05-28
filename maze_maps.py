@@ -5,7 +5,7 @@ class Maze_maps:
     "XP XXXXXXXT         X           X   TXXX",
     "X  XXXXXXX          XT          X    XXX",
     "X       XX  XXXXXX  XXXXXXXXX   XXX  XXX",
-    "X       XX  XXX                      XXX",
+    "L       XX  XXX                      XXX",
     "XXXXXX  XX  XXXT       XXXXXXXXXXXXXXXXX",
     "XXXXXX  XX  XXXXXX     XXXXXXXXXXXXXXXXX",
     "XXXXXX  XX    XXXX      XX            XX",
