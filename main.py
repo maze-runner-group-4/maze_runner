@@ -11,10 +11,12 @@ GREEN = (0, 255, 0)
 class MazeGame:
     def __init__(self, width, height, maze):
         pygame.init()
+        pygame.font.init()
         self.window_width = width
         self.window_height = height
         self.window = pygame.display.set_mode((self.window_width, self.window_height))
         pygame.display.set_caption("Maze Game")
+        self.WINNER_FONT = pygame.font.SysFont('comicsans', 100)
 
         self.clock = pygame.time.Clock()
 
@@ -89,6 +91,19 @@ class MazeGame:
         goal_cell = pygame.transform.scale(goal_cell_image,(self.cell_width,self.cell_height))
         self.window.blit(goal_cell,(self.goal[1] * self.cell_width, self.goal[0] * self.cell_height))
 
+    def check_find_goal(self):
+        if self.player_pos[0] == self.goal[0] and self.player_pos[1]==self.goal[1]:
+            winner_text = "Congratulations! You Win!"
+            self.draw_winner(winner_text)
+            return True
+        return False
+    
+    def draw_winner(self,text):
+        draw_text = self.WINNER_FONT.render(text, 1, WHITE)
+        self.window.blit(draw_text, (self.window_width/2 - draw_text.get_width() /
+                         2,self.window_height/2 - draw_text.get_height()/2))
+        pygame.display.update()
+        pygame.time.delay(5000)
 
     def move_player(self, direction):
         new_row = self.player_pos[0]
@@ -135,9 +150,9 @@ class MazeGame:
             self.draw_player()
             self.draw_goal()
             self.draw_treasure()
-            # if self.check_find_goal():
-            #     print("Congratulations! You Win!")
-            #     running = False
+            if self.check_find_goal():
+                self.check_find_goal()
+                running = False
 
 
             pygame.display.flip()
@@ -150,7 +165,7 @@ class MazeGame:
 if __name__ == "__main__":
 
     # Create an instance of the MazeGame class
-    game = MazeGame(1600, 900, Maze_maps.maze_hard2)
+    game = MazeGame(1000, 500, Maze_maps.maze_hard2)
 
     # Run the game
     game.run()
