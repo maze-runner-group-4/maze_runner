@@ -1,7 +1,7 @@
 from main import MazeGame
 from maze_maps import Maze_maps
 import pygame
-
+import pygame.mixer
 BLACK = (0, 0, 0)
 WHITE = "indigo"
 RED = (255, 0, 0)
@@ -9,8 +9,10 @@ GREEN = (0, 255, 0)
 class Treasure(MazeGame):
     def __init__(self, width, height, maze):
         super().__init__(width, height, maze)
+        pygame.mixer.init()
         self.treasure_score = 0
         self.treasure2_score = 0
+        self.treasure_sound = pygame.mixer.Sound("Assets/Coin_Collect.wav")
         self.score_FONT = pygame.font.SysFont('comicsans',30)
 
 
@@ -33,9 +35,6 @@ class Treasure(MazeGame):
             self.window.blit(draw_text, (pos1,pos2))
             pygame.display.update()
 
-             
-    def sound_for_tresure():
-        pass
 
     def move_player(self, direction, player):
         super().move_player(direction, player)
@@ -44,6 +43,7 @@ class Treasure(MazeGame):
                     self.maze[self.new_row][self.new_col] = " "
                     # self.treasure_sound.play()  # Play the sound effect
                     self.calculate_score_for_treasure(player)
+                    self.treasure_sound.play()
               
 
     def run(self):
