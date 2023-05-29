@@ -12,14 +12,14 @@ class MazeGame:
     def __init__(self, width, height, maze):
         pygame.init()
         pygame.font.init()
+        pygame.mixer.init()
         self.window_width = width
         self.window_height = height
         self.window = pygame.display.set_mode((self.window_width, self.window_height))
         pygame.display.set_caption("Maze Game")
         self.WINNER_FONT = pygame.font.SysFont('comicsans', 100)
-        self.treasure_list = 0
+        self.treasure_counter = 0
         self.clock = pygame.time.Clock()
-
         self.player_pos = self.find_player_start(maze,"P")
         self.player_2_pos = self.find_player_start(maze,"L")
         self.goal = self.find_goal(maze)
@@ -29,6 +29,10 @@ class MazeGame:
         self.cell_height = self.window_height // len(self.maze)
         self.new_col = 0
         self.new_row = 0
+
+        pygame.mixer.music.load('Assets/background.wav') 
+
+        pygame.mixer.music.play(-1)
         
 
     def find_player_start(self, maze,Char):
@@ -49,11 +53,15 @@ class MazeGame:
         for row in range(len(maze)):
             for col in range(len(maze[row])):
                 if maze[row][col] == "T":
-                    self.treasure_list+=1
+                    self.treasure_counter+=1
                     
                      
-         
-    
+    def background_music_player(self):
+        pygame.mixer.music.load('Assets/background.wav') 
+
+        pygame.mixer.music.play()
+
+
     def draw_treasure(self):
         for row in range(len(self.maze)):
             for col in range(len(self.maze[row])):
@@ -104,7 +112,7 @@ class MazeGame:
         self.window.blit(draw_text, (self.window_width/2 - draw_text.get_width() /
                          2,self.window_height/2 - draw_text.get_height()/2))
         pygame.display.update()
-        pygame.time.delay(1000)
+        pygame.time.delay(2000)
 
     
 
@@ -149,6 +157,7 @@ class MazeGame:
     def run(self,multi=False):
         running = True
         while running:
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
@@ -192,7 +201,7 @@ class MazeGame:
 if __name__ == "__main__":
 
     # Create an instance of the MazeGame class
-    game = MazeGame(1000, 500, Maze_maps.maze_treasure)
+    game = MazeGame(1600, 900, Maze_maps.maze_easy)
 
     # Run the game
     game.run(True)

@@ -10,10 +10,10 @@ GREEN = (0, 255, 0)
 class Treasure(MazeGame):
     def __init__(self, width, height, maze):
         super().__init__(width, height, maze)
-        pygame.mixer.init()
+        
         self.treasure_score = 0
         self.treasure2_score = 0
-        self.half_treasures = self.treasure_list//2
+        self.half_treasures = self.treasure_counter//2
         self.treasure_sound = pygame.mixer.Sound(os.path.join("Assets","Mario_Coin_Sound_-_Sound_Effect_HD.wav"))
         self.score_FONT = pygame.font.SysFont('comicsans',30)
         self.goal_draw = False
@@ -44,7 +44,7 @@ class Treasure(MazeGame):
         if self.maze[self.new_row][self.new_col] == "T":
                     # Remove the treasure from the maze
                     self.maze[self.new_row][self.new_col] = " "
-                    self.treasure_list-=1
+                    self.treasure_counter-=1
                     self.treasure_sound.play()  # Play the sound effect
                     self.calculate_score_for_treasure(player)
                     self.treasure_sound.play()
@@ -113,6 +113,6 @@ class Treasure(MazeGame):
         pygame.quit()
 
 if __name__ == "__main__":
-    game = Treasure(1600, 900, Maze_maps.maze_treasure)
+    game = Treasure(1600, 900, Maze_maps.maze_treasure2)
 
     game.run(True)
