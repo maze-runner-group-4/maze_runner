@@ -4,9 +4,8 @@ from maze_maps import Maze_maps
 
 
 BLACK = (0, 0, 0)
-WHITE = "indigo"
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
+indigo = "indigo"
+
 
 class MazeGame:
     def __init__(self, width, height, maze):
@@ -20,9 +19,9 @@ class MazeGame:
         self.WINNER_FONT = pygame.font.SysFont('comicsans', 100)
         self.treasure_counter = 0
         self.clock = pygame.time.Clock()
-        self.player_pos = self.find_player_start(maze,"P")
-        self.player_2_pos = self.find_player_start(maze,"L")
-        self.goal = self.find_goal(maze)
+        self.player_pos = self.find_character(maze,"P")
+        self.player_2_pos = self.find_character(maze,"L")
+        self.goal = self.find_character(maze,"G")
         self.treasure = self.find_treasure(maze)
         self.maze = [[cell for cell in row] for row in maze]
         self.cell_width = self.window_width // len(self.maze[0])
@@ -35,17 +34,10 @@ class MazeGame:
         pygame.mixer.music.play(-1)
         
 
-    def find_player_start(self, maze,Char):
+    def find_character(self, maze,Char):
         for row in range(len(maze)):
             for col in range(len(maze[row])):
                 if maze[row][col] == Char:
-                    return [row, col]  
-        return None  
-
-    def find_goal(self, maze):
-        for row in range(len(maze)):
-            for col in range(len(maze[row])):
-                if maze[row][col] == "G":
                     return [row, col]  
         return None  
     
@@ -54,31 +46,23 @@ class MazeGame:
             for col in range(len(maze[row])):
                 if maze[row][col] == "T":
                     self.treasure_counter+=1
-                    
-                     
-    def background_music_player(self):
-        pygame.mixer.music.load('Assets/background.wav') 
-
-        pygame.mixer.music.play()
 
 
-    def draw_treasure(self):
+
+    def draw_treasure_maze(self):
         for row in range(len(self.maze)):
-            for col in range(len(self.maze[row])):
+            for col in range(len(self.maze[0])):
                 if self.maze[row][col] == "T":
                     treasure_cell_image = pygame.image.load(os.path.join("Assets","IMG_9986.png"))
                     treasure_image = pygame.transform.scale(treasure_cell_image,(self.cell_width,self.cell_height))
                     self.window.blit(treasure_image,(col* self.cell_width,row* self.cell_height))
-                    
-
-
-    def draw_maze(self):
-        for row in range(len(self.maze)):
-            for column in range(len(self.maze[0])):
-                if self.maze[row][column] == "X":
+                if self.maze[row][col] == "X":
                     wall_cell_image = pygame.image.load(os.path.join("Assets","wall_cell.png"))
                     wall_cell = pygame.transform.scale(wall_cell_image,(self.cell_width,self.cell_height))
-                    self.window.blit(wall_cell,(column * self.cell_width, row * self.cell_height))
+                    self.window.blit(wall_cell,(col * self.cell_width, row * self.cell_height))    
+
+
+
     
     def draw_player(self,pos_x,pos_y,player):
         if player ==1:
@@ -108,7 +92,7 @@ class MazeGame:
         return False
     
     def draw_winner(self,text):
-        draw_text = self.WINNER_FONT.render(text, 1, WHITE)
+        draw_text = self.WINNER_FONT.render(text, 1, indigo)
         self.window.blit(draw_text, (self.window_width/2 - draw_text.get_width() /
                          2,self.window_height/2 - draw_text.get_height()/2))
         pygame.display.update()
@@ -179,23 +163,16 @@ class MazeGame:
                     elif event.key == pygame.K_d:
                         self.move_player("d",2)
             self.window.fill(BLACK)
-
-            self.draw_maze()
             self.draw_player(self.player_pos[0],self.player_pos[1],1)
             if multi:
                 self.draw_player(self.player_2_pos[0],self.player_2_pos[1],2)
             self.draw_goal()
-            self.draw_treasure()
+            self.draw_treasure_maze()
             if self.check_find_goal():
-                # self.check_find_goal()
                 running = False
-
-
             pygame.display.flip()
             self.clock.tick(60)
-
         pygame.quit()
-
 
 
 if __name__ == "__main__":
