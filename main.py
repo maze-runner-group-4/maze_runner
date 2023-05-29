@@ -178,7 +178,7 @@ class MazeGame:
 if __name__ == "__main__":
 
     # Create an instance of the MazeGame class
-    game = MazeGame(1600, 900, Maze_maps.maze_easy)
+    game = MazeGame(1600, 900, Maze_maps.maze_hard2)
 
     # Run the game
     game.run(True)
