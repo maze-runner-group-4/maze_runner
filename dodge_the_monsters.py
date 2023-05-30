@@ -1,3 +1,4 @@
+import os
 import pygame
 from main import MazeGame
 from maze_maps import Maze_maps
@@ -12,14 +13,27 @@ class Dodge_the_monsters(MazeGame):
         self.monster3_pos=self.find_character(maze,"R")
         # print(self.monster3_pos[1])
         self.player_health=3
-        self.monster1_vel = -1
-        self.monster2_vel = -1
+        self.monster1_vel = -0.5
+        self.monster2_vel = -0.5
 
         self.monster3_vel = 1
         self.movement_range_M = 11
         self.movement_range_S = 11
         self.movement_range_R = 47
         # moving_the_monsters = self.monster_movement(self.movement_range_M,self.movement_range_S,self.movement_range_R)
+
+    def draw_monster(self, pos_x, pos_y, monster):
+        if monster =="M":
+            monster_cell_image = pygame.image.load(os.path.join("Assets","green-removebg-preview.png"))
+        elif monster == "S":
+            monster_cell_image = pygame.image.load(os.path.join("Assets","blue-removebg-preview.png"))
+        elif monster == "R":
+            monster_cell_image = pygame.image.load(os.path.join("Assets","yellow-removebg-preview.png"))
+        else:
+            monster_cell_image = pygame.image.load(os.path.join("Assets","wall_cell.png"))         
+        monster_cell = pygame.transform.scale(monster_cell_image,(self.cell_width,self.cell_height))
+        self.window.blit(monster_cell,(pos_y * self.cell_width, pos_x * self.cell_height))
+
 
     def monster_movement(self):
         # monster 1 movement
@@ -28,23 +42,20 @@ class Dodge_the_monsters(MazeGame):
             self.monster1_vel *= -1
         if self.monster1_pos[0] >= 25:
             self.monster1_vel *= -1
-        print(self.monster1_pos[0])
             
         # monster 2 movement
-        # self.monster2_pos[0] += self.monster2_vel
-        # if self.monster2_pos[0] <= 14:
-        #     self.monster2_vel *= -1
-        # if self.monster2_pos[0] >= 25:
-        #     self.monster2_vel *= -1
-        # print(self.monster2_pos[0])
+        self.monster2_pos[0] += self.monster2_vel
+        if self.monster2_pos[0] <= 14:
+            self.monster2_vel *= -1
+        if self.monster2_pos[0] >= 25:
+            self.monster2_vel *= -1
         
-        # # monster 3 2-49 movement
-        # self.monster3_pos[1] += self.monster3_vel
-        # if self.monster3_pos[1] >= 49:
-        #     self.monster3_vel *= -1
-        # if self.monster3_pos[1] <= 2:
-        #     self.monster3_vel *= -1
-        # print(self.monster3_pos[1])
+        # monster 3 2-49 movement
+        self.monster3_pos[1] += self.monster3_vel
+        if self.monster3_pos[1] >= 49:
+            self.monster3_vel *= -1
+        if self.monster3_pos[1] <= 2:
+            self.monster3_vel *= -1
 
 
 
@@ -78,6 +89,9 @@ class Dodge_the_monsters(MazeGame):
                 self.draw_player(self.player_2_pos[0],self.player_2_pos[1],2)
             self.draw_goal()
             self.draw_treasure_maze()
+            self.draw_monster(self.monster1_pos[0],self.monster1_pos[1],"M")
+            self.draw_monster(self.monster2_pos[0],self.monster2_pos[1],"S")
+            self.draw_monster(self.monster3_pos[0],self.monster3_pos[1],"R")
             if self.check_find_goal():
                 running = False
             pygame.display.flip()
@@ -88,7 +102,7 @@ class Dodge_the_monsters(MazeGame):
 if __name__ == "__main__":
 
     # Create an instance of the MazeGame class
-    game = Dodge_the_monsters(1600, 900, Maze_maps.maze_multi)
+    game = Dodge_the_monsters(1200, 600, Maze_maps.maze_multi)
 
     # Run the game
-    game.run(True)    
+    game.run(True)
