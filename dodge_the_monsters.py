@@ -8,12 +8,16 @@ class Dodge_the_monsters(MazeGame):
     
     def __init__(self, width, height, maze):
         super().__init__(width, height, maze)
+        
+        self.game_over_FONT = pygame.font.SysFont('comicsans', 100)
         self.monster1_pos=self.find_character(maze,"M")
         self.monster2_pos=self.find_character(maze,"S")
         self.monster3_pos=self.find_character(maze,"R")
-        self.health_counter=3
+        self.heart_pos=self.find_character(maze,"H")
         # print(self.monster3_pos[1])
         self.player_health=3
+        self.player_2_health = 3
+
         self.monster1_vel = -0.5
         self.monster2_vel = -0.5
         self.heart_x = 5 + (self.cell_width + 5)#for heart left player one 
@@ -32,9 +36,8 @@ class Dodge_the_monsters(MazeGame):
                     treasure_image = pygame.transform.scale(treasure_cell_image,(self.cell_width,self.cell_height))
                     self.window.blit(treasure_image,(col* self.cell_width,row* self.cell_height))
 
-    def draw_hearts_points(self,health_counter,heart_x): 
-        heart_image = pygame.image.load(os.path.join("Assets", "Screenshot_heart.png"))
-        for i in range(health_counter):
+    def draw_hearts_points(self,player_health,heart_x): 
+        for i in range(player_health):
             heart_y = 0
             heart_image = pygame.image.load(os.path.join("Assets", "333-removebg-preview.png"))
             heart_image = pygame.transform.scale(heart_image, (self.cell_width, self.cell_height))
@@ -76,6 +79,42 @@ class Dodge_the_monsters(MazeGame):
         if self.monster3_pos[1] <= 2:
             self.monster3_vel *= -1
 
+    def game_over(self):
+        if self.player_health == 0 and self.player_2_health == 0:
+            game_over_text = "Game Over"
+            self.draw_game_over(game_over_text)
+        elif self.player_health == 0:
+            game_over_text = "Game Over - Blue lost!"
+            self.draw_game_over(game_over_text)
+        elif self.player_2_health == 0:
+            game_over_text = "Game Over - Red lost!"
+            self.draw_game_over(game_over_text)
+ 
+
+    def draw_game_over(self,text):
+        draw_text = self.game_over_FONT.render(text, 1, indigo)
+        self.window.blit(draw_text, (self.window_width/2 - draw_text.get_width() /
+                         2,self.window_height/2 - draw_text.get_height()/2))
+        pygame.display.update()
+        pygame.time.delay(2000)
+
+
+    def health_points_count(self):
+        if (self.player_pos[0] == self.monster1_pos[0] and self.player_pos[1] == self.monster1_pos[1]) or \
+        (self.player_pos[0] == self.monster2_pos[0] and self.player_pos[1] == self.monster2_pos[1]) or \
+        (self.player_pos[0] == self.monster3_pos[0] and self.player_pos[1] == self.monster3_pos[1]):
+            self.player_health -= 1
+        elif (self.player_2_pos[0] == self.monster1_pos[0] and self.player_2_pos[1] == self.monster1_pos[1]) or \
+            (self.player_2_pos[0] == self.monster2_pos[0] and self.player_2_pos[1] == self.monster2_pos[1]) or \
+            (self.player_2_pos[0] == self.monster3_pos[0] and self.player_2_pos[1] == self.monster3_pos[1]):
+            self.player_2_health -= 1 
+        elif self.player_pos[0] == self.heart_pos[0] and self.player_pos[1] == self.heart_pos[1]:
+            self.player_health += 1
+        elif self.player_2_pos[0] == self.heart_pos[0] and self.player_2_pos[1] == self.heart_pos[1]:
+            self.player_2_health += 1
+
+
+
 
 
     def run(self, multi=False):
@@ -112,8 +151,10 @@ class Dodge_the_monsters(MazeGame):
             self.draw_monster(self.monster2_pos[0],self.monster2_pos[1],"S")
             self.draw_monster(self.monster3_pos[0],self.monster3_pos[1],"R")
             self.draw_hearts()
-            self.draw_hearts_points(self.health_counter,self.heart_x)
+            self.draw_hearts_points(self.player_health,self.heart_x)
             self.draw_hearts_points(self.player_health,self.heart2_x)
+            self.health_points_count()
+            self.game_over()
             if self.check_find_goal():
                 running = False
             pygame.display.flip()
