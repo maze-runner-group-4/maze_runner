@@ -236,7 +236,7 @@ class Maze_maps:
     ]
 
     maze_multi = [
-    " P                                                L ",   
+    "P                                                  L",   
     " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ",
     "                          X                         ",
     " XXXXXXXXXXXXXXXXXXXXXX   X   XXXXXXXXXXXXXXXXXXXXX ",
@@ -259,7 +259,7 @@ class Maze_maps:
     " X                     X  X  X                    X ",
     " X  XXXXXXXXXXXXXXXXXXXX  X  XXXXXXXXXXXXXXXXXXX  X ",
     " X                     X  X  X                    X ",
-    " XXXXXXXXXXXXXXXXX  XXXX  X  XXXX  XXXXXXXXXXXXXXXX ",
+    " XXXXXXXXXXXXXXXXH  XXXX  X  XXXX  HXXXXXXXXXXXXXXX ",
     " XR                                               X ",
     " XXXXXXXXXXXXXXXXXXXXXXXXSXMXXXXXXXXXXXXXXXXXXXXXXX ",
     "                                                    "

@@ -11,16 +11,35 @@ class Dodge_the_monsters(MazeGame):
         self.monster1_pos=self.find_character(maze,"M")
         self.monster2_pos=self.find_character(maze,"S")
         self.monster3_pos=self.find_character(maze,"R")
+        self.health_counter=3
         # print(self.monster3_pos[1])
         self.player_health=3
         self.monster1_vel = -0.5
         self.monster2_vel = -0.5
-
+        self.heart_x = 5 + (self.cell_width + 5)#for heart left player one 
+        self.heart2_x = self.window_width-self.cell_width*4
         self.monster3_vel = 1
         self.movement_range_M = 11
         self.movement_range_S = 11
         self.movement_range_R = 47
         # moving_the_monsters = self.monster_movement(self.movement_range_M,self.movement_range_S,self.movement_range_R)
+
+    def draw_hearts(self):
+        for row in range(len(self.maze)):
+            for col in range(len(self.maze[row])):
+                if self.maze[row][col] == "H":
+                    treasure_cell_image = pygame.image.load(os.path.join("Assets","heart1.png"))
+                    treasure_image = pygame.transform.scale(treasure_cell_image,(self.cell_width,self.cell_height))
+                    self.window.blit(treasure_image,(col* self.cell_width,row* self.cell_height))
+
+    def draw_hearts_points(self,health_counter,heart_x): 
+        heart_image = pygame.image.load(os.path.join("Assets", "Screenshot_heart.png"))
+        for i in range(health_counter):
+            heart_y = 0
+            heart_image = pygame.image.load(os.path.join("Assets", "333-removebg-preview.png"))
+            heart_image = pygame.transform.scale(heart_image, (self.cell_width, self.cell_height))
+            self.window.blit(heart_image, (heart_x+(i*self.cell_width), heart_y))
+        pygame.display.update()
 
     def draw_monster(self, pos_x, pos_y, monster):
         if monster =="M":
@@ -50,7 +69,7 @@ class Dodge_the_monsters(MazeGame):
         if self.monster2_pos[0] >= 25:
             self.monster2_vel *= -1
         
-        # monster 3 2-49 movement
+        # monster 3  movement
         self.monster3_pos[1] += self.monster3_vel
         if self.monster3_pos[1] >= 49:
             self.monster3_vel *= -1
@@ -92,6 +111,9 @@ class Dodge_the_monsters(MazeGame):
             self.draw_monster(self.monster1_pos[0],self.monster1_pos[1],"M")
             self.draw_monster(self.monster2_pos[0],self.monster2_pos[1],"S")
             self.draw_monster(self.monster3_pos[0],self.monster3_pos[1],"R")
+            self.draw_hearts()
+            self.draw_hearts_points(self.health_counter,self.heart_x)
+            self.draw_hearts_points(self.player_health,self.heart2_x)
             if self.check_find_goal():
                 running = False
             pygame.display.flip()
