@@ -13,7 +13,7 @@ class Maze_maps:
     "X  XXX                XXXX            TX",
     "X   XX       XXXXXXXXXXXXX            XX",
     "X    X   XX      XX     XX  XXXXXXXXXXXX",
-    "XXXX    XXXX     XX     XX          TXXX",
+    "XXXX    XXXX     XXG    XX          TXXX",
     "XXXXXT XXXXXX    XXXXX  X   XXXXXXXXXXXX",
     "XXXG XXXXXXXXX          X              X",
     "XXX                     XX  XXXXXXXXX  X",
