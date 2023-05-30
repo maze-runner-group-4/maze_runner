@@ -260,7 +260,7 @@ class Maze_maps:
     " X  XXXXXXXXXXXXXXXXXXXX  X  XXXXXXXXXXXXXXXXXXX  X ",
     " X                     X  X  X                    X ",
     " XXXXXXXXXXXXXXXXX  XXXX  X  XXXX  XXXXXXXXXXXXXXXX ",
-    " X                        X                       X ",
-    " XXXXXXXXXXXXXXXXXXXXXXXX X XXXXXXXXXXXXXXXXXXXXXXX ",
+    " XR                                               X ",
+    " XXXXXXXXXXXXXXXXXXXXXXXXSXMXXXXXXXXXXXXXXXXXXXXXXX ",
     "                                                    "
     ]
