@@ -29,7 +29,7 @@ class MazeGame:
         self.new_col = 0
         self.new_row = 0
 
-        pygame.mixer.music.load('Assets/background.wav') 
+        pygame.mixer.music.load('Assets/background_mp3cut.net.wav') 
 
         pygame.mixer.music.play(-1)
         
@@ -178,7 +178,7 @@ class MazeGame:
 if __name__ == "__main__":
 
     # Create an instance of the MazeGame class
-    game = MazeGame(1600, 900, Maze_maps.maze_hard2)
+    game = MazeGame(1600, 900, Maze_maps.maze_easy2)
 
     # Run the game
     game.run(True)

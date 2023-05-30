@@ -50,7 +50,7 @@ class Treasure(MazeGame):
                     
         if self.treasure_score >self.half_treasures * 100 or self.treasure2_score >self.half_treasures * 100 :
             self.check_winner()
-        elif self.treasure_score == self.half_treasures == self.treasure2_score :
+        elif self.treasure_score == self.half_treasures * 100 == self.treasure2_score :
             self.goal_draw =True
 
               
@@ -98,12 +98,12 @@ class Treasure(MazeGame):
                     running = False
             self.draw_score(10,10,1)
             if multi:
-                self.draw_score(self.window_width-200,10,2)
+                self.draw_score(self.window_width-220,10,2)
             pygame.display.flip()
             self.clock.tick(60)
         pygame.quit()
 
 if __name__ == "__main__":
-    game = Treasure(1600, 900, Maze_maps.maze_treasure2)
+    game = Treasure(1600, 900, Maze_maps.maze_treasure)
 
     game.run(True)
