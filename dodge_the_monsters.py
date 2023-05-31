@@ -13,12 +13,13 @@ class Dodge_the_monsters(MazeGame):
         self.game_over_FONT = pygame.font.SysFont('comicsans', 100)
         self.game_over_FONT_player = pygame.font.SysFont('comicsans', 50)
         self.heart_sound = pygame.mixer.Sound(os.path.join("Assets","Heal_Sound_Effect_2.wav"))
+        self.monster_sound_effect2 = pygame.mixer.Sound(os.path.join("Assets","Pac-Man Death - Sound Effect (HD).wav"))
+        self.monster_sound_slap = pygame.mixer.Sound(os.path.join("Assets","SLAP - Sound Effect.wav"))
+        self.sound_effect_played = False
         self.monster1_pos=self.find_character(maze,"M")
         self.monster2_pos=self.find_character(maze,"S")
         self.monster3_pos=self.find_character(maze,"R")
         self.heart_pos=self.find_character(maze,"H")
-        self.heart2_pos=self.find_character(maze,"K")
-        # print(self.monster3_pos[1])
         self.player_health=3
         self.player_2_health = 3
 
@@ -135,16 +136,24 @@ class Dodge_the_monsters(MazeGame):
         if self.player_health == self.player_2_health ==0 :
             game_over_text = "Game Over"
             self.draw_game_over(game_over_text)
+            pygame.mixer.music.stop()
+            self.monster_sound_effect2.play()
             pygame.display.update()
             pygame.time.delay(2000)
             pygame.QUIT()
         if self.player_health == 0 and self.player_2_health != 0 :
             game_over_text = "Blue lost!"
             self.draw_game_over(game_over_text)
+            if not self.sound_effect_played:
+                self.monster_sound_effect2.play()  # Play sound effect_2
+                self.sound_effect_played = True
             
         if self.player_2_health == 0 and self.player_health != 0 :
             game_over_text = "Red lost!"
             self.draw_game_over(game_over_text)
+            if not self.sound_effect_played:
+                self.monster_sound_effect2.play()  # Play sound effect_2
+                self.sound_effect_played = True
             
 
  
@@ -172,11 +181,13 @@ class Dodge_the_monsters(MazeGame):
         (self.player_pos[0] == self.monster3_pos[0] and self.player_pos[1] == self.monster3_pos[1]):
             if self.player_health > 0:
                 self.player_health -= 1
+                self.monster_sound_slap.play()
         if (self.player_2_pos[0] == self.monster1_pos[0] and self.player_2_pos[1] == self.monster1_pos[1]) or \
             (self.player_2_pos[0] == self.monster2_pos[0] and self.player_2_pos[1] == self.monster2_pos[1]) or \
             (self.player_2_pos[0] == self.monster3_pos[0] and self.player_2_pos[1] == self.monster3_pos[1]):
             if self.player_2_health > 0:
                 self.player_2_health -= 1
+                self.monster_sound_slap.play()
 
         if self.player_2_health == 0:
             self.maze[self.player_2_pos[0]][self.player_2_pos[1]] = " "
@@ -252,7 +263,7 @@ class Dodge_the_monsters(MazeGame):
 if __name__ == "__main__":
 
     # Create an instance of the MazeGame class
-    game = Dodge_the_monsters(1820, 945, Maze_maps.maze_multi)
+    game = Dodge_the_monsters(1000, 500, Maze_maps.maze_multi)
 
     # Run the game
     game.run(True)
