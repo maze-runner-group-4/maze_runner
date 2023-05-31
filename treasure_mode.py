@@ -89,9 +89,9 @@ class Treasure(MazeGame):
                         self.move_player("d",2)
             self.window.fill(BLACK)
             self.draw_treasure_maze()
-            self.draw_player(self.player_pos[0],self.player_pos[1],1)
+            self.draw_player(self.player_pos[1],self.player_pos[0],1,self.list_player_blue)
             if multi:
-                self.draw_player(self.player_2_pos[0],self.player_2_pos[1],2)
+                self.draw_player(self.player_2_pos[1],self.player_2_pos[0],2,self.list_player_2_red)
             if self.goal_draw:    
                 self.draw_goal()
                 if self.check_find_goal():
@@ -104,6 +104,6 @@ class Treasure(MazeGame):
         pygame.quit()
 
 if __name__ == "__main__":
-    game = Treasure(1600, 900, Maze_maps.maze_treasure)
+    game = Treasure(1600, 900, Maze_maps.maze_treasure2)
 
     game.run(True)

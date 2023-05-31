@@ -2,6 +2,7 @@ import os
 import pygame
 from main import MazeGame
 from maze_maps import Maze_maps
+from spritesheet_test import list_of_frames_blue_monster_back,list_of_frames_red_monster_back,list_of_frames_hearts,list_of_frames_red_monster_front,list_of_frams_blue_monster_front,animation_list_left,animation_list_right
 BLACK = (0, 0, 0)
 indigo = "indigo"
 class Dodge_the_monsters(MazeGame):
@@ -30,14 +31,33 @@ class Dodge_the_monsters(MazeGame):
         self.movement_range_S = 11
         self.movement_range_R = 47
         # moving_the_monsters = self.monster_movement(self.movement_range_M,self.movement_range_S,self.movement_range_R)
-
+        self.delay_M=pygame.time.get_ticks()
+        self.cooldown_M = 200
+        self.frame_M= 0
+        self.list_M = list_of_frames_blue_monster_back
+        self.delay_S=pygame.time.get_ticks()
+        self.cooldown_S = 200
+        self.frame_S= 0
+        self.list_S = list_of_frames_red_monster_back
+        self.delay_R=pygame.time.get_ticks()
+        self.cooldown_R = 200
+        self.frame_R= 0
+        self.list_R = animation_list_right
+        self.frame_heart = 0
+        # print(len(self.list_R))
     def draw_hearts(self):
         for row in range(len(self.maze)):
             for col in range(len(self.maze[row])):
                 if self.maze[row][col] == "H":
-                    treasure_cell_image = pygame.image.load(os.path.join("Assets","heart1.png"))
-                    treasure_image = pygame.transform.scale(treasure_cell_image,(self.cell_width,self.cell_height))
-                    self.window.blit(treasure_image,(col* self.cell_width,row* self.cell_height))
+                    self.frame_heart += 0.5
+                            # self.delay_coin = current_time
+                    if self.frame_heart >= len(list_of_frames_hearts):
+                        self.frame_heart = 0
+                            # if self.frame_coin%1==0:
+                    self.window.blit(list_of_frames_hearts[int(self.frame_heart)], (col*35, row*35))
+                    # treasure_cell_image = pygame.image.load(os.path.join("Assets","heart1.png"))
+                    # treasure_image = pygame.transform.scale(treasure_cell_image,(self.cell_width,self.cell_height))
+                    # self.window.blit(treasure_image,(col* self.cell_width,row* self.cell_height))
 
     def draw_hearts_points(self,player_health,heart_x): 
         for i in range(player_health):
@@ -47,17 +67,40 @@ class Dodge_the_monsters(MazeGame):
             self.window.blit(heart_image, (heart_x+(i*self.cell_width), heart_y))
         pygame.display.update()
 
-    def draw_monster(self, pos_x, pos_y, monster):
+    def draw_monster(self, pos_x, pos_y, monster,list):
+
         if monster =="M":
-            monster_cell_image = pygame.image.load(os.path.join("Assets","green-removebg-preview.png"))
+            current_time = pygame.time.get_ticks()
+            if current_time - self.delay_M >= self.cooldown_M:
+                self.frame_M += 1
+                self.delay_M = current_time
+                if self.frame_M >= len(list):
+                    self.frame_M = 0
+            self.window.blit(list[self.frame_M], (pos_x*35, pos_y*35))
+
         elif monster == "S":
-            monster_cell_image = pygame.image.load(os.path.join("Assets","blue-removebg-preview.png"))
+            current_time = pygame.time.get_ticks()
+            if current_time - self.delay_S >= self.cooldown_S:
+                self.frame_S += 1
+                self.delay_S = current_time
+                if self.frame_S >= len(list):
+                    self.frame_S = 0
+            self.window.blit(list[self.frame_S], (pos_x*35, pos_y*35))
         elif monster == "R":
-            monster_cell_image = pygame.image.load(os.path.join("Assets","yellow-removebg-preview.png"))
-        else:
-            monster_cell_image = pygame.image.load(os.path.join("Assets","wall_cell.png"))         
-        monster_cell = pygame.transform.scale(monster_cell_image,(self.cell_width,self.cell_height))
-        self.window.blit(monster_cell,(pos_y * self.cell_width, pos_x * self.cell_height))
+            current_time = pygame.time.get_ticks()
+            if current_time - self.delay_R >= self.cooldown_R:
+                self.frame_R += 1
+                self.delay_R = current_time
+                if self.frame_R >= len(list):
+                    self.frame_R = 0
+            self.window.blit(list[self.frame_R], (pos_x*35, pos_y*35))
+        #     monster_cell_image = pygame.image.load(os.path.join("Assets","green-removebg-preview.png"))
+        #     monster_cell_image = pygame.image.load(os.path.join("Assets","blue-removebg-preview.png"))
+        #     monster_cell_image = pygame.image.load(os.path.join("Assets","yellow-removebg-preview.png"))
+        # else:
+        #     monster_cell_image = pygame.image.load(os.path.join("Assets","wall_cell.png"))         
+        # monster_cell = pygame.transform.scale(monster_cell_image,(self.cell_width,self.cell_height))
+        # self.window.blit(monster_cell,(pos_y * self.cell_width, pos_x * self.cell_height))
 
 
     def monster_movement(self):
@@ -65,25 +108,30 @@ class Dodge_the_monsters(MazeGame):
         self.monster1_pos[0] += self.monster1_vel
         if self.monster1_pos[0] <= 14:
             self.monster1_vel *= -1
+            self.list_M = list_of_frams_blue_monster_front
         if self.monster1_pos[0] >= 25:
             self.monster1_vel *= -1
-            
+            self.list_M = list_of_frames_blue_monster_back
         # monster 2 movement
         self.monster2_pos[0] += self.monster2_vel
         if self.monster2_pos[0] <= 14:
             self.monster2_vel *= -1
+            self.list_S = list_of_frames_red_monster_front
         if self.monster2_pos[0] >= 25:
             self.monster2_vel *= -1
+            self.list_S = list_of_frames_red_monster_back
         
         # monster 3  movement
         self.monster3_pos[1] += self.monster3_vel
         if self.monster3_pos[1] >= 49:
             self.monster3_vel *= -1
+            self.list_R = animation_list_left
         if self.monster3_pos[1] <= 2:
             self.monster3_vel *= -1
+            self.list_R = animation_list_right
 
     def game_over(self):
-        print(self.player_health , self.player_2_health)
+        # print(self.player_health , self.player_2_health)
         if self.player_health == self.player_2_health ==0 :
             game_over_text = "Game Over"
             self.draw_game_over(game_over_text)
@@ -181,14 +229,14 @@ class Dodge_the_monsters(MazeGame):
                             self.move_player("d",2)
             self.window.fill(BLACK)
             if self.player_health > 0 :
-                self.draw_player(self.player_pos[0],self.player_pos[1],1)
+                self.draw_player(self.player_pos[1],self.player_pos[0],1,self.list_player_blue)
             if multi and self.player_2_health > 0 :
-                self.draw_player(self.player_2_pos[0],self.player_2_pos[1],2)
+                self.draw_player(self.player_2_pos[1],self.player_2_pos[0],2,self.list_player_2_red)
             self.draw_goal()
             self.draw_treasure_maze()
-            self.draw_monster(self.monster1_pos[0],self.monster1_pos[1],"M")
-            self.draw_monster(self.monster2_pos[0],self.monster2_pos[1],"S")
-            self.draw_monster(self.monster3_pos[0],self.monster3_pos[1],"R")
+            self.draw_monster(self.monster1_pos[1],self.monster1_pos[0],"M",self.list_M)
+            self.draw_monster(self.monster2_pos[1],self.monster2_pos[0],"S",self.list_S)
+            self.draw_monster(self.monster3_pos[1],self.monster3_pos[0],"R",self.list_R)
             self.draw_hearts()
             self.draw_hearts_points(self.player_health,self.heart_x)
             self.draw_hearts_points(self.player_2_health,self.heart2_x)
@@ -204,7 +252,7 @@ class Dodge_the_monsters(MazeGame):
 if __name__ == "__main__":
 
     # Create an instance of the MazeGame class
-    game = Dodge_the_monsters(1400, 700, Maze_maps.maze_multi)
+    game = Dodge_the_monsters(1820, 945, Maze_maps.maze_multi)
 
     # Run the game
     game.run(True)
