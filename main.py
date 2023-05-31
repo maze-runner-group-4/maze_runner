@@ -1,7 +1,10 @@
 import pygame
 import os
 from maze_maps import Maze_maps
-
+from blue_player import *
+# from coins_sheet import *
+from spritesheet_test import*
+# from yellow_monester import *
 
 BLACK = (0, 0, 0)
 indigo = "indigo"
@@ -12,8 +15,8 @@ class MazeGame:
         pygame.init()
         pygame.font.init()
         pygame.mixer.init()
-        self.window_width = width
-        self.window_height = height
+        self.window_width = 1820
+        self.window_height = 945
         self.window = pygame.display.set_mode((self.window_width, self.window_height))
         pygame.display.set_caption("Maze Game")
         self.WINNER_FONT = pygame.font.SysFont('comicsans', 100)
@@ -24,11 +27,18 @@ class MazeGame:
         self.goal = self.find_character(maze,"G")
         self.treasure = self.find_treasure(maze)
         self.maze = [[cell for cell in row] for row in maze]
-        self.cell_width = self.window_width // len(self.maze[0])
-        self.cell_height = self.window_height // len(self.maze)
+        self.cell_width = 35
+        self.cell_height = 35
         self.new_col = 0
         self.new_row = 0
-
+        self.list_player_blue = animation_list_down_blue_player
+        self.list_player_2_red = list_of_frames_red_player_front
+        self.delay=pygame.time.get_ticks()
+        self.cooldown = 200
+        self.frame= 0
+        self.delay_coin=pygame.time.get_ticks()
+        self.cooldown_coin = 20
+        self.frame_coin= 0
         pygame.mixer.music.load('Assets/background_mp3cut.net.wav') 
 
         pygame.mixer.music.play(-1)
@@ -56,9 +66,17 @@ class MazeGame:
         for row in range(len(self.maze)):
             for col in range(len(self.maze[0])):
                 if self.maze[row][col] == "T":
-                    treasure_cell_image = pygame.image.load(os.path.join("Assets","IMG_9986.png"))
-                    treasure_image = pygame.transform.scale(treasure_cell_image,(self.cell_width,self.cell_height))
-                    self.window.blit(treasure_image,(col* self.cell_width,row* self.cell_height))
+                        # current_time = pygame.time.get_ticks()
+                        # if current_time - self.delay_coin >= self.cooldown_coin:
+                            self.frame_coin += 0.5
+                            # self.delay_coin = current_time
+                            if self.frame_coin >= len(animation_list_coins):
+                                self.frame_coin = 0
+                            # if self.frame_coin%1==0:
+                            self.window.blit(animation_list_coins[int(self.frame_coin)], (col*35, row*35))
+                    # treasure_cell_image = pygame.image.load(os.path.join("Assets","IMG_9986.png"))
+                    # treasure_image = pygame.transform.scale(treasure_cell_image,(self.cell_width,self.cell_height))
+                    # self.window.blit(treasure_image,(col* self.cell_width,row* self.cell_height))
                 if self.maze[row][col] == "X":
                     wall_cell_image = pygame.image.load(os.path.join("Assets","wall_cell.png"))
                     wall_cell = pygame.transform.scale(wall_cell_image,(self.cell_width,self.cell_height))
@@ -66,16 +84,32 @@ class MazeGame:
 
 
 
-    
-    def draw_player(self,pos_x,pos_y,player):
-        if player ==1:
-
-            player_cell_image = pygame.image.load(os.path.join("Assets","IMG_0011.png"))
+    def draw_player(self, pos_x, pos_y, player,list_player):
+        current_time = pygame.time.get_ticks()
+        if current_time - self.delay >= self.cooldown:
+            self.frame += 1
+            self.delay = current_time
+            if self.frame >= len(list_player):
+                self.frame = 0
+        if player == 1:
+            self.window.blit(list_player[self.frame], (pos_x*35, pos_y*35))
         else:
-            player_cell_image = pygame.image.load(os.path.join("Assets","image.png"))
-        player_cell = pygame.transform.scale(player_cell_image,(self.cell_width,self.cell_height))
-        self.window.blit(player_cell,(pos_y * self.cell_width, pos_x * self.cell_height))
+            self.window.blit(list_player[self.frame], (pos_x*35, pos_y*35))
 
+    
+    # def draw_player(self,pos_x,pos_y,player):
+    #     if player == 1:
+	
+
+    #         player_cell_image = pygame.image.load(os.path.join("Assets","IMG_0011.png"))
+
+    #     else:
+            
+    #         player_cell_image = pygame.image.load(os.path.join("Assets","image.png"))
+    #     player_cell = pygame.transform.scale(player_cell_image,(self.cell_width,self.cell_height))
+    #     self.window.blit(player_cell,(pos_y * self.cell_width, pos_x * self.cell_height))
+
+    
 
     def draw_goal(self):
 
@@ -102,6 +136,13 @@ class MazeGame:
         pygame.time.delay(2000)
 
     
+    def change_frame(self,list,player):
+        if player == 1:
+            self.list_player_blue=list
+        if player==2:
+            self.list_player_2_red = list
+
+        
 
     def move_player(self, direction,player):
         if player == 2:
@@ -112,21 +153,30 @@ class MazeGame:
            self. new_col = self.player_2_pos[1]
         if direction == "up":
             self.new_row -= 1
+            self.change_frame(list_of_frames_red_player_back,2)
         elif direction == "down":
            self. new_row += 1
+           self.change_frame(list_of_frames_red_player_front,2)
         elif direction == "left":
           self.  new_col -= 1
+          self.change_frame(list_of_frams_red_player_left,2)
         elif direction == "right":
           self.  new_col += 1
+          self.change_frame(list_of_frames_red_player_right,2)
 
         if direction == "w":
-           self. new_row -= 1
+            self. new_row -= 1
+            self.change_frame(animation_list_up_blue_player,1)
         elif direction == "s":
           self.  new_row += 1
+          self.change_frame(animation_list_down_blue_player,1)
+          
         elif direction == "a":
           self.  new_col -= 1
+          self.change_frame(animation_list_left_blue_player,1)
         elif direction == "d":
           self.  new_col += 1
+          self.change_frame(animation_list_right_blue_player,1)
         if self.is_valid_move(self.new_row,self. new_col):
             if player == 2:
                 self.player_pos = (self.new_row, self.new_col)
@@ -145,6 +195,7 @@ class MazeGame:
         running = True
         while running:
 
+            self.window.fill(BLACK)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
@@ -165,10 +216,9 @@ class MazeGame:
                         self.move_player("a",2)
                     elif event.key == pygame.K_d:
                         self.move_player("d",2)
-            self.window.fill(BLACK)
-            self.draw_player(self.player_pos[0],self.player_pos[1],1)
+            self.draw_player(self.player_pos[1],self.player_pos[0],1,self.list_player_blue)
             if multi:
-                self.draw_player(self.player_2_pos[0],self.player_2_pos[1],2)
+                self.draw_player(self.player_2_pos[1],self.player_2_pos[0],2,self.list_player_2_red)
             self.draw_goal()
             self.draw_treasure_maze()
             if self.check_find_goal():
@@ -181,7 +231,7 @@ class MazeGame:
 if __name__ == "__main__":
 
     # Create an instance of the MazeGame class
-    game = MazeGame(1600, 900, Maze_maps.maze_easy2)
+    game = MazeGame(1600, 900, Maze_maps.maze_treasure)
 
     # Run the game
     game.run(True)
