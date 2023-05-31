@@ -1,5 +1,5 @@
 import pygame
-
+from main import MazeGame
 class SpriteSheet():
 	def __init__(self, image):
 		self.sheet = image
