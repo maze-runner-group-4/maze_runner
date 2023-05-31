@@ -204,7 +204,7 @@ class Dodge_the_monsters(MazeGame):
 if __name__ == "__main__":
 
     # Create an instance of the MazeGame class
-    game = Dodge_the_monsters(1600, 900, Maze_maps.maze_multi)
+    game = Dodge_the_monsters(1400, 700, Maze_maps.maze_multi)
 
     # Run the game
     game.run(True)

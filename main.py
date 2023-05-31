@@ -33,7 +33,10 @@ class MazeGame:
 
         pygame.mixer.music.play(-1)
         
-
+    # def get_cell_width(self):
+    #     return self.cell_width
+    # def get_cell_height(self):
+    #     return self.cell_height
     def find_character(self, maze,Char):
         for row in range(len(maze)):
             for col in range(len(maze[row])):

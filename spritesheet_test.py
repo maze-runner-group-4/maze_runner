@@ -9,7 +9,7 @@ SCREEN_HEIGHT = 500
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Spritesheets')
 
-sprite_sheet_image = pygame.image.load('Assets/spriteimages/blue monster.png').convert_alpha()
+sprite_sheet_image = pygame.image.load('Assets/spriteimages/doux.png').convert_alpha()
 sprite_sheet = spritesheet.SpriteSheet(sprite_sheet_image)
 
 BG = (50, 50, 50)
@@ -31,7 +31,7 @@ while run:
 	screen.blit(frame_0, (0, 0))
 	screen.blit(frame_1, (72, 0))
 	screen.blit(frame_2, (150, 0))
-	screen.blit(frame_3, (250, 0))
+	screen.blit(frame_3, (225, 0))
 
 	#event handler
 	for event in pygame.event.get():
