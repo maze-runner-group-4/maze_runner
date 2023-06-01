@@ -1,11 +1,11 @@
 import pygame
 import os
 from maze_maps import Maze_maps
-from blue_player import *
+# from blue_player import *
 # from coins_sheet import *
-from spritesheet_test import*
+from spritesheet_test import *
 # from yellow_monester import *
-
+# from GUI import mainloop
 BLACK = (0, 0, 0)
 indigo = "indigo"
 
@@ -120,10 +120,12 @@ class MazeGame:
         if self.player_pos[0] == self.goal[0] and self.player_pos[1]==self.goal[1]:
             winner_text = "Congratulations! Blue Win!"
             self.draw_winner(winner_text)
+            pygame.mixer.music.stop()
             return True
         elif self.player_2_pos[0] == self.goal[0] and self.player_2_pos[1]==self.goal[1]:
             winner_text = "Congratulations! Red Win!"
             self.draw_winner(winner_text)
+            pygame.mixer.music.stop()
             return True
         return False
     
@@ -206,6 +208,7 @@ class MazeGame:
             self.window.fill(BLACK)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    pygame.mixer.music.stop()
                     running = False
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_UP:
@@ -231,15 +234,16 @@ class MazeGame:
             self.draw_treasure_maze()
             if self.check_find_goal():
                 running = False
+                # mainloop()
             pygame.display.flip()
             self.clock.tick(60)
-        pygame.quit()
+        # pygame.quit()
 
 
 if __name__ == "__main__":
 
     # Create an instance of the MazeGame class
-    game = MazeGame(Maze_maps.maze_hard3)
+    game = MazeGame(Maze_maps.maze_hard)
 
     # Run the game
     game.run(True)

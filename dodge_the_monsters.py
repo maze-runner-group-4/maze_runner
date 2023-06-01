@@ -258,7 +258,7 @@ class Dodge_the_monsters(MazeGame):
             self.clock.tick(60)
             if self.check_find_goal():
                 self.running = False
-        pygame.quit()
+        # pygame.quit()
 
 if __name__ == "__main__":
 
