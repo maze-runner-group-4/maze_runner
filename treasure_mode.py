@@ -7,8 +7,8 @@ BLACK = (0, 0, 0)
 indigo = "indigo"
 
 class Treasure(MazeGame):
-    def __init__(self, width, height, maze):
-        super().__init__(width, height, maze)
+    def __init__(self, maze):
+        super().__init__( maze)
         
         self.treasure_score = 0
         self.treasure2_score = 0
@@ -104,6 +104,6 @@ class Treasure(MazeGame):
         pygame.quit()
 
 if __name__ == "__main__":
-    game = Treasure(1600, 900, Maze_maps.maze_treasure)
+    game = Treasure( Maze_maps.maze_treasure)
 
     game.run(True)

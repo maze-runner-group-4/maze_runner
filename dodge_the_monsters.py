@@ -7,8 +7,8 @@ BLACK = (0, 0, 0)
 indigo = "indigo"
 class Dodge_the_monsters(MazeGame):
     
-    def __init__(self, width, height, maze):
-        super().__init__(width, height, maze)
+    def __init__(self, maze):
+        super().__init__( maze)
         pygame.init()
         self.running=True
         self.game_over_FONT = pygame.font.SysFont('comicsans', 100)
@@ -57,7 +57,7 @@ class Dodge_the_monsters(MazeGame):
                         self.frame_heart = 0
                             # if self.frame_coin%1==0:
 
-                    self.window.blit(list_of_frames_hearts[int(self.frame_heart)], ((col*35)+self.window_width//2-(self.cell_width*len(self.maze[0])//2), row*35))                    # treasure_cell_image = pygame.image.load(os.path.join("Assets","heart1.png"))
+                    self.window.blit(list_of_frames_hearts[int(self.frame_heart)], ((col*35)+self.window_width//2-(self.cell_width*len(self.maze[0])//2), row*35+self.offsett))                    # treasure_cell_image = pygame.image.load(os.path.join("Assets","heart1.png"))
                     # treasure_image = pygame.transform.scale(treasure_cell_image,(self.cell_width,self.cell_height))
                     # self.window.blit(treasure_image,(col* self.cell_width,row* self.cell_height))
 
@@ -66,7 +66,7 @@ class Dodge_the_monsters(MazeGame):
             heart_y = 0
             heart_image = pygame.image.load(os.path.join("Assets", "333-removebg-preview.png"))
             heart_image = pygame.transform.scale(heart_image, (self.cell_width, self.cell_height))
-            self.window.blit(heart_image, (heart_x+(i*self.cell_width), heart_y))
+            self.window.blit(heart_image, (heart_x+(i*self.cell_width), heart_y+self.offsett))
         pygame.display.update()
 
     def draw_monster(self, pos_x, pos_y, monster,list):
@@ -78,7 +78,7 @@ class Dodge_the_monsters(MazeGame):
                 self.delay_M = current_time
                 if self.frame_M >= len(list):
                     self.frame_M = 0
-            self.window.blit(list[self.frame_M], (pos_x*35, (pos_y*35)+self.window_width//2-(self.cell_width*len(self.maze[0])//2)))
+            self.window.blit(list[self.frame_M], (pos_x*35, (pos_y*35)+self.window_width//2-(self.cell_width*len(self.maze[0])//2)+self.offsett))
         elif monster == "S":
             current_time = pygame.time.get_ticks()
             if current_time - self.delay_S >= self.cooldown_S:
@@ -86,7 +86,7 @@ class Dodge_the_monsters(MazeGame):
                 self.delay_S = current_time
                 if self.frame_S >= len(list):
                     self.frame_S = 0
-            self.window.blit(list[self.frame_S], (pos_x*35, (pos_y*35)+self.window_width//2-(self.cell_width*len(self.maze[0])//2)))
+            self.window.blit(list[self.frame_S], (pos_x*35, (pos_y*35)+self.window_width//2-(self.cell_width*len(self.maze[0])//2)+self.offsett))
         elif monster == "R":
             current_time = pygame.time.get_ticks()
             if current_time - self.delay_R >= self.cooldown_R:
@@ -94,7 +94,7 @@ class Dodge_the_monsters(MazeGame):
                 self.delay_R = current_time
                 if self.frame_R >= len(list):
                     self.frame_R = 0
-            self.window.blit(list[self.frame_R], (pos_x*35, pos_y*35))
+            self.window.blit(list[self.frame_R], (pos_x*35, pos_y*35+self.offsett))
         #     monster_cell_image = pygame.image.load(os.path.join("Assets","green-removebg-preview.png"))
         #     monster_cell_image = pygame.image.load(os.path.join("Assets","blue-removebg-preview.png"))
         #     monster_cell_image = pygame.image.load(os.path.join("Assets","yellow-removebg-preview.png"))
@@ -171,7 +171,7 @@ class Dodge_the_monsters(MazeGame):
             draw_text = self.game_over_FONT_player.render(text, 1, indigo)
             pos_x = self.window_width-draw_text.get_width()
             pos_y = 0
-        self.window.blit(draw_text, (pos_x,pos_y))
+        self.window.blit(draw_text, (pos_x,pos_y+self.offsett))
 
 
 
@@ -263,7 +263,7 @@ class Dodge_the_monsters(MazeGame):
 if __name__ == "__main__":
 
     # Create an instance of the MazeGame class
-    game = Dodge_the_monsters(1820, 945, Maze_maps.maze_multi)
+    game = Dodge_the_monsters( Maze_maps.maze_multi)
 
     # Run the game
     game.run(True)

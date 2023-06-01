@@ -180,16 +180,16 @@ class MazeGame:
             if player == 2:
                 # print(self.player_pos)
                 self.player_pos = (self.new_row, self.new_col)
-                if self.player_pos[0]*35 + self.offsett >= self.window_height-self.scroll_area and direction =="s":
+                if self.player_pos[0]*35 + self.offsett >= self.window_height-self.scroll_area and direction =="s" and self.player_pos[0]*35 - self.offsett < len(self.maze)*35 and len(self.maze)*35 > self.window_height :
                     self.offsett -= 140
-                if self.player_pos[0]*35 - self.offsett >= self.window_height-self.scroll_area and direction =="w":
+                if (len(self.maze)-self.player_pos[0])*35 - self.offsett >= self.window_height+self.scroll_area and direction =="w" and self.player_pos[0]>4:
                     self.offsett += 140
                     
             if player == 1:
                 self.player_2_pos = (self.new_row, self.new_col)
-                if self.player_2_pos[0]*35 + self.offsett >= self.window_height-self.scroll_area and direction =="down":
+                if self.player_2_pos[0]*35 + self.offsett >= self.window_height-self.scroll_area and direction =="down" and self.player_2_pos[0]*35 - self.offsett < len(self.maze)*35 and len(self.maze)*35 > self.window_height :
                     self.offsett -= 140
-                if self.player_2_pos[0]*35 - self.offsett >= self.window_height-self.scroll_area and direction =="up":
+                if (len(self.maze)-self.player_2_pos[0])*35 - self.offsett >= self.window_height+self.scroll_area and direction =="up" and self.player_2_pos[0]>4:
                     self.offsett += 140
 
     def is_valid_move(self, row, col):
