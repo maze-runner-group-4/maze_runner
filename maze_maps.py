@@ -28,35 +28,7 @@ class Maze_maps:
     "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
     ]
 
-    maze_easy = [
-    "XXXXXXXXXXXXXXXXXXXXXXXXX",
-    "XP XXXXXXX          XXXXX",
-    "X  XXXXXXX  XXXXXX  XXXXX",
-    "X       XX  XXXXXX  XXXXX",
-    "L       XX  XXX        XX",
-    "XXXXXX  XX  XXX        XX",
-    "XXXXXX  XX  XXXXXX  XXXXX",
-    "XXXXXX  XX    XXXX  XXXXX",
-    "X  XXX        XXXXG XXXXX",
-    "X  XXX  XXXXXXXXXXXXXXXXX",
-    "X         XXXXXXXXXXXXXXX",
-    "X                XXXXXXXX",
-    "XXXXXXXXXXXX     XXXXX  X",
-    "XXXXXXXXXXXXXXX  XXXXX  X",
-    "XXX  XXXXXXXXXX         X",
-    "XXX                     X",
-    "XXX         XXXXXXXXXXXXX",
-    "XXXXXXXXXX  XXXXXXXXXXXXX",
-    "XXXXXXXXXX              X",
-    "XX   XXXXX              X",
-    "XX   XXXXXXXXXXXXX  XXXXX",
-    "XX    XXXXXXXXXXXX  XXXXX",
-    "XX          XXXX        X",
-    "XXXX                    X",
-    "XXXXXXXXXXXXXXXXXXXXXXXXX"
-    ]
-
-
+    
     maze_treasure2 = [
     "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
     "P      XXXXXXXX      T             T   X",
@@ -84,6 +56,63 @@ class Maze_maps:
     "X   XXXXXXXXXXXXXXXXXXXXXXXXXX         X",
     "X                                      X",
     "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    ]
+
+    maze_treasure3= [
+    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "XP  T   XXXXXXXX  T     T  X     T     X",
+    "X   X  XXT           XXX  X  XXXXXXXXX X",
+    "X T X  X  X  XXXX X       X  X         X",
+    "X  XT  XX  X      XXXXXXXXX  X  XXXX   X",
+    "X     T X  X  XXX  X  XT  X  X  X  X   X",
+    "X  XXXXXX  X  X T  X   X  X  X  X  X   X",
+    "X  X       X  X  X    T          X  X  X",
+    "X  X       X  X  X  X   X  X  X  X  X  X",
+    "X  XXXXXXXXX  X  X  X  XX  X  X  X  X  X",
+    "X          X  X  X  X   X  X  X   X  X X",
+    "X  XT X  X        X  XT            T   X",
+    "X              X  X  X  XX  X  X  X    X",
+    "XXXXXXXXT    X               X  X  X   X",
+    "XT           X  X  T          XXXXXXXXXX",
+    "X  XXXX  T  XXXXXXXXXXX  T  X  X  X  X X",
+    "X  X       T  X  X  X         X      T X",
+    "X  X       X  X  X  X  XXXXXX X  XX    X",
+    "X  XXXXXXX  X  X   T  X   T  X  X  X  XX",
+    "X           X  X  X  X  XX             X",
+    "X      T     T X  X      X  X   T  X   X",
+    "X       XXXXXXX  X  X XXXX  T      X   X",
+    "XXXXT   T       X  X  X   X     T  X  TX",
+    "XT                XX     T   X     X X X",
+    "XT       XX               X  X  T  L X X",
+    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    ]
+
+    maze_easy = [
+    "XXXXXXXXXXXXXXXXXXXXXXXXX",
+    "XP XXXXXXX          XXXXX",
+    "X  XXXXXXX  XXXXXX  XXXXX",
+    "X       XX  XXXXXX  XXXXX",
+    "L       XX  XXX        XX",
+    "XXXXXX  XX  XXX        XX",
+    "XXXXXX  XX  XXXXXX  XXXXX",
+    "XXXXXX  XX    XXXX  XXXXX",
+    "X  XXX        XXXXG XXXXX",
+    "X  XXX  XXXXXXXXXXXXXXXXX",
+    "X         XXXXXXXXXXXXXXX",
+    "X                XXXXXXXX",
+    "XXXXXXXXXXXX     XXXXX  X",
+    "XXXXXXXXXXXXXXX  XXXXX  X",
+    "XXX  XXXXXXXXXX         X",
+    "XXX                     X",
+    "XXX         XXXXXXXXXXXXX",
+    "XXXXXXXXXX  XXXXXXXXXXXXX",
+    "XXXXXXXXXX              X",
+    "XX   XXXXX              X",
+    "XX   XXXXXXXXXXXXX  XXXXX",
+    "XX    XXXXXXXXXXXX  XXXXX",
+    "XX          XXXX        X",
+    "XXXX                    X",
+    "XXXXXXXXXXXXXXXXXXXXXXXXX"
     ]
 
     maze_easy2 = [
@@ -114,6 +143,35 @@ class Maze_maps:
     "XXXXXXXXXXXXXXXXXXXXXXXXX"
     ]
 
+    
+    maze_easy3 = [
+    "XXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "P    X XXXXXXXXXXX       L",
+    "XXX  X X   X X X    X   XX",
+    "X   X X   X X X X    X   X",
+    "X  X X   X X X X X   X   X",
+    "X     X   X X X X   X    X",
+    "XXX XX XXXXXXXXXXX  XX   X",
+    "X          X X           X",
+    "X    X XXXXXXXX XX XXXXXXX",
+    "X              X         X",
+    "XXXXXXXX       XXXXXXX   X",
+    "X        X   X           X",
+    "XXX  XXX XXXXXXXXXXX XXXXX",
+    "X                        X",
+    "XXXXXX XXXXX  XXXXXX XXX X",
+    "X                        X",
+    "X    XXXXXXXXXXX XXXXXXXXX",
+    "XXX               XXXXXX X",
+    "XXX XXXXXXXXGXXXXXXXXX   X",
+    "X           XXXXXXXXX    X",
+    "X    XXX  XXXX   XXXXXXXXX",
+    "X   XXXXXXXXXXXXXX       X",
+    "XXXXXXXXXXX    XXXXXXX   X",
+    "X                        X",
+    "XXXXXXXXXXXXXXXXXXXXXXXXXX"
+
+    ]
     maze_medium = [
     "                                                    ",
     " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ",
@@ -175,6 +233,45 @@ class Maze_maps:
     "                                                    "
     ]
 
+       
+    maze_medium3 =[
+    "                             ",
+    " XXXXXXXXXXXXXXXXXXXXXXXXXXX ",
+    " XP  X       XXXX       X XX ",
+    " X  XXXXXX   X             X ",
+    " X X X     X XX          XXX ",
+    " X   X  X  XXXXXXXX   X  XXX ",
+    " X X  X  XX       X   X X XX ",
+    " X  XXXXXX   XXXXX  XX  X XX ",
+    " X            X     X     XX ",
+    " X XXXXXXXXXXXXX X  X  XX XX ",
+    " X      X    XX     XX  XXXX ",
+    " X X    X     X    X   XX XX ",
+    " X X         X   x X XX   XX ",
+    " X XXXXXX    X   X  X   X  X ",
+    " X           X  X   X   X  X ",
+    " XXX     XX  X     X       X ",
+    " X X   X XXX G  XXX  XXXXX X ",
+    " X X  X      X   XXX  XXXX X ",
+    " X X X    XX X    X  X XXXXX ",
+    " XXX  XX  X     X     X XXXX ",
+    " X     X     XXXXXXXXXXX   X ",
+    " XXXXXX            XXXXXX  X ",
+    " X XXX  XXXXXXX  X  X  XX  X ",
+    " X      X    XX         XX X ",
+    " X X    X     X  X X     XXX ",
+    " X X  XXXX   XX  X    XXXXXX ",
+    " X XXXXXXXX      X X      XX ",
+    " X           XX  X  X XX   X ",
+    " XXXXX   XX  XX  X X  X    X ",
+    " X XXXXXXXXXXXXXXXXXX      X ",
+    " X            XXXXXXXXXX  XX ",
+    " XXXXXXXXXXXXXXXXXXXXXXX   X ",
+    " X XXXXXXX              X LX ",
+    " XXXXXXXXXXXXXXXXXXXXXXXXXXX ",
+    "                              "
+
+    ]
     maze_hard = [
     "                                                    ",
     " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ",
@@ -235,6 +332,45 @@ class Maze_maps:
     "                                                    "
     ]
 
+
+    maze_hard3 = [
+    "                                ",   
+    " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ",
+    " P  XXXXXXXX    XXXXXXX       L ",
+    " X  X XXXXXXXX       XXX      X ",
+    " X  XXX XXXX            XX  X X ",
+    " X  XXXXX     XX   XXXXXXX    X ",
+    " X  XXXX    X    XX   XXXXXXX X ",
+    " X  X X X X    XX      XXXXXX X ",
+    " X            XX              X ",
+    " XXXXX   XX  XX             X X ",
+    " X   X   XX XXXXXXX        XX X ",
+    " X                        XX  X ",
+    " X XX                    XX   X ",
+    " X X   XXXXXXXXX    XXXXXXXXX X ",
+    " X X   XXXXXXXXX    XXXXXXXXX X ",
+    " X  X  XX           XX        X ",
+    " X     X X X        X X X     X ",
+    " X      X X X X      X X X X  X ",
+    " XX           X X          X  X ",
+    " XXXX          X X          X X ",
+    " XXXXXXXX       X X           X ",
+    " X XXXXXXXXX   X X            X ",
+    " X X         X X              X ",
+    " X X    X  X X           X X  X ",
+    " X  X    X X X X X XX X  X X  X ",
+    " X    XXXXXXXXXXX             X ",
+    " X              X      XXXXXX X ",
+    " XXXXX         X     XXXXXX   X ",
+    " X   X X X   X   XXXXX        X ",
+    " X         X XXXXX   XXXXXXX  X ",
+    " X  X  X  X         X   X     X ",
+    " X X  X  XX XXX    x   X   X  X ",
+    " X  G   XXXX      X   X    X XX ",
+    " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ",
+    "                                "
+    ]
+
     maze_multi = [
     "P                                                  L",   
     " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ",
@@ -264,3 +400,34 @@ class Maze_maps:
     " XXXXXXXXXXXXXXXXXXXXXXXXSXMXXXXXXXXXXXXXXXXXXXXXXX ",
     "                                                    "
     ]
+
+    
+    # maze_multi2 = [
+    # "P                                     ",   
+    # " XXX XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ",
+    # " XXXXX XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ",
+    # " XXXXXXXXXXX      XXXXXXXXXXXXXX ",
+    # " X    XXXXXXXXXX            X         X ",
+    # " X   	        XXXXXXX   X ",
+    # " X                 X                X ",
+    # " XXXXXXXXXXXXXXX   X   XXXXXXXXXXXXXX ",
+    # " X                 X                X ",
+    # " X   XXXXXXXXXXXXXXXXXXXXXXXXXXXX   X ",
+    # " X                 X                X ",
+    # " XR             X     X            X  ",
+    # " X    H       X         X           X ",
+    # " X        H   X    G    X           X ",
+    # " XR            X        X         H X ",
+    # " XXXXXXXXXXXX  X X  X  X   XXXXXXXXXXX",
+    # " X              X  X  X             X ",
+    # " X   XXXXXXXXXXXX  X  XXXXXXXXXXX   X ",
+    # " X              X  X  X             X ",
+    # " XXXXXXXXX  XXXXX  X  XXXXX  XXXXXXXX ",
+    # " X              X  X  X             X ",
+    # " X  XXXXXXXXXXXXX  X  XXXXXXXXXXXX  X ",
+    # " X              X  X  X             X ",
+    # " XXXXXXXXXH  XXXX  X  XXXX  HXXXXXXXX ",
+    # "                                     L", 
+    # " XXXXXXXXXXXXXXXXXSXMXXXXXXXXXXXXXXXX ",
+    # "                                      "
+    # ]
