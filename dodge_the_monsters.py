@@ -9,7 +9,8 @@ class Dodge_the_monsters(MazeGame):
     
     def __init__(self, width, height, maze):
         super().__init__(width, height, maze)
-        
+        pygame.init()
+        self.running=True
         self.game_over_FONT = pygame.font.SysFont('comicsans', 100)
         self.game_over_FONT_player = pygame.font.SysFont('comicsans', 50)
         self.heart_sound = pygame.mixer.Sound(os.path.join("Assets","Heal_Sound_Effect_2.wav"))
@@ -55,8 +56,8 @@ class Dodge_the_monsters(MazeGame):
                     if self.frame_heart >= len(list_of_frames_hearts):
                         self.frame_heart = 0
                             # if self.frame_coin%1==0:
-                    self.window.blit(list_of_frames_hearts[int(self.frame_heart)], (col*35, row*35))
-                    # treasure_cell_image = pygame.image.load(os.path.join("Assets","heart1.png"))
+
+                    self.window.blit(list_of_frames_hearts[int(self.frame_heart)], ((col*35)+self.window_width//2-(self.cell_width*len(self.maze[0])//2), row*35))                    # treasure_cell_image = pygame.image.load(os.path.join("Assets","heart1.png"))
                     # treasure_image = pygame.transform.scale(treasure_cell_image,(self.cell_width,self.cell_height))
                     # self.window.blit(treasure_image,(col* self.cell_width,row* self.cell_height))
 
@@ -77,8 +78,7 @@ class Dodge_the_monsters(MazeGame):
                 self.delay_M = current_time
                 if self.frame_M >= len(list):
                     self.frame_M = 0
-            self.window.blit(list[self.frame_M], (pos_x*35, pos_y*35))
-
+            self.window.blit(list[self.frame_M], (pos_x*35, (pos_y*35)+self.window_width//2-(self.cell_width*len(self.maze[0])//2)))
         elif monster == "S":
             current_time = pygame.time.get_ticks()
             if current_time - self.delay_S >= self.cooldown_S:
@@ -86,7 +86,7 @@ class Dodge_the_monsters(MazeGame):
                 self.delay_S = current_time
                 if self.frame_S >= len(list):
                     self.frame_S = 0
-            self.window.blit(list[self.frame_S], (pos_x*35, pos_y*35))
+            self.window.blit(list[self.frame_S], (pos_x*35, (pos_y*35)+self.window_width//2-(self.cell_width*len(self.maze[0])//2)))
         elif monster == "R":
             current_time = pygame.time.get_ticks()
             if current_time - self.delay_R >= self.cooldown_R:
@@ -140,7 +140,7 @@ class Dodge_the_monsters(MazeGame):
             self.monster_sound_effect2.play()
             pygame.display.update()
             pygame.time.delay(2000)
-            pygame.QUIT()
+            self.running = False
         if self.player_health == 0 and self.player_2_health != 0 :
             game_over_text = "Blue lost!"
             self.draw_game_over(game_over_text)
@@ -213,12 +213,12 @@ class Dodge_the_monsters(MazeGame):
 
 
     def run(self, multi=False):
-        running = True
-        while running:
+        # running = True
+        while self.running:
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
+                    self.running = False
                 elif event.type == pygame.KEYDOWN:
                     if self.player_2_health > 0:
                         if event.key == pygame.K_UP:
@@ -253,17 +253,17 @@ class Dodge_the_monsters(MazeGame):
             self.draw_hearts_points(self.player_2_health,self.heart2_x)
             self.health_points_count()
             self.game_over()
-            if self.check_find_goal():
-                running = False
+            self.monster_movement()      
             pygame.display.flip()
             self.clock.tick(60)
-            self.monster_movement()      
+            if self.check_find_goal():
+                self.running = False
         pygame.quit()
 
 if __name__ == "__main__":
 
     # Create an instance of the MazeGame class
-    game = Dodge_the_monsters(1000, 500, Maze_maps.maze_multi)
+    game = Dodge_the_monsters(1820, 945, Maze_maps.maze_multi)
 
     # Run the game
     game.run(True)

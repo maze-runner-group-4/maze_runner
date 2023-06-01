@@ -11,7 +11,7 @@ indigo = "indigo"
 
 
 class MazeGame:
-    def __init__(self, width, height, maze):
+    def __init__(self,maze):
         pygame.init()
         pygame.font.init()
         pygame.mixer.init()
@@ -40,7 +40,8 @@ class MazeGame:
         self.cooldown_coin = 20
         self.frame_coin= 0
         pygame.mixer.music.load('Assets/background_mp3cut.net.wav') 
-
+        self.offsett = 0
+        self.scroll_area = 210
         pygame.mixer.music.play(-1)
         
     # def get_cell_width(self):
@@ -73,14 +74,13 @@ class MazeGame:
                             if self.frame_coin >= len(animation_list_coins):
                                 self.frame_coin = 0
                             # if self.frame_coin%1==0:
-                            self.window.blit(animation_list_coins[int(self.frame_coin)], (col*35, row*35))
-                    # treasure_cell_image = pygame.image.load(os.path.join("Assets","IMG_9986.png"))
+                            self.window.blit(animation_list_coins[int(self.frame_coin)], ((col*35)+self.window_width//2-(self.cell_width*len(self.maze[0])//2), (row*35)+self.offsett))                    # treasure_cell_image = pygame.image.load(os.path.join("Assets","IMG_9986.png"))
                     # treasure_image = pygame.transform.scale(treasure_cell_image,(self.cell_width,self.cell_height))
                     # self.window.blit(treasure_image,(col* self.cell_width,row* self.cell_height))
                 if self.maze[row][col] == "X":
                     wall_cell_image = pygame.image.load(os.path.join("Assets","wall_cell.png"))
                     wall_cell = pygame.transform.scale(wall_cell_image,(self.cell_width,self.cell_height))
-                    self.window.blit(wall_cell,(col * self.cell_width, row * self.cell_height))    
+                    self.window.blit(wall_cell,((col * self.cell_width)+self.window_width//2-(self.cell_width*len(self.maze[0])//2), row * self.cell_height+self.offsett))    
 
 
 
@@ -92,10 +92,9 @@ class MazeGame:
             if self.frame >= len(list_player):
                 self.frame = 0
         if player == 1:
-            self.window.blit(list_player[self.frame], (pos_x*35, pos_y*35))
+            self.window.blit(list_player[self.frame], ((pos_x*35)+self.window_width//2-(self.cell_width*len(self.maze[0])//2), pos_y*35+self.offsett))
         else:
-            self.window.blit(list_player[self.frame], (pos_x*35, pos_y*35))
-
+            self.window.blit(list_player[self.frame], ((pos_x*35)+self.window_width//2-(self.cell_width*len(self.maze[0])//2), pos_y*35+self.offsett))
     
     # def draw_player(self,pos_x,pos_y,player):
     #     if player == 1:
@@ -115,7 +114,7 @@ class MazeGame:
 
         goal_cell_image = pygame.image.load(os.path.join("Assets","IMG_9998.png"))
         goal_cell = pygame.transform.scale(goal_cell_image,(self.cell_width,self.cell_height))
-        self.window.blit(goal_cell,(self.goal[1] * self.cell_width, self.goal[0] * self.cell_height))
+        self.window.blit(goal_cell,((self.goal[1] * self.cell_width)+self.window_width//2-(self.cell_width*len(self.maze[0])//2), self.goal[0] * self.cell_height+self.offsett))
 
     def check_find_goal(self):
         if self.player_pos[0] == self.goal[0] and self.player_pos[1]==self.goal[1]:
@@ -179,10 +178,19 @@ class MazeGame:
           self.change_frame(animation_list_right_blue_player,1)
         if self.is_valid_move(self.new_row,self. new_col):
             if player == 2:
+                # print(self.player_pos)
                 self.player_pos = (self.new_row, self.new_col)
+                if self.player_pos[0]*35 + self.offsett >= self.window_height-self.scroll_area and direction =="s":
+                    self.offsett -= 140
+                if self.player_pos[0]*35 - self.offsett >= self.window_height-self.scroll_area and direction =="w":
+                    self.offsett += 140
+                    
             if player == 1:
                 self.player_2_pos = (self.new_row, self.new_col)
-           
+                if self.player_2_pos[0]*35 + self.offsett >= self.window_height-self.scroll_area and direction =="down":
+                    self.offsett -= 140
+                if self.player_2_pos[0]*35 - self.offsett >= self.window_height-self.scroll_area and direction =="up":
+                    self.offsett += 140
 
     def is_valid_move(self, row, col):
         if row < 0 or row >= len(self.maze) or col < 0 or col >= len(self.maze[0]):
@@ -231,7 +239,7 @@ class MazeGame:
 if __name__ == "__main__":
 
     # Create an instance of the MazeGame class
-    game = MazeGame(1400, 400, Maze_maps.maze_hard3)
+    game = MazeGame(Maze_maps.maze_hard3)
 
     # Run the game
     game.run(True)
