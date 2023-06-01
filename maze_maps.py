@@ -86,7 +86,7 @@ class Maze_maps:
     "XT       XX               X  X  T  L X X",
     "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
     ]
-
+    list_of_treasure_maps = [maze_treasure,maze_treasure2,maze_treasure3]
     maze_easy = [
     "XXXXXXXXXXXXXXXXXXXXXXXXX",
     "XP XXXXXXX          XXXXX",
@@ -172,6 +172,7 @@ class Maze_maps:
     "XXXXXXXXXXXXXXXXXXXXXXXXXX"
 
     ]
+    list_of_easy_maps = [maze_easy,maze_easy2,maze_easy3]
     maze_medium = [
     "                                                    ",
     " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ",
@@ -272,6 +273,7 @@ class Maze_maps:
     "                              "
 
     ]
+    list_of_medium_maps = [maze_medium3, maze_medium2,maze_medium]
     maze_hard = [
     "                                                    ",
     " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ",
@@ -370,7 +372,7 @@ class Maze_maps:
     " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ",
     "                                "
     ]
-
+    list_of_hard_maps = [maze_hard,maze_hard2,maze_hard3]
     maze_multi = [
     "P                                                  L",   
     " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ",
@@ -401,7 +403,7 @@ class Maze_maps:
     "                                                    "
     ]
 
-    
+    list_of_hide_maps = [maze_hard,maze_hard2,maze_hard3,maze_medium3, maze_medium2,maze_medium,maze_easy,maze_easy2,maze_easy3]
     maze_multi2 = [
     "P                                     ",   
     " XXX XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ",
@@ -431,3 +433,4 @@ class Maze_maps:
     " XXXXXXXXXXXXXXXXXSXMXXXXXXXXXXXXXXXX ",
     "                                      "
     ]
+    list_of_multi_maps = [maze_multi,maze_multi2]

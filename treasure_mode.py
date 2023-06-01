@@ -5,7 +5,7 @@ import pygame.mixer
 import os
 BLACK = (0, 0, 0)
 indigo = "indigo"
-
+# from GUI import mainloop
 class Treasure(MazeGame):
     def __init__(self, maze):
         super().__init__( maze)
@@ -58,11 +58,11 @@ class Treasure(MazeGame):
         if self.treasure_score > self.treasure2_score:
             winner_text = "Congratulations! Blue Win!"
             self.draw_winner(winner_text)
-            pygame.quit()
+            # mainloop()
         elif self.treasure2_score > self.treasure_score:
             winner_text = "Congratulations! Red Win!"
             self.draw_winner(winner_text)
-            pygame.quit()
+            # mainloop()
     def run(self,multi=False):
         running = True
         while running:
@@ -101,7 +101,7 @@ class Treasure(MazeGame):
                 self.draw_score(self.window_width-220,10,2)
             pygame.display.flip()
             self.clock.tick(60)
-        pygame.quit()
+        # pygame.quit()
 
 if __name__ == "__main__":
     game = Treasure( Maze_maps.maze_treasure)
