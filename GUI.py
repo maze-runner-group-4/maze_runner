@@ -83,7 +83,7 @@ def mainloop():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
                 if FindTreasure_button.collidepoint(mouse_pos):
-                    if multiplayer_clicked:                    
+                    # if multiplayer_clicked:                    
                      game = links("treasure",multiplayer_clicked)
                      game.run()
                 elif exit_button_rect.collidepoint(mouse_pos):

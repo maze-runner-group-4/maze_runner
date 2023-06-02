@@ -37,7 +37,7 @@ class MazeGame:
         self.cooldown = 200
         self.frame= 0
         self.delay_coin=pygame.time.get_ticks()
-        self.cooldown_coin = 20
+        self.cooldown_coin = 200
         self.frame_coin= 0
         self.game_over_sound = pygame.mixer.Sound(os.path.join("Assets","GameOver.wav"))
         self.game_win_sound =  pygame.mixer.Sound(os.path.join("Assets","WIN sound effect no copyright.wav"))
@@ -121,14 +121,14 @@ class MazeGame:
     def check_find_goal(self):
         if self.player_pos[0] == self.goal[0] and self.player_pos[1]==self.goal[1]:
             winner_text = "Congratulations! Blue Win!"
-            self.draw_winner(winner_text)
             self.game_win_sound.play()
+            self.draw_winner(winner_text)
             pygame.mixer.music.stop()
             return True
         elif self.player_2_pos[0] == self.goal[0] and self.player_2_pos[1]==self.goal[1]:
             winner_text = "Congratulations! Red Win!"
-            self.draw_winner(winner_text)
             self.game_win_sound.play()
+            self.draw_winner(winner_text)
             pygame.mixer.music.stop()
             return True
         return False

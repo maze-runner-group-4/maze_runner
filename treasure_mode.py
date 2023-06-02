@@ -7,7 +7,7 @@ BLACK = (0, 0, 0)
 indigo = "indigo"
 # from GUI import mainloop
 class Treasure(MazeGame):
-    def __init__(self, maze):
+    def __init__(self, maze, multi = False):
         super().__init__( maze)
         
         self.treasure_score = 0
@@ -16,8 +16,8 @@ class Treasure(MazeGame):
         self.treasure_sound = pygame.mixer.Sound(os.path.join("Assets","Mario_Coin_Sound_-_Sound_Effect_HD.wav"))
         self.score_FONT = pygame.font.SysFont('comicsans',30)
         self.goal_draw = False
-
-
+        self.running =  False
+        self.multi = multi
     def calculate_score_for_treasure(self,player):
         if player==1:
             self.treasure2_score +=100
@@ -47,11 +47,14 @@ class Treasure(MazeGame):
                     self.treasure_sound.play()  # Play the sound effect
                     self.calculate_score_for_treasure(player)
                     # self.treasure_sound.play()
-                    
-        if self.treasure_score >self.half_treasures * 100 or self.treasure2_score >self.half_treasures * 100 :
-            self.check_winner()
-        elif self.treasure_score == self.half_treasures * 100 == self.treasure2_score :
-            self.goal_draw =True
+        if self.multi:           
+            if self.treasure_score >self.half_treasures * 100 or self.treasure2_score >self.half_treasures * 100 :
+                self.check_winner()
+            elif self.treasure_score == self.half_treasures * 100 == self.treasure2_score and self.treasure_counter%2 ==0 :
+                self.goal_draw =True
+        else:
+            if self.treasure_counter ==0:
+                self.goal_draw =True
 
               
     def check_winner(self):
@@ -59,20 +62,24 @@ class Treasure(MazeGame):
             winner_text = "Congratulations! Blue Win!"
             self.game_win_sound.play()
             self.draw_winner(winner_text)
+            pygame.mixer.music.stop()
+            self.running =  False
             # mainloop()
         elif self.treasure2_score > self.treasure_score:
             winner_text = "Congratulations! Red Win!"
             self.game_win_sound.play()
             self.draw_winner(winner_text)
+            pygame.mixer.music.stop()
+            self.running = False
             # mainloop()
-    def run(self,multi=False):
-        running = True
-        while running:
+    def run(self):
+        self.running = True
+        while self.running:
             
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.mixer.music.stop()
-                    running = False
+                    self.running = False
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_UP:
                         self.move_player("up",1)
@@ -93,15 +100,15 @@ class Treasure(MazeGame):
             self.window.fill(BLACK)
             self.draw_treasure_maze()
             self.draw_player(self.player_pos[1],self.player_pos[0],1,self.list_player_blue)
-            if multi:
+            if self.multi:
                 self.draw_player(self.player_2_pos[1],self.player_2_pos[0],2,self.list_player_2_red)
             if self.goal_draw:    
                 self.draw_goal()
                 if self.check_find_goal():
                     pygame.mixer.music.stop()
-                    running = False
+                    self.running = False
             self.draw_score(10,10,1)
-            if multi:
+            if self.multi:
                 self.draw_score(self.window_width-220,10,2)
             pygame.display.flip()
             self.clock.tick(60)
@@ -110,4 +117,4 @@ class Treasure(MazeGame):
 if __name__ == "__main__":
     game = Treasure( Maze_maps.maze_treasure)
 
-    game.run(True)
+    game.run()

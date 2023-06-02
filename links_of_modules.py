@@ -37,14 +37,14 @@ class links:
         if self.mode == "hard":
             game = MazeGame(self.get_rand_list(self.hard))
         if self.mode == "treasure":
-            game = Treasure(self.get_rand_list(self.treasure))
+            game = Treasure(self.get_rand_list(self.treasure),self.check_multi)
         if self.mode == "multi":
             game = Dodge_the_monsters(self.get_rand_list(self.multi))
         if self.mode == "hide":
             game = Hide_and_seek(self.get_rand_list(self.hide))
         
         # check multi
-        if self.check_multi == True:
+        if self.check_multi == True and self.mode != "treasure":
             game.run(self.check_multi)
         else:
             game.run()
