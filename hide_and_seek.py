@@ -1,5 +1,5 @@
 from main import MazeGame
-from maze_maps import Maze_maps
+# from maze_maps import Maze_maps
 
 
 class Hide_and_seek(MazeGame):

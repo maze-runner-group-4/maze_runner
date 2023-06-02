@@ -9,7 +9,7 @@ class links:
     def __init__(self,mode,multiplayer):
         self.mode = mode
         self.check_multi = multiplayer
-        self.easy = Maze_maps.list_of_easy_maps
+        self.easy = [Maze_maps.maze_easy, Maze_maps.maze_easy2 ,Maze_maps.maze_easy3]
         self.medium = Maze_maps.list_of_medium_maps
         self.hard = Maze_maps.list_of_hard_maps
         self.multi = Maze_maps.list_of_multi_maps

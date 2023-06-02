@@ -83,10 +83,9 @@ def mainloop():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
                 if FindTreasure_button.collidepoint(mouse_pos):
-                    # print("Starting the game...")
-                    
-                    game = links("treasure",multiplayer_clicked)
-                    game.run()
+                    if multiplayer_clicked:                    
+                     game = links("treasure",multiplayer_clicked)
+                     game.run()
                 elif exit_button_rect.collidepoint(mouse_pos):
                     # print("Exiting the application...")
                     pygame.quit()
@@ -229,8 +228,12 @@ def mainloop():
             Back_label_rect = Back_label.get_rect(center=Back.center)
             screen.blit(Back_label, Back_label_rect)
 
-            if escape_screen_active:
+        if escape_screen_active:
+             
              for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_pos = pygame.mouse.get_pos()
                     if Back.collidepoint(mouse_pos):
@@ -239,14 +242,15 @@ def mainloop():
                         single_player_clicked = False
                         multiplayer_clicked = False  
                     elif Easy.collidepoint(mouse_pos):
-                        game = links("easy",multiplayer_clicked) 
-                        game.run()
+                        game1 = links("easy",multiplayer_clicked) 
+                        game1.run()
                     elif Medium.collidepoint(mouse_pos):
                         game = links("medium",multiplayer_clicked) 
                         game.run() 
                     elif Hard.collidepoint(mouse_pos):
                         game = links("hard",multiplayer_clicked) 
                         game.run()
+                  
         # Update the display
         pygame.display.flip()
 
