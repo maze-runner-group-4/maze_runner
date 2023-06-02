@@ -252,14 +252,15 @@ class Dodge_the_monsters(MazeGame):
             self.draw_monster(self.monster3_pos[1],self.monster3_pos[0],"R",self.list_R)
             self.draw_hearts()
             self.draw_hearts_points(self.player_health,self.heart_x)
-            self.draw_hearts_points(self.player_2_health,self.heart2_x)
+            if multi:
+                self.draw_hearts_points(self.player_2_health,self.heart2_x)
             self.health_points_count()
             self.game_over()
             self.monster_movement()      
             pygame.display.flip()
             self.clock.tick(60)
             if self.check_find_goal():
-                self.game_win_sound.play()
+                # self.game_win_sound.play()
                 pygame.mixer.music.stop()
                 self.running = False
         # pygame.quit()
