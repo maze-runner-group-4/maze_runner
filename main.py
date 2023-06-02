@@ -1,6 +1,6 @@
 import pygame
 import os
-from maze_maps import Maze_maps
+# from maze_maps import Maze_maps
 # from blue_player import *
 # from coins_sheet import *
 from spritesheet_test import *
@@ -39,6 +39,8 @@ class MazeGame:
         self.delay_coin=pygame.time.get_ticks()
         self.cooldown_coin = 20
         self.frame_coin= 0
+        self.game_over_sound = pygame.mixer.Sound(os.path.join("Assets","GameOver.wav"))
+        self.game_win_sound =  pygame.mixer.Sound(os.path.join("Assets","WIN sound effect no copyright.wav"))
         pygame.mixer.music.load('Assets/background_mp3cut.net.wav') 
         self.offsett = 0
         self.scroll_area = 210
@@ -120,11 +122,13 @@ class MazeGame:
         if self.player_pos[0] == self.goal[0] and self.player_pos[1]==self.goal[1]:
             winner_text = "Congratulations! Blue Win!"
             self.draw_winner(winner_text)
+            self.game_win_sound.play()
             pygame.mixer.music.stop()
             return True
         elif self.player_2_pos[0] == self.goal[0] and self.player_2_pos[1]==self.goal[1]:
             winner_text = "Congratulations! Red Win!"
             self.draw_winner(winner_text)
+            self.game_win_sound.play()
             pygame.mixer.music.stop()
             return True
         return False
@@ -233,6 +237,7 @@ class MazeGame:
             self.draw_goal()
             self.draw_treasure_maze()
             if self.check_find_goal():
+                pygame.mixer.music.stop()
                 running = False
                 # mainloop()
             pygame.display.flip()

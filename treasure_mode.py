@@ -1,5 +1,5 @@
 from main import MazeGame
-from maze_maps import Maze_maps
+# from maze_maps import Maze_maps
 import pygame
 import pygame.mixer
 import os
@@ -57,10 +57,12 @@ class Treasure(MazeGame):
     def check_winner(self):
         if self.treasure_score > self.treasure2_score:
             winner_text = "Congratulations! Blue Win!"
+            self.game_win_sound.play()
             self.draw_winner(winner_text)
             # mainloop()
         elif self.treasure2_score > self.treasure_score:
             winner_text = "Congratulations! Red Win!"
+            self.game_win_sound.play()
             self.draw_winner(winner_text)
             # mainloop()
     def run(self,multi=False):
@@ -69,6 +71,7 @@ class Treasure(MazeGame):
             
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    pygame.mixer.music.stop()
                     running = False
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_UP:
@@ -95,6 +98,7 @@ class Treasure(MazeGame):
             if self.goal_draw:    
                 self.draw_goal()
                 if self.check_find_goal():
+                    pygame.mixer.music.stop()
                     running = False
             self.draw_score(10,10,1)
             if multi:

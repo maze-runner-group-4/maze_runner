@@ -1,7 +1,7 @@
 import os
 import pygame
 from main import MazeGame
-from maze_maps import Maze_maps
+# from maze_maps import Maze_maps
 from spritesheet_test import list_of_frames_blue_monster_back,list_of_frames_red_monster_back,list_of_frames_hearts,list_of_frames_red_monster_front,list_of_frams_blue_monster_front,animation_list_left,animation_list_right
 BLACK = (0, 0, 0)
 indigo = "indigo"
@@ -138,6 +138,7 @@ class Dodge_the_monsters(MazeGame):
             self.draw_game_over(game_over_text)
             pygame.mixer.music.stop()
             self.monster_sound_effect2.play()
+            self.game_over_sound.play()
             pygame.display.update()
             pygame.time.delay(2000)
             self.running = False
@@ -218,6 +219,7 @@ class Dodge_the_monsters(MazeGame):
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    pygame.mixer.music.stop()
                     self.running = False
                 elif event.type == pygame.KEYDOWN:
                     if self.player_2_health > 0:
@@ -257,6 +259,8 @@ class Dodge_the_monsters(MazeGame):
             pygame.display.flip()
             self.clock.tick(60)
             if self.check_find_goal():
+                self.game_win_sound.play()
+                pygame.mixer.music.stop()
                 self.running = False
         # pygame.quit()
 
