@@ -3,6 +3,7 @@ import sys
 import os
 import pygame.freetype
 from links_of_modules import links
+from pygame.locals import *
 # Initialize Pygame
 pygame.init()
 pygame.freetype.init()
@@ -23,6 +24,7 @@ button_clicked_color = (53, 228, 128, 100)  # Grey color with decreased opacity 
 # Set up the fonts
 font_path = "Fonts/font.ttf"
 font_size = 16
+# About_us_font_size=11
 font = pygame.freetype.Font(font_path, font_size)
 
 
@@ -34,9 +36,13 @@ Gold_button_img = pygame.image.load(os.path.join('Assets', 'radiusbuttonclicked.
 Menu_buttons_img = pygame.image.load(os.path.join('Assets', 'menubutton.png'))
 EZ_buttons_img = pygame.image.load(os.path.join('Assets', 'ez.png'))
 Run_disabled_button_img = pygame.image.load(os.path.join('Assets', 'menubuttondisabled.png'))
+About_us_button_img = pygame.image.load(os.path.join('Assets', 'About_us.png')) #About
 
 Button_width=370
 Button_height = 150
+
+About_Button_width=150
+About_Button_height = 150
 
 
 # Set up the buttons
@@ -53,6 +59,10 @@ singleplayer_button_y = ((screen_height - button_height) // 4 - button_height //
 escape_button_y = (screen_height - button_height) // 2 - 65
 run_button_y = (screen_height - button_height) // 2 + 60
 dodge_button_y = (screen_height - button_height) // 2 + 125
+# About_us_button_x= screen_width - About_Button_width - 500 #About
+# About_us_button_y = -90 #About
+About_us_button_x = (screen_width - (2 * button_width + button_padding)) 
+About_us_button_y = 10
 
 # new img buttons
 exitimg = pygame.transform.scale(exit_button_img,(Button_width , Button_height-20))
@@ -62,6 +72,7 @@ Goldimg = pygame.transform.scale(Gold_button_img,(Button_width , Button_height-1
 Menusimg = pygame.transform.scale(Menu_buttons_img,(Button_width , Button_height-20))
 Ezimg = pygame.transform.scale(Menu_buttons_img,(Button_width , Button_height-20))
 RunDisabledimg = pygame.transform.scale(Run_disabled_button_img,(Button_width , Button_height-20))
+About_us=pygame.transform.scale(About_us_button_img,(About_Button_width-50, About_Button_height-60)) #About
 
 # Apply the backgrounds
 SPACE = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'maze2.jpg')), (screen_width, screen_height))
@@ -72,6 +83,7 @@ def mainloop():
     single_player_clicked = False
     multiplayer_clicked   = False
     escape_screen_active  = False
+    About_us_clicked = False #About
     # Main game loop 
     while True:
         # Handle events
@@ -106,13 +118,19 @@ def mainloop():
                     escape_screen_active = False
                     single_player_clicked = False
                     multiplayer_clicked = False
+
+                elif About_us_rect.collidepoint(mouse_pos):#About
+                    print("About us  ...")
+                    About_us_clicked=True
+
                 elif dodge_button.collidepoint(mouse_pos):
                     # print("Starting the game...")
-                    
                     game = links("multi",multiplayer_clicked)
                     game.run()
+
                 elif run_button.collidepoint(mouse_pos):
                     # print("Starting the game...")
+
                     if multiplayer_clicked:
                         game = links("hide",multiplayer_clicked)
                         game.run()
@@ -132,6 +150,8 @@ def mainloop():
             screen.blit(Menusimg, (button_x_center-40, FindTreasure_button_y)) 
             screen.blit(Menusimg, (button_x_center-40, dodge_button_y+60)) 
             screen.blit(Menusimg, (button_x_center-40, escape_button_y)) 
+            screen.blit(About_us, (About_Button_width +1569,About_Button_height-150)) #About
+
 
 
             # Draw the buttons FOR TEXT
@@ -142,6 +162,8 @@ def mainloop():
             single_button_rect = pygame.Rect(button_x_center+130, singleplayer_button_y, Button_width, Button_height-10)
             run_button = pygame.Rect(button_x_center-40, run_button_y, Button_width, Button_height-20)
             exit_button_rect = pygame.Rect(button_x_center-45, exit_button_y+125, Button_width, Button_height-20)
+            # About_us_rect= pygame.Rect(About_us_button_x-45, About_us_button_y+125, About_Button_width, About_Button_height-20)#About
+            About_us_rect = pygame.Rect(About_us_button_x, About_us_button_y, Button_width - 20, Button_height - 20)
 
             if multiplayer_clicked:
                 screen.blit(Goldimg, (button_x-110, multiplayer_button_y)) 
@@ -183,6 +205,20 @@ def mainloop():
             dodge_label,dodge_label_rect = font.render("Dodge the monster", button_text_color, None)
             dodge_label_rect = dodge_label.get_rect(center=dodge_button.center)
             screen.blit(dodge_label, dodge_label_rect)
+
+            # About_label,About_label_rect = font.render("About us", button_text_color, None) 
+            # About_label_rect =About_label.get_rect(About_us_rect.left + 10, About_us_rect.top + 10)
+            # screen.blit(About_label, About_label_rect)
+
+            # About_label, About_label_rect = font.render("About us", button_text_color, None)
+            # About_label_rect.topright = (About_us_rect.right + 1420, About_us_rect.top + 10)
+            # screen.blit(About_label, About_label_rect)
+
+            About_label, About_label_rect = font.render("About us", button_text_color, None,pygame.freetype.STYLE_DEFAULT, 0, 11)
+            About_label_rect.topright = (About_us_rect.left + 405, About_us_rect.top + 30)
+            screen.blit(About_label, About_label_rect)
+
+
         else:
             # Draw the escape screen with new buttons
 
@@ -227,6 +263,32 @@ def mainloop():
             Back_label,Back_label_rect = font.render("Back", button_text_color, None)
             Back_label_rect = Back_label.get_rect(center=Back.center)
             screen.blit(Back_label, Back_label_rect)
+
+
+        if  About_us_clicked:
+            # Draw the escape screen with new buttons
+
+            screen.blit(SPACE, (0, 0))
+            screen.blit(title_gif, ((screen_width - title_gif.get_width()) // 2, 30))
+
+            # Render the cards
+
+            paragraph_text = """
+                Experience an incredible and enjoyable gaming adventure with Our Maze Game.\n 
+                Immerse yourself in carefully crafted mazes, intuitive controls, and captivating visuals,\n 
+                as we aim to provide you with a unique gaming experience.\n 
+                Whether you're a seasoned gamer or a casual player, \n 
+                our game is designed to cater to everyone. Join us on this maze-filled journey,\n  
+                where you'll discover excitement, satisfaction, and a profound sense of accomplishment.\n  
+                Prepare yourself for a world of thrilling challenges 
+                and unforgettable experiences. Good luck and happy gaming!\n 
+                """
+
+
+            End_label,End_label_rect = font.render(paragraph_text , button_text_color, None)
+            End_label_rect = End_label.get_rect(center=(screen_width // 2, screen_height // 2))
+            screen.blit(End_label, End_label_rect)
+
 
         if escape_screen_active:
              
