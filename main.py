@@ -1,6 +1,6 @@
 import pygame
 import os
-# from maze_maps import Maze_maps
+from maze_maps import Maze_maps
 # from blue_player import *
 # from coins_sheet import *
 from spritesheet_test import *
