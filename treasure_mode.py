@@ -4,7 +4,7 @@ import pygame
 import pygame.mixer
 import os
 BLACK = (0, 0, 0)
-indigo = "indigo"
+WHITE = "white"
 # from GUI import mainloop
 class Treasure(MazeGame):
     def __init__(self, maze, multi = False):
@@ -27,13 +27,13 @@ class Treasure(MazeGame):
     def draw_score(self,pos1,pos2,player):
         if player==1: 
             text =f"Blue Player Score : { self.treasure_score}"
-            draw_text = self.score_FONT.render(text, 1, indigo)
+            draw_text = self.score_FONT.render(text, 1, WHITE)
             self.window.blit(draw_text, (pos1,pos2))
             pygame.display.update()
 
         if player==2:
             text2 =f"Red Player Score :{self.treasure2_score}"
-            draw_text = self.score_FONT.render(text2, 1, indigo)
+            draw_text = self.score_FONT.render(text2, 1, WHITE)
             self.window.blit(draw_text, (pos1,pos2))
             pygame.display.update()
 
@@ -42,8 +42,8 @@ class Treasure(MazeGame):
         super().move_player(direction, player)
         if self.maze[self.new_row][self.new_col] == "T":
                     # Remove the treasure from the maze
-                    self.maze[self.new_row][self.new_col] = " "
                     self.treasure_sound.play()  # Play the sound effect
+                    self.maze[self.new_row][self.new_col] = " "
                     self.treasure_counter-=1
                     self.calculate_score_for_treasure(player)
                     # self.treasure_sound.play()

@@ -7,7 +7,7 @@ from spritesheet_test import *
 # from yellow_monester import *
 # from GUI import mainloop
 BLACK = (0, 0, 0)
-indigo = "indigo"
+WHITE = "white"
 
 
 class MazeGame:
@@ -121,20 +121,20 @@ class MazeGame:
     def check_find_goal(self):
         if self.player_pos[0] == self.goal[0] and self.player_pos[1]==self.goal[1]:
             winner_text = "Congratulations! Blue Win!"
+            pygame.mixer.music.stop()
             self.game_win_sound.play()
             self.draw_winner(winner_text)
-            pygame.mixer.music.stop()
             return True
         elif self.player_2_pos[0] == self.goal[0] and self.player_2_pos[1]==self.goal[1]:
             winner_text = "Congratulations! Red Win!"
+            pygame.mixer.music.stop()
             self.game_win_sound.play()
             self.draw_winner(winner_text)
-            pygame.mixer.music.stop()
             return True
         return False
     
     def draw_winner(self,text):
-        draw_text = self.WINNER_FONT.render(text, 1, indigo)
+        draw_text = self.WINNER_FONT.render(text, 1, WHITE)
         self.window.blit(draw_text, (self.window_width/2 - draw_text.get_width() /
                          2,self.window_height/2 - draw_text.get_height()/2))
         pygame.display.update()

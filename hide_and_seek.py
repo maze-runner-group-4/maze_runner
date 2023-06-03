@@ -17,10 +17,10 @@ class Hide_and_seek(MazeGame):
             return True
         return False
       
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
     # Create an instance of the MazeGame class
-    game = Hide_and_seek( Maze_maps.maze_easy)
+    # game = Hide_and_seek( Maze_maps.maze_easy)
 
-    # Run the game
-    game.run(True)
+    # # Run the game
+    # game.run(True)
