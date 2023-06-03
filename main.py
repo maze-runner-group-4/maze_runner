@@ -71,7 +71,7 @@ class MazeGame:
                 if self.maze[row][col] == "T":
                         # current_time = pygame.time.get_ticks()
                         # if current_time - self.delay_coin >= self.cooldown_coin:
-                            self.frame_coin += 0.5
+                            self.frame_coin += 0.15
                             # self.delay_coin = current_time
                             if self.frame_coin >= len(animation_list_coins):
                                 self.frame_coin = 0

@@ -43,8 +43,8 @@ class Treasure(MazeGame):
         if self.maze[self.new_row][self.new_col] == "T":
                     # Remove the treasure from the maze
                     self.maze[self.new_row][self.new_col] = " "
-                    self.treasure_counter-=1
                     self.treasure_sound.play()  # Play the sound effect
+                    self.treasure_counter-=1
                     self.calculate_score_for_treasure(player)
                     # self.treasure_sound.play()
         if self.multi:           
@@ -114,7 +114,8 @@ class Treasure(MazeGame):
             self.clock.tick(60)
         # pygame.quit()
 
-if __name__ == "__main__":
-    game = Treasure( Maze_maps.maze_treasure)
+# if __name__ == "__main__":
+#     game = Treasure( Maze_maps.maze_treasure)
 
-    game.run()
+#     game.run()
+

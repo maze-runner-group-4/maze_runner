@@ -414,19 +414,19 @@ class Maze_maps:
     " XXXXX   XXXXXXXXXXXX         XXXXXXX ",
     " XXXXXXX    XXXXXXXXXXXXXX     XXXXXX ",
     " XXXXXXXXX  H XXXXXXXXXXXX   H   XXXX ",
-    " X X X       XXXXXXXXXXXXXXX   XXXXXX ",
+    " X X X       XXXXXXXXXXXXXX    XXXXXX ",
     " XXX     XX  XXX    XXXXXX  XXX  XXXX ",
     " XX H   XXX       H              XXXX ",
-    " XXXXX   XXXXXXXXXXXXXXXXXXXXXXXX   X ",
+    " XXXXX   XXXXXXXXXXXXXXXXXXXXXXX    X ",
     " XXXXX   XXXXXXXX XXXXXXXX      H   X ",
     " XR                                 X ",
     " XXXXXXHXXXXXXXXXXXXXXXXXXXXX    XXXX ",
     " X XXX   HXXXXX    G   XXXXX        X ",
-    " XR                              H  X ",
+    " XK                              H  X ",
     " XXXXXXXXX    XXXXXXXXXX    XXXXXXXXX ",
     " X            XXX  X  XXX           X ",
     " XXXXXXXXX    XXXXXXXXXX    XXXXXXXXX ",
-    " X            XXXX  X  XXX      H   X ",
+    " X            XXXX  X  XX       H   X ",
     " XXXXXXXXX       X     X        XXXXX ",
     " XXXXXXX     XXX  X    X  XXXX  XXXXX ",
     " XXXXX          X  X  X      XXXXXXXX ",
@@ -436,3 +436,4 @@ class Maze_maps:
     "                                      "
     ]
     list_of_multi_maps = [maze_multi,maze_multi2]
+    # list_of_multi_maps = [maze_multi2]
