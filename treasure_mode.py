@@ -64,6 +64,8 @@ class Treasure(MazeGame):
             self.draw_winner(winner_text)
             pygame.mixer.music.stop()
             self.running =  False
+            pygame.mixer.music.load('Assets/menu-_sound.wav')
+            pygame.mixer.music.play(-1)
             # mainloop()
         elif self.treasure2_score > self.treasure_score:
             winner_text = "Congratulations! Red Win!"
@@ -71,6 +73,8 @@ class Treasure(MazeGame):
             self.draw_winner(winner_text)
             pygame.mixer.music.stop()
             self.running = False
+            pygame.mixer.music.load('Assets/menu-_sound.wav')
+            pygame.mixer.music.play(-1)
             # mainloop()
     def run(self):
         self.running = True
@@ -80,6 +84,8 @@ class Treasure(MazeGame):
                 if event.type == pygame.QUIT:
                     pygame.mixer.music.stop()
                     self.running = False
+                    pygame.mixer.music.load('Assets/menu-_sound.wav')
+                    pygame.mixer.music.play(-1)
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_UP:
                         self.move_player("up",1)
@@ -107,6 +113,8 @@ class Treasure(MazeGame):
                 if self.check_find_goal():
                     pygame.mixer.music.stop()
                     self.running = False
+                    pygame.mixer.music.load('Assets/menu-_sound.wav')
+                    pygame.mixer.music.play(-1)
             self.draw_score(10,10,1)
             if self.multi:
                 self.draw_score(self.window_width-220,10,2)

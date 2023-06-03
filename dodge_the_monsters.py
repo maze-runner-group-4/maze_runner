@@ -246,6 +246,8 @@ class Dodge_the_monsters(MazeGame):
             pygame.display.update()
             pygame.time.delay(2000)
             self.running = False
+            pygame.mixer.music.load('Assets/menu-_sound.wav')
+            pygame.mixer.music.play(-1)
         if self.player_health == 0 and self.player_2_health != 0 :
             game_over_text = "Blue lost!"
             self.draw_game_over(game_over_text)
@@ -257,7 +259,9 @@ class Dodge_the_monsters(MazeGame):
                  pygame.display.update()
                  pygame.time.delay(2000)
                  pygame.mixer.music.stop()
-                 self.running = False    
+                 self.running = False
+                 pygame.mixer.music.load('Assets/menu-_sound.wav')
+                 pygame.mixer.music.play(-1)    
             
         if self.player_2_health == 0 and self.player_health != 0 :
             game_over_text = "Red lost!"
@@ -265,6 +269,7 @@ class Dodge_the_monsters(MazeGame):
             if not self.sound_effect_played:
                 self.monster_sound_effect2.play()  # Play sound effect_2
                 self.sound_effect_played = True
+               
             
 
  
@@ -353,6 +358,8 @@ class Dodge_the_monsters(MazeGame):
                 if event.type == pygame.QUIT:
                     pygame.mixer.music.stop()
                     self.running = False
+                    pygame.mixer.music.load('Assets/menu-_sound.wav')
+                    pygame.mixer.music.play(-1)
                 elif event.type == pygame.KEYDOWN:
                     if self.player_2_health > 0:
                         if event.key == pygame.K_UP:
@@ -398,6 +405,8 @@ class Dodge_the_monsters(MazeGame):
                 # self.game_win_sound.play()
                 pygame.mixer.music.stop()
                 self.running = False
+                pygame.mixer.music.load('Assets/menu-_sound.wav')
+                pygame.mixer.music.play(-1)
         # pygame.quit()
 
 # if __name__ == "__main__":
