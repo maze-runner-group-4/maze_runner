@@ -24,8 +24,10 @@ button_clicked_color = (53, 228, 128, 100)  # Grey color with decreased opacity 
 # Set up the fonts
 font_path = "Fonts/font.ttf"
 font_size = 16
+font_size_names = 32
 # About_us_font_size=11
 font = pygame.freetype.Font(font_path, font_size)
+fontName = pygame.freetype.Font(font_path, font_size_names)
 
 
 
@@ -39,19 +41,20 @@ EZ_buttons_img = pygame.image.load(os.path.join('Assets', 'ez.png'))
 Run_disabled_button_img = pygame.image.load(os.path.join('Assets', 'menubuttondisabled.png'))
 About_us_button_img = pygame.image.load(os.path.join('Assets', 'About_us.png')) #About
 About_us_border_img = pygame.image.load(os.path.join('Assets', 'card.png')) 
-card1 = pygame.image.load(os.path.join('Assets', 'card.png')) 
-jana = pygame.image.load(os.path.join('team', 'jana (3).jpg'))
-abdullah = pygame.image.load(os.path.join('team', 'abdullah.jpg'))
-card2=pygame.image.load(os.path.join('Assets', 'card.png'))
-abdulkareem=pygame.image.load(os.path.join('team', 'abdulkareem.jpg'))
-mustafa=pygame.image.load(os.path.join('team', 'mustafa.jpg'))
-husam=pygame.image.load(os.path.join('team', 'husam.jpg'))
+card = pygame.image.load(os.path.join('Assets', 'card.png')) 
+# name_stone = pygame.image.load(os.path.join('Assets', 'Stonename.png')) 
+# jana = pygame.image.load(os.path.join('team', 'jana (3).jpg'))
+# abdullah = pygame.image.load(os.path.join('team', 'abdullah.jpg'))
+# card2=pygame.image.load(os.path.join('Assets', 'card.png'))
+# abdulkareem=pygame.image.load(os.path.join('team', 'abdulkareem.jpg'))
+# mustafa=pygame.image.load(os.path.join('team', 'mustafa.jpg'))
+# husam=pygame.image.load(os.path.join('team', 'husam.jpg'))
 
 # About_us_border_img_width = About_us_border_img.get_width()
 # About_us_border_img_height = About_us_border_img.get_height()
 
-About_us_border_img_width = 800
-About_us_border_img_height =400
+About_us_border_img_width = 850
+About_us_border_img_height =800
 
 Button_width=370
 Button_height = 150
@@ -88,8 +91,14 @@ card1_y=(screen_height - button_height) // 2 - 200
 card2_x=screen_width // 2 - 100
 card2_y=(screen_height - button_height) // 2 + 190
 
-card_width=400
-card_height=400
+card_width=100
+card_height=100
+
+name_stone_width=370
+name_stone_height=110
+# card_width2=400
+card_height2=415
+
 
 team_width=300
 team_height=300
@@ -104,13 +113,14 @@ Ezimg = pygame.transform.scale(Menu_buttons_img,(Button_width , Button_height-20
 RunDisabledimg = pygame.transform.scale(Run_disabled_button_img,(Button_width , Button_height-20))
 About_us=pygame.transform.scale(About_us_button_img,(About_Button_width-50, About_Button_height-60)) #About
 border=pygame.transform.scale(About_us_border_img,(About_us_border_img_width,About_us_border_img_height)) 
-card1=pygame.transform.scale(card1,(card_width,card_height))
-jana=pygame.transform.scale(jana,(team_width,team_height))
-abdullah=pygame.transform.scale(abdullah,(team_width,team_height))
-card2=pygame.transform.scale(card2,(card_width,card_height))
-abdulkareem=pygame.transform.scale(abdulkareem,(team_width,team_height))
-mustafa=pygame.transform.scale(mustafa,(team_width,team_height))
-husam=pygame.transform.scale(husam,(team_width,team_height))
+cardMiddle=pygame.transform.scale(card,(card_width,card_height))
+# jana=pygame.transform.scale(jana,(team_width,team_height))
+# abdullah=pygame.transform.scale(abdullah,(team_width,team_height))
+# namestone = pygame.transform.scale(name_stone,(name_stone_width , name_stone_height))
+# card2=pygame.transform.scale(card2,(card_width,card_height))
+# abdulkareem=pygame.transform.scale(abdulkareem,(team_width,team_height))
+# mustafa=pygame.transform.scale(mustafa,(team_width,team_height))
+# husam=pygame.transform.scale(husam,(team_width,team_height))
 
 # Apply the backgrounds
 SPACE = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'maze2.jpg')), (screen_width, screen_height))
@@ -306,35 +316,70 @@ def mainloop():
             screen.blit(SPACE, (0, 0))
             screen.blit(title_gif, ((screen_width - title_gif.get_width()) // 2, 30))
 
-            screen.blit(border,(About_us_border_img_x-250, About_us_border_img_y-200)) 
+            screen.blit(border,(About_us_border_img_x-250, About_us_border_img_y-270)) 
             # screen.blit(card11,(About_us_border_img_x-800, About_us_border_img_y-400)) 
 
-            screen.blit(card1,(card1_x-800, card1_y-60)) 
-            screen.blit(jana,(card_width-340, card_height-130))
+            screen.blit(card,(card1_x-800, card1_y-245)) 
+            # screen.blit(jana,(card_width-345, card_height-320))
+            # screen.blit(namestone,(name_stone_width-345, card_height2+30))
 
-            screen.blit(card1,(card1_x +600, card1_y-55)) 
-            screen.blit(abdullah,(card_width+1060, card_height-130))
+            # screen.blit(card,(card1_x +600, card1_y-55)) 
+            # screen.blit(abdullah,(card_width+1060, card_height-130))
             
-            screen.blit(card2,(card2_x-800, card2_y-60)) 
+            # screen.blit(card2,(card2_x-800, card2_y-60)) 
 
 
             # # Render the cards
 
-            # paragraph_text = """
-            #     Experience an incredible and enjoyable gaming adventure with Our Maze Game. 
-            #     Immerse yourself in carefully crafted mazes, intuitive controls, and captivating visuals,
-            #     as we aim to provide you with a unique gaming experience. 
-            #     Whether you're a seasoned gamer or a casual player,  
-            #     our game is designed to cater to everyone. Join us on this maze-filled journey,  
-            #     where you'll discover excitement, satisfaction, and a profound sense of accomplishment.  
-            #     Prepare yourself for a world of thrilling challenges 
-            #     and unforgettable experiences. Good luck and happy gaming! 
-            #     """
+            paragraph_text ="""          Experience an incredible and\n\n          enjoyable gaming adventure with\n\n
+          Our Maze Game.Immerse yourself in\n\n
+          carefully crafted mazes, intuitive\n\n    
+          controls, and captivating visuals,\n\n
+          as we aim to provide you with a\n\n 
+          unique gaming experience.Whether\n\n  
+          you're a seasoned gamer or a casual\n\n
+          player, our game is designed\n\n  
+          to cater to everyone. Join us on this\n\n 
+          maze-filled journey, where you'll\n\n
+          discover excitement,satisfaction,\n\n  
+          and a profound sense of\n\n 
+          accomplishment.Prepare yourself\n\n  
+          for a world of thrilling challenges\n\n
+          and unforgettable experiences.\n
+          Good luck and happy gaming!"""
 
+            lines = paragraph_text.split("\n") 
 
-            # End_label,End_label_rect = font.render(paragraph_text , button_text_color, None)
-            # End_label_rect = End_label.get_rect(center=About_us_border_rect.center)
-            # screen.blit(End_label, End_label_rect)
+            line_surfaces = []
+            max_width = 0
+            total_height = 0
+            
+            for line in lines:
+                line_surface,End_label_rect = font.render(line, button_text_color, None)
+                # End_label_rect = line_surface.get_rect(center=About_us_border_rect.center)
+             
+                line_surfaces.append(line_surface)
+            
+                line_width = line_surface.get_width()
+                line_height = line_surface.get_height()
+            
+                if line_width > max_width:
+                    max_width = line_width
+            
+                total_height += line_height
+            
+            x = About_us_border_rect.x-300 + (About_us_border_rect.width - max_width) // 2
+            y = About_us_border_rect.y-250 + (About_us_border_rect.height - total_height) // 2
+                        
+            for line_surface in line_surfaces:
+                screen.blit(line_surface, (x, y))
+                y += line_surface.get_height()
+                # Move to the next line
+
+                # line_surface,End_label_rect = font.render(line , button_text_color, None)
+         
+            #    screen.blit(line_surface, End_label_rect)
+              
 
         # Render the cards:
 
