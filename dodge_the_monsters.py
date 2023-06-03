@@ -4,7 +4,7 @@ from main import MazeGame
 from maze_maps import Maze_maps
 from spritesheet_test import list_of_frames_blue_monster_back,list_of_frames_red_monster_back,list_of_frames_hearts,list_of_frames_red_monster_front,list_of_frams_blue_monster_front,animation_list_left,animation_list_right
 BLACK = (0, 0, 0)
-indigo = "indigo"
+WHITE = "white"
 class Dodge_the_monsters(MazeGame):
     
     def __init__(self, maze):
@@ -271,15 +271,15 @@ class Dodge_the_monsters(MazeGame):
 
     def draw_game_over(self,text):
         if text == "Game Over":
-            draw_text = self.game_over_FONT.render(text, 1, indigo)
+            draw_text = self.game_over_FONT.render(text, 1, WHITE)
             pos_x= self.window_width/2 - draw_text.get_width() /2
             pos_y = self.window_height/2 - draw_text.get_height()/2
         if text == "Blue lost!":
-            draw_text = self.game_over_FONT_player.render(text, 1, indigo)
+            draw_text = self.game_over_FONT_player.render(text, 1, WHITE)
             pos_x = 5 + ( draw_text.get_width())
             pos_y = 0
         if text == "Red lost!":
-            draw_text = self.game_over_FONT_player.render(text, 1, indigo)
+            draw_text = self.game_over_FONT_player.render(text, 1, WHITE)
             pos_x = self.window_width-draw_text.get_width()
             pos_y = 0
         self.window.blit(draw_text, (pos_x,pos_y+self.offsett))
