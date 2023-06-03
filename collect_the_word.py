@@ -11,6 +11,9 @@ class Collect_the_word(MazeGame):
     def __init__(self, maze):
         super().__init__( maze)
 
+    def draw_the_letter(self):
+        pass
+    
     def move_player(self, direction, player): 
         super().move_player(direction, player)
 
