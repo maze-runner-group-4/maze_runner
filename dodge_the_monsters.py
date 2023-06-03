@@ -405,5 +405,6 @@ class Dodge_the_monsters(MazeGame):
 #     # Create an instance of the MazeGame class
 #     game = Dodge_the_monsters( Maze_maps.maze_multi)
 
+
 #     # Run the game
 #     game.run(True)

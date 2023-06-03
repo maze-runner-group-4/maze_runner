@@ -118,3 +118,4 @@ class Treasure(MazeGame):
 #     game = Treasure( Maze_maps.maze_treasure)
 
 #     game.run()
+
