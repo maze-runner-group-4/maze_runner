@@ -131,7 +131,7 @@ class Dodge_the_monsters(MazeGame):
             self.monster3_vel *= -1
             self.list_R = animation_list_right
 
-    def game_over(self):
+    def game_over(self,multi):
         # print(self.player_health , self.player_2_health)
         if self.player_health == self.player_2_health ==0 :
             game_over_text = "Game Over"
@@ -148,6 +148,12 @@ class Dodge_the_monsters(MazeGame):
             if not self.sound_effect_played:
                 self.monster_sound_effect2.play()  # Play sound effect_2
                 self.sound_effect_played = True
+            if not multi:
+                 self.draw_game_over("Game Over")
+                 pygame.display.update()
+                 pygame.time.delay(2000)
+                 pygame.mixer.music.stop()
+                 self.running = False    
             
         if self.player_2_health == 0 and self.player_health != 0 :
             game_over_text = "Red lost!"
@@ -255,7 +261,7 @@ class Dodge_the_monsters(MazeGame):
             if multi:
                 self.draw_hearts_points(self.player_2_health,self.heart2_x)
             self.health_points_count()
-            self.game_over()
+            self.game_over(multi)
             self.monster_movement()      
             pygame.display.flip()
             self.clock.tick(60)
