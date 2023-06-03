@@ -124,12 +124,17 @@ class MazeGame:
             pygame.mixer.music.stop()
             self.game_win_sound.play()
             self.draw_winner(winner_text)
+            pygame.mixer.music.load('Assets/menu-_sound.wav')
+            pygame.mixer.music.play(-1)
+
             return True
         elif self.player_2_pos[0] == self.goal[0] and self.player_2_pos[1]==self.goal[1]:
             winner_text = "Congratulations! Red Win!"
             pygame.mixer.music.stop()
             self.game_win_sound.play()
             self.draw_winner(winner_text)
+            pygame.mixer.music.load('Assets/menu-_sound.wav')
+            pygame.mixer.music.play(-1)
             return True
         return False
     
@@ -214,6 +219,8 @@ class MazeGame:
                 if event.type == pygame.QUIT:
                     pygame.mixer.music.stop()
                     running = False
+                    pygame.mixer.music.load('Assets/menu-_sound.wav')
+                    pygame.mixer.music.play(-1)
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_UP:
                         self.move_player("up",1)
@@ -239,6 +246,8 @@ class MazeGame:
             if self.check_find_goal():
                 pygame.mixer.music.stop()
                 running = False
+                pygame.mixer.music.load('Assets/menu-_sound.wav')
+                pygame.mixer.music.play(-1) 
                 # mainloop()
             pygame.display.flip()
             self.clock.tick(60)

@@ -127,6 +127,8 @@ SPACE = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'maze2.j
 title_gif = pygame.image.load(os.path.join('Assets', 'mazetitle3.png'))
 Background_menu=pygame.image.load(os.path.join('Assets', 'menubackgrounds.png'))
 def mainloop():
+    pygame.mixer.music.load('Assets/menu-_sound.wav')
+    pygame.mixer.music.play(-1)
    
     single_player_clicked = False
     multiplayer_clicked   = False
