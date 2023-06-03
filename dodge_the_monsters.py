@@ -1,7 +1,7 @@
 import os
 import pygame
 from main import MazeGame
-# from maze_maps import Maze_maps
+from maze_maps import Maze_maps
 from spritesheet_test import list_of_frames_blue_monster_back,list_of_frames_red_monster_back,list_of_frames_hearts,list_of_frames_red_monster_front,list_of_frams_blue_monster_front,animation_list_left,animation_list_right
 BLACK = (0, 0, 0)
 indigo = "indigo"
@@ -274,7 +274,7 @@ class Dodge_the_monsters(MazeGame):
 if __name__ == "__main__":
 
     # Create an instance of the MazeGame class
-    game = Dodge_the_monsters( Maze_maps.maze_multi)
+    game = Dodge_the_monsters( Maze_maps.maze_multi2)
 
     # Run the game
     game.run(True)
