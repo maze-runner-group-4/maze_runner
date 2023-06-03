@@ -3,14 +3,13 @@ import sys
 import os
 import pygame.freetype
 from links_of_modules import links
-from pygame.locals import *
 # Initialize Pygame
 pygame.init()
 pygame.freetype.init()
 
 # Set up the window
-screen_width = 1820
-screen_height = 945
+screen_width = 1366
+screen_height = 768
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Menu Example")
 
@@ -23,10 +22,8 @@ button_clicked_color = (53, 228, 128, 100)  # Grey color with decreased opacity 
 
 # Set up the fonts
 font_path = "Fonts/font.ttf"
-font_size = 16
-# About_us_font_size=11
+font_size = 10
 font = pygame.freetype.Font(font_path, font_size)
-
 
 
 # set the image buttons
@@ -37,28 +34,9 @@ Gold_button_img = pygame.image.load(os.path.join('Assets', 'radiusbuttonclicked.
 Menu_buttons_img = pygame.image.load(os.path.join('Assets', 'menubutton.png'))
 EZ_buttons_img = pygame.image.load(os.path.join('Assets', 'ez.png'))
 Run_disabled_button_img = pygame.image.load(os.path.join('Assets', 'menubuttondisabled.png'))
-About_us_button_img = pygame.image.load(os.path.join('Assets', 'About_us.png')) #About
-About_us_border_img = pygame.image.load(os.path.join('Assets', 'card.png')) 
-card1 = pygame.image.load(os.path.join('Assets', 'card.png')) 
-jana = pygame.image.load(os.path.join('team', 'jana (3).jpg'))
-abdullah = pygame.image.load(os.path.join('team', 'abdullah.jpg'))
-card2=pygame.image.load(os.path.join('Assets', 'card.png'))
-abdulkareem=pygame.image.load(os.path.join('team', 'abdulkareem.jpg'))
-mustafa=pygame.image.load(os.path.join('team', 'mustafa.jpg'))
-husam=pygame.image.load(os.path.join('team', 'husam.jpg'))
 
-# About_us_border_img_width = About_us_border_img.get_width()
-# About_us_border_img_height = About_us_border_img.get_height()
-
-About_us_border_img_width = 800
-About_us_border_img_height =400
-
-Button_width=370
-Button_height = 150
-
-About_Button_width=150
-About_Button_height = 150
-
+Button_width=250
+Button_height = 100
 
 
 # Set up the buttons
@@ -68,31 +46,13 @@ button_height = 1
 button_padding = 10  # Space between buttons
 border_radius = int(button_width * 0.25)
 button_x = (screen_width - (2 * button_width + button_padding)) // 2  # Updated position for buttons
-FindTreasure_button_y = (screen_height - button_height) // 2 - 200
-exit_button_y = (screen_height - button_height) // 2 + 190
-multiplayer_button_y = ((screen_height - button_height) // 4 - button_height // 2 ) - 100 # Updated position for Multiplayer button
-singleplayer_button_y = ((screen_height - button_height) // 4 - button_height // 2 ) - 100 # Updated position for Single Player button
-escape_button_y = (screen_height - button_height) // 2 - 65
-run_button_y = (screen_height - button_height) // 2 + 60
-dodge_button_y = (screen_height - button_height) // 2 + 125
-
-About_us_button_x = (screen_width - (2 * button_width + button_padding)) 
-About_us_button_y = 10
-
-About_us_border_img_x= screen_width // 2 - 100
-About_us_border_img_y=(screen_height - button_height) // 2 - 65
-
-card1_x=screen_width // 2 - 100
-card1_y=(screen_height - button_height) // 2 - 200
-
-card2_x=screen_width // 2 - 100
-card2_y=(screen_height - button_height) // 2 + 190
-
-card_width=400
-card_height=400
-
-team_width=300
-team_height=300
+FindTreasure_button_y = (screen_height - button_height) // 2 - 120
+exit_button_y = (screen_height - button_height) // 2 + 130
+multiplayer_button_y = ((screen_height - button_height) // 4 - button_height // 2 ) - 50 # Updated position for Multiplayer button
+singleplayer_button_y = ((screen_height - button_height) // 4 - button_height // 2 ) - 50 # Updated position for Single Player button
+escape_button_y = (screen_height - button_height) // 2 - 35
+run_button_y = (screen_height - button_height) // 2 + 50
+dodge_button_y = (screen_height - button_height) // 2 + 80
 
 # new img buttons
 exitimg = pygame.transform.scale(exit_button_img,(Button_width , Button_height-20))
@@ -102,15 +62,6 @@ Goldimg = pygame.transform.scale(Gold_button_img,(Button_width , Button_height-1
 Menusimg = pygame.transform.scale(Menu_buttons_img,(Button_width , Button_height-20))
 Ezimg = pygame.transform.scale(Menu_buttons_img,(Button_width , Button_height-20))
 RunDisabledimg = pygame.transform.scale(Run_disabled_button_img,(Button_width , Button_height-20))
-About_us=pygame.transform.scale(About_us_button_img,(About_Button_width-50, About_Button_height-60)) #About
-border=pygame.transform.scale(About_us_border_img,(About_us_border_img_width,About_us_border_img_height)) 
-card1=pygame.transform.scale(card1,(card_width,card_height))
-jana=pygame.transform.scale(jana,(team_width,team_height))
-abdullah=pygame.transform.scale(abdullah,(team_width,team_height))
-card2=pygame.transform.scale(card2,(card_width,card_height))
-abdulkareem=pygame.transform.scale(abdulkareem,(team_width,team_height))
-mustafa=pygame.transform.scale(mustafa,(team_width,team_height))
-husam=pygame.transform.scale(husam,(team_width,team_height))
 
 # Apply the backgrounds
 SPACE = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'maze2.jpg')), (screen_width, screen_height))
@@ -121,7 +72,6 @@ def mainloop():
     single_player_clicked = False
     multiplayer_clicked   = False
     escape_screen_active  = False
-    About_us_clicked = False #About
     # Main game loop 
     while True:
         # Handle events
@@ -156,19 +106,13 @@ def mainloop():
                     escape_screen_active = False
                     single_player_clicked = False
                     multiplayer_clicked = False
-
-                elif About_us_rect.collidepoint(mouse_pos):#About
-                    print("About us  ...")
-                    About_us_clicked=True
-
                 elif dodge_button.collidepoint(mouse_pos):
                     # print("Starting the game...")
+                    
                     game = links("multi",multiplayer_clicked)
                     game.run()
-
                 elif run_button.collidepoint(mouse_pos):
                     # print("Starting the game...")
-
                     if multiplayer_clicked:
                         game = links("hide",multiplayer_clicked)
                         game.run()
@@ -188,8 +132,6 @@ def mainloop():
             screen.blit(Menusimg, (button_x_center-40, FindTreasure_button_y)) 
             screen.blit(Menusimg, (button_x_center-40, dodge_button_y+60)) 
             screen.blit(Menusimg, (button_x_center-40, escape_button_y)) 
-            screen.blit(About_us, (About_Button_width +1569,About_Button_height-150)) #About
-
 
 
             # Draw the buttons FOR TEXT
@@ -200,12 +142,6 @@ def mainloop():
             single_button_rect = pygame.Rect(button_x_center+130, singleplayer_button_y, Button_width, Button_height-10)
             run_button = pygame.Rect(button_x_center-40, run_button_y, Button_width, Button_height-20)
             exit_button_rect = pygame.Rect(button_x_center-45, exit_button_y+125, Button_width, Button_height-20)
-            # About_us_rect= pygame.Rect(About_us_button_x-45, About_us_button_y+125, About_Button_width, About_Button_height-20)#About
-            About_us_rect = pygame.Rect(About_us_button_x, About_us_button_y, Button_width - 20, Button_height - 20)
-            About_us_border_rect = pygame.Rect(About_us_border_img_x, About_us_border_img_y, About_us_border_img_width - 20, About_us_border_img_height - 20)
-            card1_rect=pygame.Rect(card1_x, card1_y, card_width, card_height)
-            card2_rect=pygame.Rect(card2_x, card2_y, card_width, card_height)
-            
 
             if multiplayer_clicked:
                 screen.blit(Goldimg, (button_x-110, multiplayer_button_y)) 
@@ -247,13 +183,6 @@ def mainloop():
             dodge_label,dodge_label_rect = font.render("Dodge the monster", button_text_color, None)
             dodge_label_rect = dodge_label.get_rect(center=dodge_button.center)
             screen.blit(dodge_label, dodge_label_rect)
-
-
-            About_label, About_label_rect = font.render("About us", button_text_color, None,pygame.freetype.STYLE_DEFAULT, 0, 11)
-            About_label_rect.topright = (About_us_rect.left + 405, About_us_rect.top + 30)
-            screen.blit(About_label, About_label_rect)
-
-
         else:
             # Draw the escape screen with new buttons
 
@@ -298,73 +227,6 @@ def mainloop():
             Back_label,Back_label_rect = font.render("Back", button_text_color, None)
             Back_label_rect = Back_label.get_rect(center=Back.center)
             screen.blit(Back_label, Back_label_rect)
-
-
-        if  About_us_clicked:
-            # Draw the escape screen with new buttons
-
-            screen.blit(SPACE, (0, 0))
-            screen.blit(title_gif, ((screen_width - title_gif.get_width()) // 2, 30))
-
-            screen.blit(border,(About_us_border_img_x-250, About_us_border_img_y-200)) 
-            # screen.blit(card11,(About_us_border_img_x-800, About_us_border_img_y-400)) 
-
-            screen.blit(card1,(card1_x-800, card1_y-60)) 
-            screen.blit(jana,(card_width-340, card_height-130))
-
-            screen.blit(card1,(card1_x +600, card1_y-55)) 
-            screen.blit(abdullah,(card_width+1060, card_height-130))
-            
-            screen.blit(card2,(card2_x-800, card2_y-60)) 
-
-
-            # # Render the cards
-
-            # paragraph_text = """
-            #     Experience an incredible and enjoyable gaming adventure with Our Maze Game. 
-            #     Immerse yourself in carefully crafted mazes, intuitive controls, and captivating visuals,
-            #     as we aim to provide you with a unique gaming experience. 
-            #     Whether you're a seasoned gamer or a casual player,  
-            #     our game is designed to cater to everyone. Join us on this maze-filled journey,  
-            #     where you'll discover excitement, satisfaction, and a profound sense of accomplishment.  
-            #     Prepare yourself for a world of thrilling challenges 
-            #     and unforgettable experiences. Good luck and happy gaming! 
-            #     """
-
-
-            # End_label,End_label_rect = font.render(paragraph_text , button_text_color, None)
-            # End_label_rect = End_label.get_rect(center=About_us_border_rect.center)
-            # screen.blit(End_label, End_label_rect)
-
-        # Render the cards:
-
-        # # Create a Pygame surface
-        #     surface = pygame.display.set_mode((screen_width, screen_height))
-
-        #     # Load the card images
-        #     card1 = pygame.image.load("Assets/card.png").convert()  # Load and convert the image to improve performance
-        #     card2 = pygame.image.load("Assets/team/jana (3).jpg").convert()
-
-        #     # Set the positions for the cards
-        #     card1_x = 100
-        #     card1_y = 100
-        #     card2_x = 200
-        #     card2_y = 200
-
-        #     # Blit the images onto the surface
-        #     surface.blit(card1, (card1_x, card1_y))  # Position the first card at (card1_x, card1_y)
-        #     surface.blit(card2, (card2_x, card2_y))  # Position the second card at (card2_x, card2_y)
-
-        #     # Main game loop
-        #     running = True
-        #     while running:
-        #         for event in pygame.event.get():
-        #             if event.type == pygame.QUIT:
-        #                 running = False
-
-        #     # Quit Pygame
-        #     pygame.quit()
-                        
 
         if escape_screen_active:
              
