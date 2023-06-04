@@ -14,6 +14,7 @@ class Collect_the_word(MazeGame):
         # self.word_queue = Queue()
         self.goal_draw=False  
         self.score_FONT = pygame.font.SysFont('comicsans',30)
+        self.maze = [[cell for cell in row] for row in maze]
         "Create queue for the blue player "
         self.multi=multi
         self.player_blue_score=Queue()
@@ -46,7 +47,7 @@ class Collect_the_word(MazeGame):
         self.E = animation_list_Eletters  
         self.M = animation_list_Mletters  
         self.N4 = animation_list_numbers
-        self.A_pos = self.find_character(maze,"A")
+        # self.A_pos = self.find_character(maze,"A")
         self.S_pos = self.find_character(maze,"S")
         self.C_pos = self.find_character(maze,"C")
         self.T_pos = self.find_character(maze,"V")
@@ -76,89 +77,113 @@ class Collect_the_word(MazeGame):
         self.cooldown_N4 = 200
 
     def check_word(self, player):
-        if player == 1: 
+        if player == 2: 
   
-            front_of_queue = self.player_blue_score.peek()  
-            if self.maze[self.player_pos[1]][self.player_pos[0]] == front_of_queue: # Update the maze 
+            front_of_queue = self.player_blue_score.peek()
+
+            if self.maze[self.new_row][self.new_col] == front_of_queue: # Update the maze 
                 self.player_blue_score.dequeue()
-                self.maze[self.player_pos[1]][self.player_pos[0]] == " " # Remove the letter 
+                self.maze[self.new_row][self.new_col] = " " # Remove the letter 
+                print(self.maze[self.new_row][self.new_col])
 
-            if self.maze[self.player_pos [1]][self.player_pos [0]] == "V" and front_of_queue == "T": # Update the maze 
-                self.player_red_score.dequeue()
-                self.maze[self.player_pos [1]][self.player_pos [0]] == " " # Remove the letter
-        if player == 2:
-            
+            if self.maze[self.new_row][self.new_col] == "V" and front_of_queue == "T": # Update the maze 
+                self.player_blue_score.dequeue()
+                self.maze[self.new_row][self.new_col] = " " # Remove the letter
+        if player == 1:
             front_of_queue2 = self.player_red_score.peek()  
-            if self.maze[self.player_2_pos [0]][self.player_2_pos [1]] == front_of_queue2: # Update the maze 
+            if self.maze[self.new_row][self.new_col] == front_of_queue2: # Update the maze 
                 self.player_red_score.dequeue()
-                self.maze[self.player_2_pos [0]][self.player_2_pos [1]] == " " # Remove the letter 
+                self.maze[self.new_row][self.new_col] = " " # Remove the letter 
+                print(self.maze[self.new_row][self.new_col])
 
-            if self.maze[self.player_2_pos [0]][self.player_2_pos [1]] == "V" and front_of_queue2 == "T": # Update the maze 
+            if self.maze[self.new_row][self.new_col] == "V" and front_of_queue2 == "T": # Update the maze 
                 self.player_red_score.dequeue()
-                self.maze[self.player_2_pos [0]][self.player_2_pos [1]] == " " # Remove the letter
+                self.maze[self.new_row][self.new_col] = " " # Remove the letter
 
         if self.player_blue_score.isEmpty() or self.player_red_score.isEmpty() :  
             self.goal_draw=True  
             
-
+    def get_repeated(self,char):
+        pass
     
     def draw_the_letter(self,pos_x, pos_y,letter,list):
-            if letter =="A":
-                current_time = pygame.time.get_ticks()
-                if current_time - self.delay_A >= self.cooldown_A:
-                    self.frame_A += 1
-                    self.delay_A = current_time
-                    if self.frame_A >= len(list):
-                        self.frame_A = 0
-                self.window.blit(list[self.frame_A], (pos_x*35+self.window_width//2-(self.cell_width*len(self.maze[0])//2), (pos_y*35)+self.offsett))
-            elif letter == "S":
-                current_time = pygame.time.get_ticks()
-                if current_time - self.delay_S >= self.cooldown_S:
-                    self.frame_S += 1
-                    self.delay_S = current_time
-                    if self.frame_S >= len(list):
-                        self.frame_S = 0
-                self.window.blit(list[self.frame_S], (pos_x*35+self.window_width//2-(self.cell_width*len(self.maze[0])//2), (pos_y*35)+self.offsett))
+            if letter == "A":
+                for row in range(len(self.maze)):
+                 for col in range(len(self.maze[0])):
+                    if self.maze[row][col] == "A":
+                            current_time = pygame.time.get_ticks()
+                            if current_time - self.delay_A >= self.cooldown_A:
+                                self.frame_A += 1
+                                self.delay_A = current_time
+                                if self.frame_A >= len(list):
+                                    self.frame_A = 0
+                            self.window.blit(list[self.frame_A], (col*35+self.window_width//2-(self.cell_width*len(self.maze[0])//2), (row*35)+self.offsett))
+            if letter == "S":
+               for row in range(len(self.maze)):
+                 for col in range(len(self.maze[0])):
+                    if self.maze[row][col] == "S": 
+                        current_time = pygame.time.get_ticks()
+                        if current_time - self.delay_S >= self.cooldown_S:
+                            self.frame_S += 1
+                            self.delay_S = current_time
+                            if self.frame_S >= len(list):
+                                self.frame_S = 0
+                        self.window.blit(list[self.frame_S], (col*35+self.window_width//2-(self.cell_width*len(self.maze[0])//2), (row*35)+self.offsett))
             elif letter == "C":
-                current_time = pygame.time.get_ticks()
-                if current_time - self.delay_C >= self.cooldown_C:
-                    self.frame_C += 1
-                    self.delay_C = current_time
-                    if self.frame_C >= len(list):
-                        self.frame_C = 0
-                self.window.blit(list[self.frame_C], (pos_x*35+self.window_width//2-(self.cell_width*len(self.maze[0])//2), pos_y*35+self.offsett))
+                for row in range(len(self.maze)):
+                 for col in range(len(self.maze[0])):
+                    if self.maze[row][col] == "C": 
+                        current_time = pygame.time.get_ticks()
+                        if current_time - self.delay_C >= self.cooldown_C:
+                            self.frame_C += 1
+                            self.delay_C = current_time
+                            if self.frame_C >= len(list):
+                                self.frame_C = 0
+                        self.window.blit(list[self.frame_C], (col*35+self.window_width//2-(self.cell_width*len(self.maze[0])//2), row*35+self.offsett))
             elif letter == "V":
-                current_time = pygame.time.get_ticks()
-                if current_time - self.delay_T >= self.cooldown_T:
-                    self.frame_T += 1
-                    self.delay_T = current_time
-                    if self.frame_T >= len(list):
-                        self.frame_T= 0
-                self.window.blit(list[self.frame_T], (pos_x*35+self.window_width//2-(self.cell_width*len(self.maze[0])//2), pos_y*35+self.offsett))
+                for row in range(len(self.maze)):
+                 for col in range(len(self.maze[0])):
+                    if self.maze[row][col] == "V": 
+                        current_time = pygame.time.get_ticks()
+                        if current_time - self.delay_T >= self.cooldown_T:
+                            self.frame_T += 1
+                            self.delay_T = current_time
+                            if self.frame_T >= len(list):
+                                self.frame_T= 0
+                        self.window.blit(list[self.frame_T], (col*35+self.window_width//2-(self.cell_width*len(self.maze[0])//2), row*35+self.offsett))
             elif letter == "E":
-                  current_time = pygame.time.get_ticks()
-                  if current_time - self.delay_E >= self.cooldown_E:
-                      self.frame_E += 1
-                      self.delay_E = current_time
-                      if self.frame_E >= len(list):
-                          self.frame_E= 0
-                  self.window.blit(list[self.frame_E], (pos_x*35+self.window_width//2-(self.cell_width*len(self.maze[0])//2), pos_y*35+self.offsett))
+                  for row in range(len(self.maze)):
+                   for col in range(len(self.maze[0])):
+                    if self.maze[row][col] == "E": 
+                        current_time = pygame.time.get_ticks()
+                        if current_time - self.delay_E >= self.cooldown_E:
+                            self.frame_E += 1
+                            self.delay_E = current_time
+                            if self.frame_E >= len(list):
+                                self.frame_E= 0
+                        self.window.blit(list[self.frame_E], (col*35+self.window_width//2-(self.cell_width*len(self.maze[0])//2), row*35+self.offsett))
             elif letter == "M":
-                current_time = pygame.time.get_ticks()
-                if current_time - self.delay_M >= self.cooldown_M:
-                    self.frame_M += 1
-                    self.delay_M = current_time
-                    if self.frame_M >= len(list):
-                        self.frame_M= 0
-                self.window.blit(list[self.frame_M], (pos_x*35+self.window_width//2-(self.cell_width*len(self.maze[0])//2), pos_y*35+self.offsett))
+                for row in range(len(self.maze)):
+                 for col in range(len(self.maze[0])):
+                    if self.maze[row][col] == "M": 
+                        current_time = pygame.time.get_ticks()
+                        if current_time - self.delay_M >= self.cooldown_M:
+                            self.frame_M += 1
+                            self.delay_M = current_time
+                            if self.frame_M >= len(list):
+                                self.frame_M= 0
+                        self.window.blit(list[self.frame_M], (col*35+self.window_width//2-(self.cell_width*len(self.maze[0])//2), row*35+self.offsett))
             elif letter == "4":
-                current_time = pygame.time.get_ticks()
-                if current_time - self.delay_N4 >= self.cooldown_N4:
-                    self.frame_N4 += 1
-                    self.delay_N4 = current_time
-                    if self.frame_N4 >= len(list):
-                        self.frame_N4= 0
-                self.window.blit(list[self.frame_N4], (pos_x*35+self.window_width//2-(self.cell_width*len(self.maze[0])//2), pos_y*35+self.offsett)) 
+                for row in range(len(self.maze)):
+                 for col in range(len(self.maze[0])):
+                    if self.maze[row][col] == "4": 
+                        current_time = pygame.time.get_ticks()
+                        if current_time - self.delay_N4 >= self.cooldown_N4:
+                            self.frame_N4 += 1
+                            self.delay_N4 = current_time
+                            if self.frame_N4 >= len(list):
+                                self.frame_N4= 0
+                        self.window.blit(list[self.frame_N4], (col*35+self.window_width//2-(self.cell_width*len(self.maze[0])//2), row*35+self.offsett)) 
     
     def move_player(self, direction, player): 
         super().move_player(direction, player)
@@ -179,7 +204,24 @@ class Collect_the_word(MazeGame):
 
 
     def check_find_goal(self):
-        pass  
+        if self.player_pos[0] == self.goal[0] and self.player_pos[1]==self.goal[1] and self.player_blue_score.isEmpty():
+            winner_text = "Congratulations! Blue Win!"
+            pygame.mixer.music.stop()
+            self.game_win_sound.play()
+            self.draw_winner(winner_text)
+            pygame.mixer.music.load('Assets/menu-_sound.wav')
+            pygame.mixer.music.play(-1)
+
+            return True
+        elif self.player_2_pos[0] == self.goal[0] and self.player_2_pos[1]==self.goal[1] and self.player_red_score.isEmpty():
+            winner_text = "Congratulations! Red Win!"
+            pygame.mixer.music.stop()
+            self.game_win_sound.play()
+            self.draw_winner(winner_text)
+            pygame.mixer.music.load('Assets/menu-_sound.wav')
+            pygame.mixer.music.play(-1)
+            return True
+        return False  
 
 
     def run(self):
@@ -210,14 +252,14 @@ class Collect_the_word(MazeGame):
                     elif event.key == pygame.K_d:
                         self.move_player("d",2)
             self.window.fill(BLACK)
-            self.draw_treasure_maze()
-            self.draw_the_letter(self.A_pos[1],self.A_pos[0],"A",self.A)
+            self.draw_the_letter(self.C_pos[1],self.C_pos[0],"A",self.A)
             self.draw_the_letter(self.S_pos[1],self.S_pos[0],"S",self.S)
             self.draw_the_letter(self.C_pos[1],self.C_pos[0],"C",self.C)
             self.draw_the_letter(self.T_pos[1],self.T_pos[0],"V",self.T)
             self.draw_the_letter(self.E_pos[1],self.E_pos[0],"E",self.E)
             self.draw_the_letter(self.M_pos[1],self.M_pos[0],"M",self.M)
             self.draw_the_letter(self.N4_pos[1],self.N4_pos[0],"4",self.N4)
+            self.draw_treasure_maze()
             self.draw_player(self.player_pos[1],self.player_pos[0],1,self.list_player_blue)
             self.showing_score(5,5,1)
             if self.multi:
