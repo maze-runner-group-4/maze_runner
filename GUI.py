@@ -20,7 +20,7 @@ Click_sound = pygame.mixer.Sound(os.path.join("Assets","clickbutton.mp3"))
 # Set up the colors
 background_color = (255, 255, 255)
 button_color = (101 ,103, 119)  # Grey color with opacity (R, G, B, A)
-button_text_color = (255, 255, 255)
+button_text_color = (255, 215, 0)
 disabled_button_color = (191, 191, 191)
 button_clicked_color = (53, 228, 128, 100)  # Grey color with decreased opacity (R, G, B, A)
 
@@ -36,12 +36,12 @@ fontName = pygame.freetype.Font(font_path, font_size_names)
 
 # set the image buttons
 exit_button_img = pygame.image.load(os.path.join('Assets', 'StoneButtons.png'))
-Single_Button_img = pygame.image.load(os.path.join('Assets', 'radiusbutton.png'))
-Multi_button_img = pygame.image.load(os.path.join('Assets', 'radiusbutton.png'))
+Single_Button_img = pygame.image.load(os.path.join('Assets', 'radiusbuttons.png'))
+Multi_button_img = pygame.image.load(os.path.join('Assets', 'radiusbuttons.png'))
 Gold_button_img = pygame.image.load(os.path.join('Assets', 'radiusbuttonclicked.png'))
 Menu_buttons_img = pygame.image.load(os.path.join('Assets', 'menubutton.png'))
 EZ_buttons_img = pygame.image.load(os.path.join('Assets', 'ez.png'))
-Run_disabled_button_img = pygame.image.load(os.path.join('Assets', 'menubuttondisabled.png'))
+Run_disabled_button_img = pygame.image.load(os.path.join('Assets', 'menubutton.png'))
 About_us_button_img = pygame.image.load(os.path.join('Assets', 'About_us.png')) #About
 About_us_border_img = pygame.image.load(os.path.join('Assets', 'card.png')) 
 card = pygame.image.load(os.path.join('Assets', 'card.png')) 
@@ -118,7 +118,7 @@ card_5=pygame.transform.scale(card,(card_width,card_height))
 back_about_us=pygame.transform.scale(card,(card_width-250,card_height-50))
 
 # Apply the backgrounds
-SPACE = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'maze2.jpg')), (screen_width, screen_height))
+SPACE = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'maze2_upscaled.jpg')), (screen_width, screen_height))
 title_gif = pygame.image.load(os.path.join('Assets', 'mazetitle3.png'))
 Background_menu=pygame.image.load(os.path.join('Assets', 'menubackgrounds.png'))
 def mainloop():
@@ -129,6 +129,7 @@ def mainloop():
     multiplayer_clicked   = False
     escape_screen_active  = False
     About_us_clicked = False #About
+    Find_treasure_clicked = False
     # Main game loop 
     while True:
         # Handle events
@@ -139,7 +140,7 @@ def mainloop():
 
         # screen.blit(Background_menu, ((screen_width//2)-200,180))
 
-        if not escape_screen_active and not About_us_clicked :
+        if not escape_screen_active and not About_us_clicked and not Find_treasure_clicked :
             screen.blit(title_gif, ((screen_width - title_gif.get_width()) // 2, 15))
             screen.blit(exitimg, (button_x_center-40, exit_button_y+125)) 
             screen.blit(Multiimg, (button_x-110, multiplayer_button_y)) 
@@ -218,9 +219,11 @@ def mainloop():
                  mouse_pos = pygame.mouse.get_pos()                
                  if FindTreasure_button.collidepoint(mouse_pos):
                      # if multiplayer_clicked:  
-                      Click_sound.play()                  
-                      game = links("treasure",multiplayer_clicked)
-                      game.run()
+                      Click_sound.play()    
+                      Find_treasure_clicked = True
+                      escape_screen_active = False  
+                      About_us_clicked = False            
+                  
                  elif exit_button_rect.collidepoint(mouse_pos):
                      # print("Exiting the application...")
                      Click_sound.play()  
@@ -288,10 +291,10 @@ def mainloop():
 
             # Draw the new buttons
 
-            Easy = pygame.Rect(Inner_x, Easy_y,Button_width,Button_height)
-            Medium = pygame.Rect(Inner_x, Medium_y, Button_width, Button_height)
-            Hard = pygame.Rect(Inner_x, Hard_y, Button_width, Button_height)
-            Back = pygame.Rect(Inner_x, Back_y, Button_width, Button_height)
+            Easy = pygame.Rect(Inner_x, Easy_y-5,Button_width,Button_height)
+            Medium = pygame.Rect(Inner_x, Medium_y-5, Button_width, Button_height)
+            Hard = pygame.Rect(Inner_x, Hard_y-5, Button_width, Button_height)
+            Back = pygame.Rect(Inner_x, Back_y-5, Button_width, Button_height)
 
             # Draw the new button labels
             Easy_label,Easy_label_rect = font.render("Easy", button_text_color, None)
@@ -335,7 +338,68 @@ def mainloop():
                       Click_sound.play()  
                       game = links("hard",multiplayer_clicked) 
                       game.run()
-                  
+
+
+        elif Find_treasure_clicked and not escape_screen_active and not About_us_clicked :
+          # Draw new screen  
+
+          screen.blit(SPACE, (0, 0))
+          screen.blit(title_gif, ((screen_width - title_gif.get_width()) // 2, 30))
+          # Define the button position
+          Inner_x = screen_width // 2 - button_width // 2 - 50
+          Treasuregoal_y = screen_height // 2 - button_height // 2 -125
+          Lettercollect_y = screen_height // 2 - button_height // 2 
+          Back_y = screen_height // 2 - button_height // 2 + 125
+
+          # Showing the buttons image  
+          screen.blit(Menusimg, (Inner_x, Treasuregoal_y))
+          screen.blit(Menusimg, (Inner_x, Lettercollect_y))
+          screen.blit(Menusimg, (Inner_x, Back_y))
+
+          # Create rectangle for the images texts  
+          Treasuregoal = pygame.Rect(Inner_x, Treasuregoal_y-5, Button_width, Button_height)
+          Lettercollect = pygame.Rect(Inner_x, Lettercollect_y-5, Button_width, Button_height)  
+          Back = pygame.Rect(Inner_x, Back_y-5, Button_width, Button_height)
+
+          # Applying the text labels for the images  
+
+          Treasure_goal_label,Treasure_goal_rect = font.render("Coin Collector", button_text_color, None)
+          Treasure_goal_rect = Treasure_goal_label.get_rect(center=Treasuregoal.center)
+          screen.blit(Treasure_goal_label, Treasure_goal_rect)  
+
+
+
+          Letter_collect_label,Letter_collect_label_rect = font.render("Complete The Word", button_text_color, None)
+          Letter_collect_label_rect = Letter_collect_label.get_rect(center=Lettercollect.center)
+          screen.blit(Letter_collect_label, Letter_collect_label_rect)    
+         
+          
+          Back_label,Back_label_rect = font.render("Back", button_text_color, None)
+          Back_label_rect = Back_label.get_rect(center=Back.center)
+          screen.blit(Back_label, Back_label_rect)  
+
+          # Assiging the events when clicking to the buttons 
+
+          for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                if Back.collidepoint(mouse_pos):
+                      Click_sound.play()
+                      # print("Back button pressed")
+                      escape_screen_active = False
+                      single_player_clicked = False
+                      multiplayer_clicked = False  
+                      Find_treasure_clicked = False
+                elif Treasuregoal.collidepoint(mouse_pos):
+                     Click_sound.play() 
+                     game = links("treasure",multiplayer_clicked)
+                     game.run()
+                elif Lettercollect.collidepoint(mouse_pos): 
+                     Click_sound.play()
+
 
         elif About_us_clicked:
             # Draw the escape screen with new buttons
@@ -441,14 +505,16 @@ def mainloop():
                 screen.blit(line_surface, (x, y))
                 y += line_surface.get_height()
               
-        # Render the cards:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            # Render the cards:
+            for event in pygame.event.get():
+              if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            elif event.type == pygame.MOUSEBUTTONDOWN:
+              elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
-           
+
+       
+
         # Update the display
         pygame.display.flip()
 
