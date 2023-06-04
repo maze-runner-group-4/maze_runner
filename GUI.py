@@ -399,6 +399,8 @@ def mainloop():
                      game.run()
                 elif Lettercollect.collidepoint(mouse_pos): 
                      Click_sound.play()
+                     game = links("word",multiplayer_clicked)
+                     game.run()
 
 
         elif About_us_clicked:

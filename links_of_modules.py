@@ -3,6 +3,7 @@ from main import MazeGame
 from treasure_mode import Treasure
 from dodge_the_monsters import Dodge_the_monsters
 from hide_and_seek import Hide_and_seek
+from collect_the_word import Collect_the_word
 import random
 # from GUI import mainloop
 class links:
@@ -15,6 +16,7 @@ class links:
         self.multi = Maze_maps.list_of_multi_maps
         self.treasure = Maze_maps.list_of_treasure_maps
         self.hide = Maze_maps.list_of_hide_maps
+        self.collect_the_word = Maze_maps.complete_the_word_maze
 
 
     def get_rand_list (self,list):
@@ -42,9 +44,11 @@ class links:
             game = Dodge_the_monsters(self.get_rand_list(self.multi))
         if self.mode == "hide":
             game = Hide_and_seek(self.get_rand_list(self.hide))
+        if self.mode == "word":
+            game = Collect_the_word(self.collect_the_word,self.check_multi)
         
         # check multi
-        if self.check_multi == True and self.mode != "treasure":
+        if self.check_multi == True and self.mode != "treasure" and self.mode != "word":
             game.run(self.check_multi)
         else:
             game.run()
