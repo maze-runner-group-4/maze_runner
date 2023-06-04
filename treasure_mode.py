@@ -43,7 +43,7 @@ class Treasure(MazeGame):
         if self.maze[self.new_row][self.new_col] == "T":
                     # Remove the treasure from the maze
                     self.treasure_sound.play()  # Play the sound effect
-                    self.maze[self.new_row][self.new_col] = " "
+                    self.maze[self.new_row][self.new_col] = " "# Remove ####Remove 
                     self.treasure_counter-=1
                     self.calculate_score_for_treasure(player)
                     # self.treasure_sound.play()
