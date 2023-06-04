@@ -9,13 +9,32 @@ indigo = "indigo"
 
 class Collect_the_word(MazeGame):
     def __init__(self, maze):
-        super().__init__( maze)
+        super().__init__(maze)
+        self.word_queue = Queue()  
+
+    def push_word(self, word):
+        for letter in word:
+            self.word_queue.enqueue(letter)
+
+    def check_word(self):
+        current_pos = self.player_pos  
+        if self.word_queue.isEmpty():  
+            self.maze[current_pos[1]][current_pos[0]] = "G"  
+            self.draw_goal()  
+            return
+
+        front_of_queue = self.word_queue.peek()  
+        if self.maze[current_pos[1]][current_pos[0]] == front_of_queue: # Update the maze 
+            self.word_queue.dequeue()
+            self.maze[current_pos[1]][current_pos[0]] == " " # Remove the letter 
+
 
     def draw_the_letter(self):
         pass
     
     def move_player(self, direction, player): 
         super().move_player(direction, player)
+
 
     def showing_score(self):
         pass
