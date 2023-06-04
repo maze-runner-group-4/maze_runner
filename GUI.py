@@ -4,6 +4,7 @@ import os
 import pygame.freetype
 from links_of_modules import links
 from pygame.locals import *
+import pygame.mixer
 # Initialize Pygame
 pygame.init()
 pygame.freetype.init()
@@ -13,6 +14,8 @@ screen_width = 1820
 screen_height = 945
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Menu Example")
+Click_sound = pygame.mixer.Sound(os.path.join("Assets","clickbutton.mp3"))
+
 
 # Set up the colors
 background_color = (255, 255, 255)
@@ -138,61 +141,13 @@ def mainloop():
     while True:
         # Handle events
        
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_pos = pygame.mouse.get_pos()
-                if FindTreasure_button.collidepoint(mouse_pos):
-                    # if multiplayer_clicked:                    
-                     game = links("treasure",multiplayer_clicked)
-                     game.run()
-                elif exit_button_rect.collidepoint(mouse_pos):
-                    # print("Exiting the application...")
-                    pygame.quit()
-                    sys.exit()
-                elif escape_button.collidepoint(mouse_pos):
-                    # print("Escape the maze button pressed")
-                    escape_screen_active = True
-                elif multi_button_rect.collidepoint(mouse_pos):
-                    # print("Multiplayer button pressed")
-                    multiplayer_clicked = True
-                    single_player_clicked = False
-                elif single_button_rect.collidepoint(mouse_pos):
-                    # print("Single Player button pressed")
-                    single_player_clicked = True
-                    multiplayer_clicked = False
-                elif escape_screen_active and Back.collidepoint(mouse_pos):
-                    # print("Back button pressed")
-                    escape_screen_active = False
-                    single_player_clicked = False
-                    multiplayer_clicked = False
-
-                elif About_us_rect.collidepoint(mouse_pos):#About
-                    print("About us  ...")
-                    About_us_clicked=True
-
-                elif dodge_button.collidepoint(mouse_pos):
-                    # print("Starting the game...")
-                    game = links("multi",multiplayer_clicked)
-                    game.run()
-
-                elif run_button.collidepoint(mouse_pos):
-                    # print("Starting the game...")
-
-                    if multiplayer_clicked:
-                        game = links("hide",multiplayer_clicked)
-                        game.run()
-
-
-
+        
         # Clear the screen
         screen.blit(SPACE, (0, 0))
 
         # screen.blit(Background_menu, ((screen_width//2)-200,180))
 
-        if not escape_screen_active :
+        if not escape_screen_active and not About_us_clicked :
             screen.blit(title_gif, ((screen_width - title_gif.get_width()) // 2, 15))
             screen.blit(exitimg, (button_x_center-40, exit_button_y+125)) 
             screen.blit(Multiimg, (button_x-110, multiplayer_button_y)) 
@@ -265,8 +220,64 @@ def mainloop():
             About_label_rect.topright = (About_us_rect.left + 405, About_us_rect.top + 30)
             screen.blit(About_label, About_label_rect)
 
+            for event in pygame.event.get():
+             if event.type == pygame.QUIT:
+                 pygame.quit()
+                 sys.exit()
+             elif event.type == pygame.MOUSEBUTTONDOWN:
+                 mouse_pos = pygame.mouse.get_pos()                
+                 if FindTreasure_button.collidepoint(mouse_pos):
+                     # if multiplayer_clicked:  
+                      Click_sound.play()                  
+                      game = links("treasure",multiplayer_clicked)
+                      game.run()
+                 elif exit_button_rect.collidepoint(mouse_pos):
+                     # print("Exiting the application...")
+                     Click_sound.play()  
+                     pygame.quit()
+                     sys.exit()
+                 elif escape_button.collidepoint(mouse_pos):
+                     # print("Escape the maze button pressed")
+                     Click_sound.play()  
+                     escape_screen_active = True
+                 elif multi_button_rect.collidepoint(mouse_pos):
+                     # print("Multiplayer button pressed")
+                     Click_sound.play() 
+                     multiplayer_clicked = True
+                     single_player_clicked = False
+                 elif single_button_rect.collidepoint(mouse_pos):
+                     Click_sound.play() 
+                     # print("Single Player button pressed")
+                     single_player_clicked = True
+                     multiplayer_clicked = False
+                 elif escape_screen_active and Back.collidepoint(mouse_pos):
+                     # print("Back button pressed")
+                     escape_screen_active = False
+                     single_player_clicked = False
+                     multiplayer_clicked = False
 
-        else:
+                 elif About_us_rect.collidepoint(mouse_pos):#About
+                     Click_sound.play()
+                     print("About us  ...")
+                     About_us_clicked=True
+                      
+                 elif dodge_button.collidepoint(mouse_pos):
+                     # print("Starting the game...")
+                     Click_sound.play() 
+                     game = links("multi",multiplayer_clicked)
+                     game.run()
+                     
+                 elif run_button.collidepoint(mouse_pos):
+                 # print("Starting the game...")
+
+                    if multiplayer_clicked:
+                        Click_sound.play() 
+                        game = links("hide",multiplayer_clicked)
+                        game.run()
+
+
+
+        elif escape_screen_active and not About_us_clicked :
             # Draw the escape screen with new buttons
 
             screen.blit(SPACE, (0, 0))
@@ -311,8 +322,34 @@ def mainloop():
             Back_label_rect = Back_label.get_rect(center=Back.center)
             screen.blit(Back_label, Back_label_rect)
 
+            for event in pygame.event.get():
+              if event.type == pygame.QUIT:
+                  pygame.quit()
+                  sys.exit()
+              elif event.type == pygame.MOUSEBUTTONDOWN:
+                  mouse_pos = pygame.mouse.get_pos()
+                  Click_sound.play()
+                  if Back.collidepoint(mouse_pos):
+                      Click_sound.play()
+                      # print("Back button pressed")
+                      escape_screen_active = False
+                      single_player_clicked = False
+                      multiplayer_clicked = False  
+                  elif Easy.collidepoint(mouse_pos):
+                      Click_sound.play()
+                      game1 = links("easy",multiplayer_clicked) 
+                      game1.run()
+                  elif Medium.collidepoint(mouse_pos):
+                      Click_sound.play()
+                      game = links("medium",multiplayer_clicked) 
+                      game.run() 
+                  elif Hard.collidepoint(mouse_pos):
+                      Click_sound.play()  
+                      game = links("hard",multiplayer_clicked) 
+                      game.run()
+                  
 
-        if  About_us_clicked:
+        elif About_us_clicked:
             # Draw the escape screen with new buttons
 
             screen.blit(SPACE, (0, 0))
@@ -413,29 +450,15 @@ def mainloop():
         #     pygame.quit()
                         
 
-        if escape_screen_active:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                
              
-             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    mouse_pos = pygame.mouse.get_pos()
-                    if Back.collidepoint(mouse_pos):
-                        # print("Back button pressed")
-                        escape_screen_active = False
-                        single_player_clicked = False
-                        multiplayer_clicked = False  
-                    elif Easy.collidepoint(mouse_pos):
-                        game1 = links("easy",multiplayer_clicked) 
-                        game1.run()
-                    elif Medium.collidepoint(mouse_pos):
-                        game = links("medium",multiplayer_clicked) 
-                        game.run() 
-                    elif Hard.collidepoint(mouse_pos):
-                        game = links("hard",multiplayer_clicked) 
-                        game.run()
-                  
+           
         # Update the display
         pygame.display.flip()
 
