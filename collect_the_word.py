@@ -75,7 +75,8 @@ class Collect_the_word(MazeGame):
         self.cooldown_E = 200
         self.cooldown_M = 200
         self.cooldown_N4 = 200
-
+        self.letter_collect_sound = pygame.mixer.Sound(os.path.join("Assets","Video_game_treasure_sound_effect.wav"))
+        # Video_game_treasure_sound_effect.wav
     def check_word(self, player):
         if player == 2: 
   
@@ -83,30 +84,33 @@ class Collect_the_word(MazeGame):
 
             if self.maze[self.new_row][self.new_col] == front_of_queue: # Update the maze 
                 self.player_blue_score.dequeue()
+                self.letter_collect_sound.play()
                 self.maze[self.new_row][self.new_col] = " " # Remove the letter 
-                print(self.maze[self.new_row][self.new_col])
+                # print(self.maze[self.new_row][self.new_col])
 
             if self.maze[self.new_row][self.new_col] == "V" and front_of_queue == "T": # Update the maze 
                 self.player_blue_score.dequeue()
+                self.letter_collect_sound.play()
                 self.maze[self.new_row][self.new_col] = " " # Remove the letter
         if player == 1:
             front_of_queue2 = self.player_red_score.peek()  
             if self.maze[self.new_row][self.new_col] == front_of_queue2: # Update the maze 
                 self.player_red_score.dequeue()
+                self.letter_collect_sound.play()
                 self.maze[self.new_row][self.new_col] = " " # Remove the letter 
                 print(self.maze[self.new_row][self.new_col])
 
             if self.maze[self.new_row][self.new_col] == "V" and front_of_queue2 == "T": # Update the maze 
                 self.player_red_score.dequeue()
+                self.letter_collect_sound.play()
                 self.maze[self.new_row][self.new_col] = " " # Remove the letter
 
         if self.player_blue_score.isEmpty() or self.player_red_score.isEmpty() :  
             self.goal_draw=True  
             
-    def get_repeated(self,char):
-        pass
     
-    def draw_the_letter(self,pos_x, pos_y,letter,list):
+    
+    def draw_the_letter(self,letter,list):
             if letter == "A":
                 for row in range(len(self.maze)):
                  for col in range(len(self.maze[0])):
@@ -252,13 +256,13 @@ class Collect_the_word(MazeGame):
                     elif event.key == pygame.K_d:
                         self.move_player("d",2)
             self.window.fill(BLACK)
-            self.draw_the_letter(self.C_pos[1],self.C_pos[0],"A",self.A)
-            self.draw_the_letter(self.S_pos[1],self.S_pos[0],"S",self.S)
-            self.draw_the_letter(self.C_pos[1],self.C_pos[0],"C",self.C)
-            self.draw_the_letter(self.T_pos[1],self.T_pos[0],"V",self.T)
-            self.draw_the_letter(self.E_pos[1],self.E_pos[0],"E",self.E)
-            self.draw_the_letter(self.M_pos[1],self.M_pos[0],"M",self.M)
-            self.draw_the_letter(self.N4_pos[1],self.N4_pos[0],"4",self.N4)
+            self.draw_the_letter("A",self.A)
+            self.draw_the_letter("S",self.S)
+            self.draw_the_letter("C",self.C)
+            self.draw_the_letter("V",self.T)
+            self.draw_the_letter("E",self.E)
+            self.draw_the_letter("M",self.M)
+            self.draw_the_letter("4",self.N4)
             self.draw_treasure_maze()
             self.draw_player(self.player_pos[1],self.player_pos[0],1,self.list_player_blue)
             self.showing_score(5,5,1)
