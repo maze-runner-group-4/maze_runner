@@ -8,25 +8,24 @@ BLACK = (0, 0, 0)
 indigo = "indigo"
 
 class Collect_the_word(MazeGame):
-    def __init__(self, maze):
+    def __init__(self, maze, multi=False):
         super().__init__(maze)
-        self.word_queue = Queue()  
-
-    def push_word(self, word):
-        for letter in word:
-            self.word_queue.enqueue(letter)
+        self.word_queue = Queue()
+        self.goal_draw=False  
 
     def check_word(self):
-        current_pos = self.player_pos  
-        if self.word_queue.isEmpty():  
-            self.maze[current_pos[1]][current_pos[0]] = "G"  
-            self.draw_goal()  
-            return
 
         front_of_queue = self.word_queue.peek()  
         if self.maze[current_pos[1]][current_pos[0]] == front_of_queue: # Update the maze 
             self.word_queue.dequeue()
             self.maze[current_pos[1]][current_pos[0]] == " " # Remove the letter 
+
+        current_pos = self.player_pos  
+        if self.word_queue.isEmpty():  
+            self.goal_draw=True  
+            return
+
+        
 
 
     def draw_the_letter(self):
@@ -34,6 +33,7 @@ class Collect_the_word(MazeGame):
     
     def move_player(self, direction, player): 
         super().move_player(direction, player)
+        self.check_word()
 
 
     def showing_score(self):
@@ -79,9 +79,9 @@ class Collect_the_word(MazeGame):
                 if self.check_find_goal():
                     pygame.mixer.music.stop()
                     self.running = False
-            self.draw_score(10,10,1)
+            self.draw_the_letter(10,10,1)
             if self.multi:
-                self.draw_score(self.window_width-220,10,2)
+                self.draw_the_letter(self.window_width-220,10,2)
             pygame.display.flip()
             self.clock.tick(60)
         # pygame.quit()
