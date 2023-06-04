@@ -28,7 +28,7 @@ button_clicked_color = (53, 228, 128, 100)  # Grey color with decreased opacity 
 font_path = "Fonts/font.ttf"
 font_size = 16
 font_size_names = 32
-# About_us_font_size=11
+
 font = pygame.freetype.Font(font_path, font_size)
 fontName = pygame.freetype.Font(font_path, font_size_names)
 
@@ -45,16 +45,11 @@ Run_disabled_button_img = pygame.image.load(os.path.join('Assets', 'menubuttondi
 About_us_button_img = pygame.image.load(os.path.join('Assets', 'About_us.png')) #About
 About_us_border_img = pygame.image.load(os.path.join('Assets', 'card.png')) 
 card = pygame.image.load(os.path.join('Assets', 'card.png')) 
-# name_stone = pygame.image.load(os.path.join('Assets', 'Stonename.png')) 
-# jana = pygame.image.load(os.path.join('team', 'jana (3).jpg'))
-# abdullah = pygame.image.load(os.path.join('team', 'abdullah.jpg'))
-# card2=pygame.image.load(os.path.join('Assets', 'card.png'))
-# abdulkareem=pygame.image.load(os.path.join('team', 'abdulkareem.jpg'))
-# mustafa=pygame.image.load(os.path.join('team', 'mustafa.jpg'))
-# husam=pygame.image.load(os.path.join('team', 'husam.jpg'))
+card2=pygame.image.load(os.path.join('Assets', 'card.png'))
+card3=pygame.image.load(os.path.join('Assets', 'card.png'))
+card4=pygame.image.load(os.path.join('Assets', 'card.png'))
+card5=pygame.image.load(os.path.join('Assets', 'card.png')) 
 
-# About_us_border_img_width = About_us_border_img.get_width()
-# About_us_border_img_height = About_us_border_img.get_height()
 
 About_us_border_img_width = 850
 About_us_border_img_height =800
@@ -94,13 +89,12 @@ card1_y=(screen_height - button_height) // 2 - 200
 card2_x=screen_width // 2 - 100
 card2_y=(screen_height - button_height) // 2 + 190
 
-card_width=100
-card_height=100
+card_width=400
+card_height=150
 
 name_stone_width=370
 name_stone_height=110
-# card_width2=400
-card_height2=415
+
 
 
 team_width=300
@@ -116,14 +110,12 @@ Ezimg = pygame.transform.scale(Menu_buttons_img,(Button_width , Button_height-20
 RunDisabledimg = pygame.transform.scale(Run_disabled_button_img,(Button_width , Button_height-20))
 About_us=pygame.transform.scale(About_us_button_img,(About_Button_width-50, About_Button_height-60)) #About
 border=pygame.transform.scale(About_us_border_img,(About_us_border_img_width,About_us_border_img_height)) 
-cardMiddle=pygame.transform.scale(card,(card_width,card_height))
-# jana=pygame.transform.scale(jana,(team_width,team_height))
-# abdullah=pygame.transform.scale(abdullah,(team_width,team_height))
-# namestone = pygame.transform.scale(name_stone,(name_stone_width , name_stone_height))
-# card2=pygame.transform.scale(card2,(card_width,card_height))
-# abdulkareem=pygame.transform.scale(abdulkareem,(team_width,team_height))
-# mustafa=pygame.transform.scale(mustafa,(team_width,team_height))
-# husam=pygame.transform.scale(husam,(team_width,team_height))
+card_1=pygame.transform.scale(card,(card_width,card_height))
+card_2=pygame.transform.scale(card,(card_width+50,card_height))
+card_3=pygame.transform.scale(card,(card_width,card_height))
+card_4=pygame.transform.scale(card,(card_width+50,card_height))
+card_5=pygame.transform.scale(card,(card_width,card_height))
+back_about_us=pygame.transform.scale(card,(card_width-250,card_height-50))
 
 # Apply the backgrounds
 SPACE = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'maze2.jpg')), (screen_width, screen_height))
@@ -167,12 +159,8 @@ def mainloop():
             single_button_rect = pygame.Rect(button_x_center+130, singleplayer_button_y, Button_width, Button_height-10)
             run_button = pygame.Rect(button_x_center-40, run_button_y, Button_width, Button_height-20)
             exit_button_rect = pygame.Rect(button_x_center-45, exit_button_y+125, Button_width, Button_height-20)
-            # About_us_rect= pygame.Rect(About_us_button_x-45, About_us_button_y+125, About_Button_width, About_Button_height-20)#About
             About_us_rect = pygame.Rect(About_us_button_x, About_us_button_y, Button_width - 20, Button_height - 20)
-            About_us_border_rect = pygame.Rect(About_us_border_img_x, About_us_border_img_y, About_us_border_img_width - 20, About_us_border_img_height - 20)
-            card1_rect=pygame.Rect(card1_x, card1_y, card_width, card_height)
-            card2_rect=pygame.Rect(card2_x, card2_y, card_width, card_height)
-            
+            About_us_border_rect = pygame.Rect(About_us_border_img_x, About_us_border_img_y, About_us_border_img_width - 20, About_us_border_img_height - 20)            
 
             if multiplayer_clicked:
                 screen.blit(Goldimg, (button_x-110, multiplayer_button_y)) 
@@ -220,6 +208,8 @@ def mainloop():
             About_label_rect.topright = (About_us_rect.left + 405, About_us_rect.top + 30)
             screen.blit(About_label, About_label_rect)
 
+            
+
             for event in pygame.event.get():
              if event.type == pygame.QUIT:
                  pygame.quit()
@@ -237,7 +227,7 @@ def mainloop():
                      pygame.quit()
                      sys.exit()
                  elif escape_button.collidepoint(mouse_pos):
-                     # print("Escape the maze button pressed")
+                     
                      Click_sound.play()  
                      escape_screen_active = True
                  elif multi_button_rect.collidepoint(mouse_pos):
@@ -247,18 +237,16 @@ def mainloop():
                      single_player_clicked = False
                  elif single_button_rect.collidepoint(mouse_pos):
                      Click_sound.play() 
-                     # print("Single Player button pressed")
                      single_player_clicked = True
                      multiplayer_clicked = False
+
                  elif escape_screen_active and Back.collidepoint(mouse_pos):
-                     # print("Back button pressed")
                      escape_screen_active = False
                      single_player_clicked = False
                      multiplayer_clicked = False
 
                  elif About_us_rect.collidepoint(mouse_pos):#About
                      Click_sound.play()
-                     print("About us  ...")
                      About_us_clicked=True
                       
                  elif dodge_button.collidepoint(mouse_pos):
@@ -356,16 +344,55 @@ def mainloop():
             screen.blit(title_gif, ((screen_width - title_gif.get_width()) // 2, 30))
 
             screen.blit(border,(About_us_border_img_x-250, About_us_border_img_y-270)) 
-            # screen.blit(card11,(About_us_border_img_x-800, About_us_border_img_y-400)) 
+            screen.blit(card_1,(card1_x +580, card1_y+100)) #right card half
+            screen.blit(card_2,(card1_x-700, card1_y-50)) #left card up
+            screen.blit(card_3,(card1_x+580, card1_y-145)) #first right
+            screen.blit(card_4,(card1_x-700, card1_y+350)) #left card down
+            screen.blit(card_5,(card1_x+580, card1_y+375)) #right card finall
+            screen.blit(back_about_us,(0, 0)) 
 
-            screen.blit(card,(card1_x-800, card1_y-245)) 
-            # screen.blit(jana,(card_width-345, card_height-320))
-            # screen.blit(namestone,(name_stone_width-345, card_height2+30))
-
-            # screen.blit(card,(card1_x +600, card1_y-55)) 
-            # screen.blit(abdullah,(card_width+1060, card_height-130))
+            names_button=pygame.Rect(card1_x-675, card1_y-50,card_width,card_height)
+            names_button_label,Back_label_rect = font.render("Abdulkareem Abunabhan", button_text_color, None)
+            Back_label_rect = names_button_label.get_rect(center=names_button.center)
+            screen.blit(names_button_label, Back_label_rect)
             
-            # screen.blit(card2,(card2_x-800, card2_y-60)) 
+            names_button=pygame.Rect(card1_x-700, card1_y+350,card_width,card_height)
+            names_button_label,Back_label_rect = font.render("Husam Zabian", button_text_color, None)
+            Back_label_rect = names_button_label.get_rect(center=names_button.center)
+            screen.blit(names_button_label, Back_label_rect)
+
+            names_button=pygame.Rect(card1_x+580, card1_y-145,card_width,card_height)
+            names_button_label,Back_label_rect = font.render("Mustafa Mansour", button_text_color, None)
+            Back_label_rect = names_button_label.get_rect(center=names_button.center)
+            screen.blit(names_button_label, Back_label_rect)
+
+            names_button=pygame.Rect(card1_x +580, card1_y+100,card_width,card_height)
+            names_button_label,Back_label_rect = font.render("Jana Almomani", button_text_color, None)
+            Back_label_rect = names_button_label.get_rect(center=names_button.center)
+            screen.blit(names_button_label, Back_label_rect)
+
+            names_button=pygame.Rect(card1_x+580, card1_y+375,card_width,card_height)
+            names_button_label,Back_label_rect = font.render("Abdullah Shaghnoba", button_text_color, None)
+            Back_label_rect = names_button_label.get_rect(center=names_button.center)
+            screen.blit(names_button_label, Back_label_rect)
+
+            names_button=pygame.Rect(card1_x-933, card1_y-300 ,card_width,card_height)
+            names_button_label,Back_label_rect = font.render("Back", button_text_color, None)
+            Back_label_rect = names_button_label.get_rect(center=names_button.center)
+            screen.blit(names_button_label, Back_label_rect)
+
+            for event in pygame.event.get():
+              if event.type == pygame.QUIT:
+                  pygame.quit()
+                  sys.exit()
+              elif event.type == pygame.MOUSEBUTTONDOWN:
+                  mouse_pos = pygame.mouse.get_pos()
+                  if names_button.collidepoint(mouse_pos):
+                      Click_sound.play()
+                      escape_screen_active = False
+                      single_player_clicked = False
+                      multiplayer_clicked = False 
+                      About_us_clicked =False
 
 
             # # Render the cards
@@ -413,51 +440,14 @@ def mainloop():
             for line_surface in line_surfaces:
                 screen.blit(line_surface, (x, y))
                 y += line_surface.get_height()
-                # Move to the next line
-
-                # line_surface,End_label_rect = font.render(line , button_text_color, None)
-         
-            #    screen.blit(line_surface, End_label_rect)
               
-
         # Render the cards:
-
-        # # Create a Pygame surface
-        #     surface = pygame.display.set_mode((screen_width, screen_height))
-
-        #     # Load the card images
-        #     card1 = pygame.image.load("Assets/card.png").convert()  # Load and convert the image to improve performance
-        #     card2 = pygame.image.load("Assets/team/jana (3).jpg").convert()
-
-        #     # Set the positions for the cards
-        #     card1_x = 100
-        #     card1_y = 100
-        #     card2_x = 200
-        #     card2_y = 200
-
-        #     # Blit the images onto the surface
-        #     surface.blit(card1, (card1_x, card1_y))  # Position the first card at (card1_x, card1_y)
-        #     surface.blit(card2, (card2_x, card2_y))  # Position the second card at (card2_x, card2_y)
-
-        #     # Main game loop
-        #     running = True
-        #     while running:
-        #         for event in pygame.event.get():
-        #             if event.type == pygame.QUIT:
-        #                 running = False
-
-        #     # Quit Pygame
-        #     pygame.quit()
-                        
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
-                
-             
            
         # Update the display
         pygame.display.flip()
