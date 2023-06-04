@@ -19,7 +19,7 @@ class Queue:
     
     def dequeue(self):
         if not self.front:
-            raise ValueError("Empty queue")
+            return "Find goal"
         elif self.front == self.rear:
             self.rear=None
         self.size-=1
@@ -32,7 +32,7 @@ class Queue:
         if self.front:
             return self.front.value
         else:
-            raise ValueError("Empty queue")
+            return "Find goal"
             
     def isEmpty(self):
         return not self.size
@@ -41,7 +41,7 @@ class Queue:
         output=""
 
         if self.front == None:
-            output="Empty queue"
+            output="Find goal"
         else:
             current=self.front
             while(current):
