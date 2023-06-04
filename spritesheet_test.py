@@ -6,8 +6,8 @@ import spritesheet
 # from coins_sheet import *
 pygame.init()
 animation_steps=3
-SCREEN_WIDTH = 1600
-SCREEN_HEIGHT = 900
+SCREEN_WIDTH = 1366
+SCREEN_HEIGHT = 768
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Spritesheets')
@@ -354,7 +354,37 @@ animation_list_Tletters =[sprite_letterT1.get_image(0, 80, 80, 1, BLACK),sprite_
 
 
 ############################################################################################################################################
+sprite_sheet_title1 = pygame.image.load('Assets/spriteimages/title/cool1.png').convert_alpha()
+sprite_sheet_title2 = pygame.image.load('Assets/spriteimages/title/cool2.png').convert_alpha()
+sprite_sheet_title3 = pygame.image.load('Assets/spriteimages/title/cool3.png').convert_alpha()
+sprite_sheet_title4 = pygame.image.load('Assets/spriteimages/title/cool4.png').convert_alpha()
+sprite_sheet_title5 = pygame.image.load('Assets/spriteimages/title/cool5.png').convert_alpha()
+sprite_title_f_1=spritesheet.SpriteSheet(sprite_sheet_title1)
+sprite_title_f_2=spritesheet.SpriteSheet(sprite_sheet_title2)
+sprite_title_f_3=spritesheet.SpriteSheet(sprite_sheet_title3)
+sprite_title_f_4=spritesheet.SpriteSheet(sprite_sheet_title4)
+sprite_title_f_5=spritesheet.SpriteSheet(sprite_sheet_title5)
 
+animation_list_title =[sprite_title_f_1.get_image2(0, 869, 130, 1, BLACK),sprite_title_f_2.get_image2(0, 869, 130, 1, BLACK), sprite_title_f_3.get_image2(0, 869, 130, 1, BLACK), sprite_title_f_4.get_image2(0, 869, 130, 1, BLACK),sprite_title_f_5.get_image2(0, 869, 130, 1, BLACK)]
+
+##########################################################################################################################################################################################################################################################################################################
+sprite_sheet_image = pygame.image.load('Assets/spriteimages/blue_player/blue_player_.png').convert_alpha()
+sprite_sheet = spritesheet.SpriteSheet(sprite_sheet_image)
+animation_list_blue_player = []
+animation_steps_long= 3
+
+
+for x in range(animation_steps_long):
+ animation_list_blue_player.append(sprite_sheet.get_image(x, 221.67, 338, 5, BLACK))
+ ##############################################################################################################################################################################
+sprite_sheet_image_red = pygame.image.load('Assets/spriteimages/red_player/red_player_remove.png').convert_alpha()
+sprite_sheet_red = spritesheet.SpriteSheet(sprite_sheet_image_red)
+animation_list_red_player = []
+animation_steps_long= 3
+
+
+for x in range(animation_steps_long):
+ animation_list_red_player.append(sprite_sheet_red.get_image(x, 184.5, 254, 5, BLACK))
 
 # run = True
 # while run:
@@ -366,9 +396,9 @@ animation_list_Tletters =[sprite_letterT1.get_image(0, 80, 80, 1, BLACK),sprite_
 # 	if current_time - delay>=cooldown:
 # 		frame+=1
 # 		delay = current_time
-# 		if frame >=len(animation_list_Tletters):
+# 		if frame >=3:
 # 			frame = 0
-# 	screen.blit(animation_list_Tletters[int(frame)], (0, 0))
+# 	screen.blit(animation_list_blue_player[int(frame)], (0, 0))
 			
 # 	#show frame image
 	
