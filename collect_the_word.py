@@ -12,6 +12,30 @@ class Collect_the_word(MazeGame):
         super().__init__(maze)
         self.word_queue = Queue()
         self.goal_draw=False  
+        self.score_FONT = pygame.font.SysFont('comicsans',30)
+        "Create queue for the blue player "
+        self.multi=multi
+        self.player_blue_score=Queue()
+        self.player_blue_score.enqueue("A")
+        self.player_blue_score.enqueue("S")
+        self.player_blue_score.enqueue("A")
+        self.player_blue_score.enqueue("C")
+        self.player_blue_score.enqueue("T")
+        self.player_blue_score.enqueue("E")
+        self.player_blue_score.enqueue("A")
+        self.player_blue_score.enqueue("M")
+        self.player_blue_score.enqueue("4")
+        "Create queue for the red player"
+        self.player_red_score=Queue()
+        self.player_red_score.enqueue("A")
+        self.player_red_score.enqueue("S")
+        self.player_red_score.enqueue("A")
+        self.player_red_score.enqueue("C")
+        self.player_red_score.enqueue("T")
+        self.player_red_score.enqueue("E")
+        self.player_red_score.enqueue("A")
+        self.player_red_score.enqueue("M")
+        self.player_red_score.enqueue("4")
 
     def check_word(self):
 
@@ -36,8 +60,17 @@ class Collect_the_word(MazeGame):
         self.check_word()
 
 
-    def showing_score(self):
-        pass
+    def showing_score(self,pos1,pos2,player):
+        if player==1: 
+            blue_score_text =f"Blue Player Word : { self.player_blue_score.__str__()}"
+            draw_text = self.score_FONT.render(blue_score_text, 1, indigo)
+            self.window.blit(draw_text, (pos1,pos2))
+            pygame.display.update()
+        if player==2 and self.multi: 
+            red_score_text =f"Red Player Word : {  self.player_red_score.__str__()}"
+            draw_text = self.score_FONT.render(red_score_text, 1, indigo)
+            self.window.blit(draw_text, (pos1,pos2))
+            pygame.display.update()
 
 
     def check_find_goal(self):
@@ -52,6 +85,8 @@ class Collect_the_word(MazeGame):
                 if event.type == pygame.QUIT:
                     pygame.mixer.music.stop()
                     self.running = False
+                    pygame.mixer.music.load('Assets/menu-_sound.wav')
+                    pygame.mixer.music.play(-1)
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_UP:
                         self.move_player("up",1)
@@ -72,22 +107,26 @@ class Collect_the_word(MazeGame):
             self.window.fill(BLACK)
             self.draw_treasure_maze()
             self.draw_player(self.player_pos[1],self.player_pos[0],1,self.list_player_blue)
+            self.showing_score(5,5,1)
             if self.multi:
+                self.showing_score(self.window_width-360,5,2)
                 self.draw_player(self.player_2_pos[1],self.player_2_pos[0],2,self.list_player_2_red)
             if self.goal_draw:    
                 self.draw_goal()
                 if self.check_find_goal():
                     pygame.mixer.music.stop()
                     self.running = False
-            self.draw_the_letter(10,10,1)
-            if self.multi:
-                self.draw_the_letter(self.window_width-220,10,2)
+                    pygame.mixer.music.load('Assets/menu-_sound.wav')
+                    pygame.mixer.music.play(-1)
+            # self.draw_the_letter(10,10,1)
+            # if self.multi:
+            #     self.draw_the_letter(self.window_width-220,10,2)
             pygame.display.flip()
             self.clock.tick(60)
         # pygame.quit()
 
 if __name__ == "__main__":
-    game = Collect_the_word( Maze_maps.maze_treasure)
+    game = Collect_the_word( Maze_maps.,True)
 
     game.run()
     
