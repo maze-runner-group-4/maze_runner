@@ -45,7 +45,7 @@ class Queue:
         else:
             current=self.front
             while(current):
-                output+=f'{current.value} --> '
+                output+=f'{current.value} '
                 current=current.next
-            output+=" None"
+            output+=""
         return(output)
