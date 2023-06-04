@@ -437,3 +437,34 @@ class Maze_maps:
     ]
     list_of_multi_maps = [maze_multi,maze_multi2]
     # list_of_multi_maps = [maze_multi2]
+
+    complete_the_word_maze = [
+        " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ",
+        " XP                                              LX ",
+        " X     XXXXXXXXXXXXX     AA     XXXXXXXXXXXXX     X ",
+        " X       XXXXXXXXXXXX          XXXXXXXXXXXX       X ",
+        " X         AXXXXXXXXXX        XXXXXXXXXXA         X ",
+        " X                    X      X                    X ",
+        " X                     X    X                     X ",
+        " X                      X  X                      X ",
+        " X                       XX                       X ",
+        " X                       XX                       X ",
+        " X                      XSSX                      X ",
+        " X                     X    X                     X ",
+        " X             C                    C             X ",
+        " XX     V      X       E    E       X     V      XX ",
+        " X X          X X                  X X          X X ",
+        " X                                                X ",
+        " X   X      X     X              X     X      X   X ",
+        " X    X    X   M   XA          AX   M   X    X    X ",
+        " X     XXXX         XXXXXXXXXXXX         XXXX     X ",
+        " X      XX           XXXXXXXXXX           XX      X ",
+        " X      XX            XXXXXXXX            XX      X ",
+        " X      XX             XXXXXX             XX      X ",
+        " X     XXXX             XXXX             XXXX     X ",
+        " X    XXXXXX             XX             XXXXXX    X ",
+        " X      4               XXXX               4      X ",
+        " X                       G                        X ",
+        " X                    XXXXXXXX                    X ",
+        " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ",
+    ]
