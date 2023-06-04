@@ -225,6 +225,134 @@ for x in range(animation_steps):
 for x in range(animation_steps):
  animation_list_up.append(sprite_sheet_up.get_image(x, 222, 250, 1, BLACK))
 
+# for number 4 collect
+
+sprite_sheet_number1 = pygame.image.load('Assets/spriteimages/4/image_1_num_4.png').convert_alpha()
+sprite_sheet_number2 = pygame.image.load('Assets/spriteimages/4/image_2_num_4.png').convert_alpha()
+sprite_sheet_number3 = pygame.image.load('Assets/spriteimages/4/image_3_num_4.png').convert_alpha()
+sprite_sheet_number4 = pygame.image.load('Assets/spriteimages/4/image_4_num_4.png').convert_alpha()
+sprite_sheet_number5 = pygame.image.load('Assets/spriteimages/4/image_5_num_4.png').convert_alpha()
+sprite_sheet_number6 = pygame.image.load('Assets/spriteimages/4/image_6_num_4.png').convert_alpha()
+
+sprite_number1=spritesheet.SpriteSheet(sprite_sheet_number1)
+sprite_number2=spritesheet.SpriteSheet(sprite_sheet_number2)
+sprite_number3=spritesheet.SpriteSheet(sprite_sheet_number3)
+sprite_number4=spritesheet.SpriteSheet(sprite_sheet_number4)
+sprite_number5=spritesheet.SpriteSheet(sprite_sheet_number5)
+sprite_number6=spritesheet.SpriteSheet(sprite_sheet_number6)
+
+animation_list_numbers= [sprite_number1.get_image(0, 80, 80, 1, BLACK),sprite_number2.get_image(0, 80, 80, 1, BLACK), sprite_number3.get_image(0, 80, 80, 1, BLACK), sprite_number4.get_image(0, 80, 80, 1, BLACK),sprite_number5.get_image(0, 80, 80, 1, BLACK),sprite_number6.get_image(0, 80, 80, 1, BLACK)]
+
+# for letter A collect
+
+sprite_sheet_letterA1 = pygame.image.load('Assets/spriteimages/A/A1.png').convert_alpha()
+sprite_sheet_letterA2 = pygame.image.load('Assets/spriteimages/A/A2.png').convert_alpha()
+sprite_sheet_letterA3 = pygame.image.load('Assets/spriteimages/A/A3.png').convert_alpha()
+sprite_sheet_letterA4 = pygame.image.load('Assets/spriteimages/A/A4.png').convert_alpha()
+sprite_sheet_letterA5 = pygame.image.load('Assets/spriteimages/A/A5.png').convert_alpha()
+sprite_sheet_letterA6 = pygame.image.load('Assets/spriteimages/A/A6.png').convert_alpha()
+
+sprite_letterA1=spritesheet.SpriteSheet(sprite_sheet_letterA1)
+sprite_letterA2=spritesheet.SpriteSheet(sprite_sheet_letterA2)
+sprite_letterA3=spritesheet.SpriteSheet(sprite_sheet_letterA3)
+sprite_letterA4=spritesheet.SpriteSheet(sprite_sheet_letterA4)
+sprite_letterA5=spritesheet.SpriteSheet(sprite_sheet_letterA5)
+sprite_letterA6=spritesheet.SpriteSheet(sprite_sheet_letterA6)
+
+animation_list_Aletters =[sprite_letterA1.get_image(0, 80, 80, 1, BLACK),sprite_letterA2.get_image(0, 80, 80, 1, BLACK), sprite_letterA3.get_image(0, 80, 80, 1, BLACK), sprite_letterA4.get_image(0, 80, 80, 1, BLACK),sprite_letterA5.get_image(0, 80, 80, 1, BLACK),sprite_letterA6.get_image(0, 80, 80, 1, BLACK)]
+
+# for letter C collect
+
+sprite_sheet_letterC1 = pygame.image.load('Assets/spriteimages/C/C1.png').convert_alpha()
+sprite_sheet_letterC2 = pygame.image.load('Assets/spriteimages/C/C2.png').convert_alpha()
+sprite_sheet_letterC3 = pygame.image.load('Assets/spriteimages/C/C3.png').convert_alpha()
+sprite_sheet_letterC4 = pygame.image.load('Assets/spriteimages/C/C4.png').convert_alpha()
+sprite_sheet_letterC5 = pygame.image.load('Assets/spriteimages/C/C5.png').convert_alpha()
+sprite_sheet_letterC6 = pygame.image.load('Assets/spriteimages/C/C6.png').convert_alpha()
+
+sprite_letterC1=spritesheet.SpriteSheet(sprite_sheet_letterC1)
+sprite_letterC2=spritesheet.SpriteSheet(sprite_sheet_letterC2)
+sprite_letterC3=spritesheet.SpriteSheet(sprite_sheet_letterC3)
+sprite_letterC4=spritesheet.SpriteSheet(sprite_sheet_letterC4)
+sprite_letterC5=spritesheet.SpriteSheet(sprite_sheet_letterC5)
+sprite_letterC6=spritesheet.SpriteSheet(sprite_sheet_letterC6)
+
+animation_list_Cletters =[sprite_letterC1.get_image(0, 80, 80, 1, BLACK),sprite_letterC2.get_image(0, 80, 80, 1, BLACK), sprite_letterC3.get_image(0, 80, 80, 1, BLACK), sprite_letterC4.get_image(0, 80, 80, 1, BLACK),sprite_letterC5.get_image(0, 80, 80, 1, BLACK),sprite_letterC6.get_image(0, 80, 80, 1, BLACK)]
+
+# for letter E collect
+
+
+sprite_sheet_letterE1 = pygame.image.load('Assets/spriteimages/E/E0.png').convert_alpha()
+sprite_sheet_letterE2 = pygame.image.load('Assets/spriteimages/E/E1.png').convert_alpha()
+sprite_sheet_letterE3 = pygame.image.load('Assets/spriteimages/E/E2.png').convert_alpha()
+sprite_sheet_letterE4 = pygame.image.load('Assets/spriteimages/E/E3.png').convert_alpha()
+sprite_sheet_letterE5 = pygame.image.load('Assets/spriteimages/E/E4.png').convert_alpha()
+sprite_sheet_letterE6 = pygame.image.load('Assets/spriteimages/E/E5.png').convert_alpha()
+
+sprite_letterE1=spritesheet.SpriteSheet(sprite_sheet_letterE1)
+sprite_letterE2=spritesheet.SpriteSheet(sprite_sheet_letterE2)
+sprite_letterE3=spritesheet.SpriteSheet(sprite_sheet_letterE3)
+sprite_letterE4=spritesheet.SpriteSheet(sprite_sheet_letterE4)
+sprite_letterE5=spritesheet.SpriteSheet(sprite_sheet_letterE5)
+sprite_letterE6=spritesheet.SpriteSheet(sprite_sheet_letterE6)
+
+animation_list_Eletters =[sprite_letterE1.get_image(0, 80, 80, 1, BLACK),sprite_letterE2.get_image(0, 80, 80, 1, BLACK), sprite_letterE3.get_image(0, 80, 80, 1, BLACK), sprite_letterE4.get_image(0, 80, 80, 1, BLACK),sprite_letterE5.get_image(0, 80, 80, 1, BLACK),sprite_letterE6.get_image(0, 80, 80, 1, BLACK)]
+
+# for letter M collect
+
+sprite_sheet_letterM1 = pygame.image.load('Assets/spriteimages/M/M1.png').convert_alpha()
+sprite_sheet_letterM2 = pygame.image.load('Assets/spriteimages/M/M2.png').convert_alpha()
+sprite_sheet_letterM3 = pygame.image.load('Assets/spriteimages/M/M3.png').convert_alpha()
+sprite_sheet_letterM4 = pygame.image.load('Assets/spriteimages/M/M4.png').convert_alpha()
+sprite_sheet_letterM5 = pygame.image.load('Assets/spriteimages/M/M5.png').convert_alpha()
+sprite_sheet_letterM6 = pygame.image.load('Assets/spriteimages/M/M6.png').convert_alpha()
+
+sprite_letterM1=spritesheet.SpriteSheet(sprite_sheet_letterM1)
+sprite_letterM2=spritesheet.SpriteSheet(sprite_sheet_letterM2)
+sprite_letterM3=spritesheet.SpriteSheet(sprite_sheet_letterM3)
+sprite_letterM4=spritesheet.SpriteSheet(sprite_sheet_letterM4)
+sprite_letterM5=spritesheet.SpriteSheet(sprite_sheet_letterM5)
+sprite_letterM6=spritesheet.SpriteSheet(sprite_sheet_letterM6)
+
+animation_list_Mletters =[sprite_letterM1.get_image(0, 80, 80, 1, BLACK),sprite_letterM2.get_image(0, 80, 80, 1, BLACK), sprite_letterM3.get_image(0, 80, 80, 1, BLACK), sprite_letterM4.get_image(0, 80, 80, 1, BLACK),sprite_letterM5.get_image(0, 80, 80, 1, BLACK),sprite_letterM6.get_image(0, 80, 80, 1, BLACK)]
+
+# for letter S collect
+
+sprite_sheet_letterS1 = pygame.image.load('Assets/spriteimages/S/S1.png').convert_alpha()
+sprite_sheet_letterS2 = pygame.image.load('Assets/spriteimages/S/S2.png').convert_alpha()
+sprite_sheet_letterS3 = pygame.image.load('Assets/spriteimages/S/S3.png').convert_alpha()
+sprite_sheet_letterS4 = pygame.image.load('Assets/spriteimages/S/S4.png').convert_alpha()
+sprite_sheet_letterS5 = pygame.image.load('Assets/spriteimages/S/S5.png').convert_alpha()
+sprite_sheet_letterS6 = pygame.image.load('Assets/spriteimages/S/S6.png').convert_alpha()
+
+sprite_letterS1=spritesheet.SpriteSheet(sprite_sheet_letterS1)
+sprite_letterS2=spritesheet.SpriteSheet(sprite_sheet_letterS2)
+sprite_letterS3=spritesheet.SpriteSheet(sprite_sheet_letterS3)
+sprite_letterS4=spritesheet.SpriteSheet(sprite_sheet_letterS4)
+sprite_letterS5=spritesheet.SpriteSheet(sprite_sheet_letterS5)
+sprite_letterS6=spritesheet.SpriteSheet(sprite_sheet_letterS6)
+
+animation_list_Sletters =[sprite_letterS1.get_image(0, 80, 80, 1, BLACK),sprite_letterS2.get_image(0, 80, 80, 1, BLACK), sprite_letterS3.get_image(0, 80, 80, 1, BLACK), sprite_letterS4.get_image(0, 80, 80, 1, BLACK),sprite_letterS5.get_image(0, 80, 80, 1, BLACK),sprite_letterS6.get_image(0, 80, 80, 1, BLACK)]
+
+# for letter T collect
+
+sprite_sheet_letterT1 = pygame.image.load('Assets/spriteimages/T/T1.png').convert_alpha()
+sprite_sheet_letterT2 = pygame.image.load('Assets/spriteimages/T/T2.png').convert_alpha()
+sprite_sheet_letterT3 = pygame.image.load('Assets/spriteimages/T/T3.png').convert_alpha()
+sprite_sheet_letterT4 = pygame.image.load('Assets/spriteimages/T/T4.png').convert_alpha()
+sprite_sheet_letterT5 = pygame.image.load('Assets/spriteimages/T/T5.png').convert_alpha()
+sprite_sheet_letterT6 = pygame.image.load('Assets/spriteimages/T/T6.png').convert_alpha()
+
+sprite_letterT1=spritesheet.SpriteSheet(sprite_sheet_letterT1)
+sprite_letterT2=spritesheet.SpriteSheet(sprite_sheet_letterT2)
+sprite_letterT3=spritesheet.SpriteSheet(sprite_sheet_letterT3)
+sprite_letterT4=spritesheet.SpriteSheet(sprite_sheet_letterT4)
+sprite_letterT5=spritesheet.SpriteSheet(sprite_sheet_letterT5)
+sprite_letterT6=spritesheet.SpriteSheet(sprite_sheet_letterT6)
+
+animation_list_Tletters =[sprite_letterT1.get_image(0, 80, 80, 1, BLACK),sprite_letterT2.get_image(0, 80, 80, 1, BLACK), sprite_letterT3.get_image(0, 80, 80, 1, BLACK), sprite_letterT4.get_image(0, 80, 80, 1, BLACK),sprite_letterT5.get_image(0, 80, 80, 1, BLACK),sprite_letterT6.get_image(0, 80, 80, 1, BLACK)]
+
+
 ############################################################################################################################################
 
 
@@ -238,9 +366,9 @@ for x in range(animation_steps):
 # 	if current_time - delay>=cooldown:
 # 		frame+=1
 # 		delay = current_time
-# 		if frame >=len(list_of_frames_hearts):
+# 		if frame >=len(animation_list_Tletters):
 # 			frame = 0
-# 	screen.blit(list_of_frames_hearts[frame], (0, 0))
+# 	screen.blit(animation_list_Tletters[int(frame)], (0, 0))
 			
 # 	#show frame image
 	
