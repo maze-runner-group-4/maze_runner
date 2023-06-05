@@ -5,6 +5,8 @@ import pygame.freetype
 from links_of_modules import links
 from pygame.locals import *
 import pygame.mixer
+from spritesheet_test import animation_list_blue_player , animation_list_red_player
+
 # Initialize Pygame
 pygame.init()
 pygame.freetype.init()
@@ -20,7 +22,7 @@ Click_sound = pygame.mixer.Sound(os.path.join("Assets","clickbutton.mp3"))
 # Set up the colors
 background_color = (255, 255, 255)
 button_color = (101 ,103, 119)  # Grey color with opacity (R, G, B, A)
-button_text_color = (255, 215, 0)
+button_text_color = (255, 255, 255)
 disabled_button_color = (191, 191, 191)
 button_clicked_color = (53, 228, 128, 100)  # Grey color with decreased opacity (R, G, B, A)
 
@@ -36,12 +38,12 @@ fontName = pygame.freetype.Font(font_path, font_size_names)
 
 # set the image buttons
 exit_button_img = pygame.image.load(os.path.join('Assets', 'StoneButtons.png'))
-Single_Button_img = pygame.image.load(os.path.join('Assets', 'radiusbuttons.png'))
-Multi_button_img = pygame.image.load(os.path.join('Assets', 'radiusbuttons.png'))
+Single_Button_img = pygame.image.load(os.path.join('Assets', 'radiusbutton.png'))
+Multi_button_img = pygame.image.load(os.path.join('Assets', 'radiusbutton.png'))
 Gold_button_img = pygame.image.load(os.path.join('Assets', 'radiusbuttonclicked.png'))
 Menu_buttons_img = pygame.image.load(os.path.join('Assets', 'menubutton.png'))
 EZ_buttons_img = pygame.image.load(os.path.join('Assets', 'ez.png'))
-Run_disabled_button_img = pygame.image.load(os.path.join('Assets', 'menubutton.png'))
+Run_disabled_button_img = pygame.image.load(os.path.join('Assets', 'menubuttons.png'))
 About_us_button_img = pygame.image.load(os.path.join('Assets', 'About_us.png')) #About
 About_us_border_img = pygame.image.load(os.path.join('Assets', 'card.png')) 
 card = pygame.image.load(os.path.join('Assets', 'card.png')) 
@@ -100,6 +102,14 @@ name_stone_height=110
 team_width=300
 team_height=300
 
+
+
+
+
+
+
+
+
 # new img buttons
 exitimg = pygame.transform.scale(exit_button_img,(Button_width , Button_height-20))
 Singleimg = pygame.transform.scale(Single_Button_img,(Button_width , Button_height-10))
@@ -122,14 +132,34 @@ SPACE = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'maze2_u
 title_gif = pygame.image.load(os.path.join('Assets', 'mazetitle3.png'))
 Background_menu=pygame.image.load(os.path.join('Assets', 'menubackgrounds.png'))
 def mainloop():
-    pygame.mixer.music.load('Assets/menu-_sound.wav')
-    pygame.mixer.music.play(-1)
-   
+# Defining the triggers
+
     single_player_clicked = False
     multiplayer_clicked   = False
     escape_screen_active  = False
     About_us_clicked = False #About
     Find_treasure_clicked = False
+   
+# Draw the animations
+   
+    Blue_player = animation_list_blue_player
+    Red_player = animation_list_red_player  
+    
+    delay_Blue= pygame.time.get_ticks()
+    delay_Red = pygame.time.get_ticks()
+    
+    cooldown = 200
+    
+    frame_Blue = 0
+    frame_Red= 0
+
+
+    
+
+
+    pygame.mixer.music.load('Assets/menu-_sound.wav')
+    pygame.mixer.music.play(-1)
+   
     # Main game loop 
     while True:
         # Handle events
@@ -150,7 +180,23 @@ def mainloop():
             screen.blit(Menusimg, (button_x_center-40, escape_button_y)) 
             screen.blit(About_us, (About_Button_width +1569,About_Button_height-150)) #About
 
+            current_time = pygame.time.get_ticks()
+            if current_time - delay_Blue >= cooldown:
+                frame_Blue += 1
+                delay_Blue = current_time
+                if frame_Blue >= 3:
+                    frame_Blue = 0
+            screen.blit(Blue_player[int(frame_Blue)], (1350, 450))
 
+    
+            if multiplayer_clicked:
+             current_time = pygame.time.get_ticks()
+             if current_time - delay_Red >= cooldown:
+                 frame_Red += 1
+                 delay_Red = current_time
+                 if frame_Red >= 3:
+                     frame_Red = 0
+             screen.blit(Red_player[int(frame_Red)], (400, 450))
 
             # Draw the buttons FOR TEXT
             FindTreasure_button = pygame.Rect(button_x_center-45, FindTreasure_button_y, Button_width, Button_height-20)
@@ -410,11 +456,11 @@ def mainloop():
             screen.blit(title_gif, ((screen_width - title_gif.get_width()) // 2, 30))
 
             screen.blit(border,(About_us_border_img_x-250, About_us_border_img_y-270)) 
-            screen.blit(card_1,(card1_x +580, card1_y+100)) #right card half
+            screen.blit(card_1,(card1_x +580, card1_y+145)) #right card half
             screen.blit(card_2,(card1_x-700, card1_y-50)) #left card up
-            screen.blit(card_3,(card1_x+580, card1_y-145)) #first right
+            screen.blit(card_3,(card1_x+580, card1_y-90)) #first right
             screen.blit(card_4,(card1_x-700, card1_y+350)) #left card down
-            screen.blit(card_5,(card1_x+580, card1_y+375)) #right card finall
+            screen.blit(card_5,(card1_x+580, card1_y+400)) #right card finall
             screen.blit(back_about_us,(0, 0)) 
 
             names_button=pygame.Rect(card1_x-675, card1_y-50,card_width,card_height)
@@ -422,23 +468,23 @@ def mainloop():
             Back_label_rect = names_button_label.get_rect(center=names_button.center)
             screen.blit(names_button_label, Back_label_rect)
             
-            names_button=pygame.Rect(card1_x-700, card1_y+350,card_width,card_height)
-            names_button_label,Back_label_rect = font.render("Husam Zabian", button_text_color, None)
+            names_button=pygame.Rect(card1_x-675, card1_y+350,card_width,card_height)
+            names_button_label,Back_label_rect = font.render("Abdullah Shaghnoba", button_text_color, None)
             Back_label_rect = names_button_label.get_rect(center=names_button.center)
             screen.blit(names_button_label, Back_label_rect)
 
-            names_button=pygame.Rect(card1_x+580, card1_y-145,card_width,card_height)
+            names_button=pygame.Rect(card1_x+580, card1_y-90,card_width,card_height)
             names_button_label,Back_label_rect = font.render("Mustafa Mansour", button_text_color, None)
             Back_label_rect = names_button_label.get_rect(center=names_button.center)
             screen.blit(names_button_label, Back_label_rect)
 
-            names_button=pygame.Rect(card1_x +580, card1_y+100,card_width,card_height)
+            names_button=pygame.Rect(card1_x +580, card1_y+145,card_width,card_height)
             names_button_label,Back_label_rect = font.render("Jana Almomani", button_text_color, None)
             Back_label_rect = names_button_label.get_rect(center=names_button.center)
             screen.blit(names_button_label, Back_label_rect)
 
-            names_button=pygame.Rect(card1_x+580, card1_y+375,card_width,card_height)
-            names_button_label,Back_label_rect = font.render("Abdullah Shaghnoba", button_text_color, None)
+            names_button=pygame.Rect(card1_x+580, card1_y+400,card_width,card_height)
+            names_button_label,Back_label_rect = font.render("Husam Zabian", button_text_color, None)
             Back_label_rect = names_button_label.get_rect(center=names_button.center)
             screen.blit(names_button_label, Back_label_rect)
 
