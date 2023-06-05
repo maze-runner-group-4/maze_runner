@@ -1,6 +1,7 @@
 import pygame
 import os
 from maze_maps import Maze_maps
+import pygame.freetype
 # from blue_player import *
 # from coins_sheet import *
 from spritesheet_test import *
@@ -11,13 +12,37 @@ WHITE = "white"
 
 
 class MazeGame:
-    def __init__(self,maze):
+    def __init__(self,maze,mode):
         pygame.init()
         pygame.font.init()
         pygame.mixer.init()
+        pygame.freetype.init()
+        self.mode=mode
         self.window_width = 1820
         self.window_height = 945
         self.window = pygame.display.set_mode((self.window_width, self.window_height))
+        #
+        self.info_button_img = pygame.image.load(os.path.join('Assets', 'infobackground.png'))
+        self.ok_button_img = pygame.image.load(os.path.join('Assets', 'okbutton.png'))
+        self.button_text_color = (255, 255, 255)
+        self.font_path = "Fonts/font.ttf"
+        self.font_size = 14
+        self.font = pygame.freetype.Font(self.font_path, self.font_size)
+        self.info_button_x=(self.window_width//2)
+        self.info_button_y=(self.window_height//2)
+
+        self.info_button_width=950
+        self.info_button_height = 600
+
+        self.info_button_img1 = pygame.transform.scale(self.info_button_img, (self.info_button_width, self.info_button_height))
+        self.info_button_img_rect = pygame.Rect(self.info_button_x, self.info_button_y, self.info_button_width, self.info_button_height)
+        #for Ok button
+        self.ok_button_width=150
+        self.ok_button_height = 150
+        self.ok_button_x=(self.window_width//2) 
+        self.ok_button_y=(self.window_height//2)+100
+        self.ok_button = pygame.transform.scale(self.ok_button_img, (self.ok_button_width, self.ok_button_height))
+
         pygame.display.set_caption("Maze Game")
         self.WINNER_FONT = pygame.font.SysFont('comicsans', 100)
         self.treasure_counter = 0
@@ -45,6 +70,44 @@ class MazeGame:
         self.offsett = 0
         self.scroll_area = 210
         pygame.mixer.music.play(-1)
+        
+
+        
+        self.paragraph_text = """
+ Welcome to the exhilarating Escape The Maze mode\n\n
+ in single-player! Prepare yourself for an incredible\n\n
+ adventure filled with excitement as you navigate\n\n
+ through the labyrinthine pathways.\n\n
+ Get ready to indulge in the joy of playing and embark on\n\n
+ a journey towards the ultimate victory by\n\n
+ reaching the glorious goal.\n\n
+ May your experience be nothing short of extraordinary!
+ """
+        if self.mode=="hide":
+            self.paragraph_text2="""
+  Welcome to the exciting Run and Catch mode!\n\n 
+
+  The goal is simple: as the blue player, reach the goal\n\n  
+
+  to emerge victorious. But beware! If the pink player\n\n  
+
+  
+  catches you, the red player wins\n\n 
+
+  
+  Get ready for an intense chase and may\n\n
+
+  the quickest prevail!\n\n
+      """
+        else:
+            self.paragraph_text2 = """
+ Welcome to the heart-pounding multiplayer Escape\n\n
+ The Maze mode! Brace yourself for an adrenaline-pumping\n\n
+ challenge where the race to victory depends\n\n
+ on your lightning-fast speed. Get ready\n\n
+ to unleash your inner competitor\n\n
+ and experience the thrill of a lifetime.
+         """
         
     # def get_cell_width(self):
     #     return self.cell_width
@@ -84,6 +147,29 @@ class MazeGame:
                     wall_cell = pygame.transform.scale(wall_cell_image,(self.cell_width,self.cell_height))
                     self.window.blit(wall_cell,((col * self.cell_width)+self.window_width//2-(self.cell_width*len(self.maze[0])//2), row * self.cell_height+self.offsett))    
 
+
+    def draw_para(self,paragraph_text):
+        #for run and catch mode
+
+        lines = paragraph_text.split("\n")
+        line_surfaces = []
+        max_width = 0
+        total_height = 0
+        for line in lines:
+               line_surface, _ = self.font.render(line, self.button_text_color, None)
+               line_surfaces.append(line_surface)
+               line_width = line_surface.get_width()
+               line_height = line_surface.get_height()
+               if line_width > max_width:
+                   max_width = line_width
+                   total_height += line_height
+
+        x = self.info_button_img_rect.x + (self.info_button_img_rect.width - max_width) // 2
+        y = self.info_button_img_rect.y + (self.info_button_img_rect.height - total_height) // 2
+
+        for line_surface in line_surfaces:
+           self.window.blit(line_surface, (x-450, y-500))
+           y += line_surface.get_height()
 
 
     def draw_player(self, pos_x, pos_y, player,list_player):
@@ -212,6 +298,8 @@ class MazeGame:
     
     def run(self,multi=False):
         running = True
+        self.display_buttons = True
+        self.display_game = False
         while running:
 
             self.window.fill(BLACK)
@@ -238,17 +326,40 @@ class MazeGame:
                         self.move_player("a",2)
                     elif event.key == pygame.K_d:
                         self.move_player("d",2)
-            self.draw_player(self.player_pos[1],self.player_pos[0],1,self.list_player_blue)
-            if multi:
-                self.draw_player(self.player_2_pos[1],self.player_2_pos[0],2,self.list_player_2_red)
-            self.draw_goal()
-            self.draw_treasure_maze()
-            if self.check_find_goal():
-                pygame.mixer.music.stop()
-                running = False
-                pygame.mixer.music.load('Assets/menu-_sound.wav')
-                pygame.mixer.music.play(-1) 
-                # mainloop()
+
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                        mouse_pos = pygame.mouse.get_pos()
+                    #   self.Click_sound.play()
+                        if self.ok_button_img_rect.collidepoint(mouse_pos) and self.display_buttons:
+                            self.display_buttons=False
+                            self.display_game = True
+
+            self.window.fill(BLACK)
+            if self.display_buttons:
+                self.window.blit(self.info_button_img1 ,(self.info_button_x-450, self.info_button_y-350))
+                self.window.blit(self.ok_button ,(self.ok_button_x-50, self.ok_button_y))
+                self.ok_button_img_rect = pygame.Rect( self.ok_button_x-50, self.ok_button_y, self.ok_button_width, self.ok_button_height)
+                names_button_label,Back_label_rect = self.font.render("OK", self.button_text_color, None)
+                Back_label_rect = names_button_label.get_rect(center=self.ok_button_img_rect.center)
+                self.window.blit(names_button_label, Back_label_rect)
+                if multi:
+                    self.draw_para(self.paragraph_text2)
+                else:
+                    self.draw_para(self.paragraph_text)
+
+            if self.display_game:
+                 self.draw_treasure_maze()
+                 self.draw_player(self.player_pos[1],self.player_pos[0],1,self.list_player_blue)
+                 if multi:
+                     self.draw_player(self.player_2_pos[1],self.player_2_pos[0],2,self.list_player_2_red)
+                 self.draw_goal()
+        
+                 if self.check_find_goal():
+                     pygame.mixer.music.stop()
+                     running = False
+                     pygame.mixer.music.load('Assets/menu-_sound.wav')
+                     pygame.mixer.music.play(-1) 
+                     # mainloop()
             pygame.display.flip()
             self.clock.tick(60)
         # pygame.quit()

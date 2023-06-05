@@ -33,19 +33,19 @@ class links:
     def run(self):
         
         if self.mode == "easy" :
-            game = MazeGame(self.get_rand_list(self.easy))
+            game = MazeGame(self.get_rand_list(self.easy),self.mode)
         if self.mode =="medium" :
-            game = MazeGame(self.get_rand_list(self.medium))
+            game = MazeGame(self.get_rand_list(self.medium),self.mode)
         if self.mode == "hard":
-            game = MazeGame(self.get_rand_list(self.hard))
+            game = MazeGame(self.get_rand_list(self.hard),self.mode)
         if self.mode == "treasure":
-            game = Treasure(self.get_rand_list(self.treasure),self.check_multi)
+            game = Treasure(self.get_rand_list(self.treasure),self.mode,self.check_multi)
         if self.mode == "multi":
-            game = Dodge_the_monsters(self.get_rand_list(self.multi))
+            game = Dodge_the_monsters(self.get_rand_list(self.multi),self.mode)
         if self.mode == "hide":
-            game = Hide_and_seek(self.get_rand_list(self.hide))
+            game = Hide_and_seek(self.get_rand_list(self.hide),self.mode)
         if self.mode == "word":
-            game = Collect_the_word(self.collect_the_word,self.check_multi)
+            game = Collect_the_word(self.collect_the_word,self.mode,self.check_multi)
         
         # check multi
         if self.check_multi == True and self.mode != "treasure" and self.mode != "word":

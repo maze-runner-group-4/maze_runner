@@ -2,14 +2,19 @@ import os
 import pygame
 from main import MazeGame
 from maze_maps import Maze_maps
+import pygame.freetype
 from spritesheet_test import list_of_frames_blue_monster_back,list_of_frames_red_monster_back,list_of_frames_hearts,list_of_frames_red_monster_front,list_of_frams_blue_monster_front,animation_list_left,animation_list_right
 BLACK = (0, 0, 0)
 WHITE = "white"
 class Dodge_the_monsters(MazeGame):
     
-    def __init__(self, maze):
-        super().__init__( maze)
+    def __init__(self, maze,mode):
+        super().__init__( maze,mode)
         pygame.init()
+        self.button_text_color = (255, 255, 255)
+        self.font_path = "Fonts/font.ttf"
+        self.font_size = 14
+        self.font = pygame.freetype.Font(self.font_path, self.font_size)
         self.running=True
         self.multi2_maze = maze
         self.game_over_FONT = pygame.font.SysFont('comicsans', 100)
@@ -78,6 +83,35 @@ class Dodge_the_monsters(MazeGame):
             self.cooldown_R = 200
             self.frame_R= 0
             self.list_R = animation_list_right
+        self.paragraph_text = """
+
+  Welcome to the heart-pounding "Dodge the Monster" mode!\n\n
+
+  Navigate with precision to evade the relentless monster's\n\n 
+
+  attacks and keep your health intact. Keep your adrenaline\n\n 
+
+  pumping as you collect life-saving hearts to stay in the\n\n  
+
+  game.Victory awaits those who reach the goal with\n\n 
+
+  unwavering determination and good health. Get ready\n\n  
+  
+  for an exhilarating challenge like no other!
+
+         """
+        self.paragraph_text2 = """
+    Welcome to multiplayer "Dodge the Monster" mode!\n\n 
+
+    Dodge the monster, collect hearts, and race against\n\n
+    your opponent to reach the goal with good health.\n\n\n 
+    
+    Get ready for an exhilarating challenge!\n\n
+
+    Enjoy the excitement! 
+
+        
+         """
         # print(len(self.list_R))
     def draw_hearts(self):
         for row in range(len(self.maze)):
@@ -100,7 +134,8 @@ class Dodge_the_monsters(MazeGame):
             heart_image = pygame.transform.scale(heart_image, (self.cell_width, self.cell_height))
             self.window.blit(heart_image, (heart_x+(i*self.cell_width), heart_y+self.offsett))
         pygame.display.update()
-
+        
+    
     def draw_monster(self, pos_x, pos_y, monster,list):
         if self.multi2_maze == Maze_maps.maze_multi2:
             if monster =="M":
@@ -352,6 +387,8 @@ class Dodge_the_monsters(MazeGame):
 
     def run(self, multi=False):
         # running = True
+        self.display_buttons = True
+        self.display_game = False
         while self.running:
 
             for event in pygame.event.get():
@@ -379,34 +416,54 @@ class Dodge_the_monsters(MazeGame):
                             self.move_player("a",2)
                         elif event.key == pygame.K_d:
                             self.move_player("d",2)
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                        mouse_pos = pygame.mouse.get_pos()
+                #   self.Click_sound.play()
+               
+                        if self.ok_button_img_rect.collidepoint(mouse_pos) and self.display_buttons:
+                            self.display_buttons=False
+                            self.display_game = True
             self.window.fill(BLACK)
-            if self.player_health > 0 :
-                self.draw_player(self.player_pos[1],self.player_pos[0],1,self.list_player_blue)
-            if multi and self.player_2_health > 0 :
-                self.draw_player(self.player_2_pos[1],self.player_2_pos[0],2,self.list_player_2_red)
-            self.draw_goal()
-            self.draw_treasure_maze()
-            self.draw_monster(self.monster1_pos[1],self.monster1_pos[0],"M",self.list_M)
-            self.draw_monster(self.monster2_pos[1],self.monster2_pos[0],"S",self.list_S)
-            self.draw_monster(self.monster3_pos[1],self.monster3_pos[0],"R",self.list_R)
-            if self.multi2_maze == Maze_maps.maze_multi2:
-                self.draw_monster(self.monster4_pos[1],self.monster4_pos[0],"K",self.list_K)
+            if self.display_buttons:
+                self.window.blit(self.info_button_img1 ,(self.info_button_x-450, self.info_button_y-350))
+                self.window.blit(self.ok_button ,(self.ok_button_x-50, self.ok_button_y))
+                self.ok_button_img_rect = pygame.Rect( self.ok_button_x-50, self.ok_button_y, self.ok_button_width, self.ok_button_height)
+                names_button_label,Back_label_rect = self.font.render("OK", self.button_text_color, None)
+                Back_label_rect = names_button_label.get_rect(center=self.ok_button_img_rect.center)
+                self.window.blit(names_button_label, Back_label_rect)
+                if multi:
+                    self.draw_para(self.paragraph_text2)
+                else:
+                    self.draw_para(self.paragraph_text)
+            if self.display_game:
+                 if self.player_health > 0 :
+                     self.draw_player(self.player_pos[1],self.player_pos[0],1,self.list_player_blue)
+                 if multi and self.player_2_health > 0 :
+                    self.draw_player(self.player_2_pos[1],self.player_2_pos[0],2,self.list_player_2_red)
+                 self.draw_goal()
+                 self.draw_treasure_maze()
+                 self.draw_monster(self.monster1_pos[1],self.monster1_pos[0],"M",self.list_M)
+                 self.draw_monster(self.monster2_pos[1],self.monster2_pos[0],"S",self.list_S)
+                 self.draw_monster(self.monster3_pos[1],self.monster3_pos[0],"R",self.list_R)
+                 if self.multi2_maze == Maze_maps.maze_multi2:
+                     self.draw_monster(self.monster4_pos[1],self.monster4_pos[0],"K",self.list_K)
 
-            self.draw_hearts()
-            self.draw_hearts_points(self.player_health,self.heart_x)
-            if multi:
-                self.draw_hearts_points(self.player_2_health,self.heart2_x)
-            self.health_points_count()
-            self.game_over(multi)
-            self.monster_movement()      
+                 self.draw_hearts()    
+                 self.draw_hearts_points(self.player_health,self.heart_x)
+                 if multi:
+                     self.draw_hearts_points(self.player_2_health,self.heart2_x)
+                 self.health_points_count()
+                 self.game_over(multi)
+                 self.monster_movement()
+         
+                 if self.check_find_goal():
+                # self.game_win_sound.play()
+                     pygame.mixer.music.stop()
+                     self.running = False
+                     pygame.mixer.music.load('Assets/menu-_sound.wav')
+                     pygame.mixer.music.play(-1)
             pygame.display.flip()
             self.clock.tick(60)
-            if self.check_find_goal():
-                # self.game_win_sound.play()
-                pygame.mixer.music.stop()
-                self.running = False
-                pygame.mixer.music.load('Assets/menu-_sound.wav')
-                pygame.mixer.music.play(-1)
         # pygame.quit()
 
 # if __name__ == "__main__":

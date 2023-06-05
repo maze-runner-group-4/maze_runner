@@ -28,7 +28,7 @@ button_clicked_color = (53, 228, 128, 100)  # Grey color with decreased opacity 
 
 # Set up the fonts
 font_path = "Fonts/font.ttf"
-font_size = 16
+font_size = 14
 font_size_names = 32
 
 font = pygame.freetype.Font(font_path, font_size)
@@ -106,10 +106,6 @@ team_height=300
 
 
 
-
-
-
-
 # new img buttons
 exitimg = pygame.transform.scale(exit_button_img,(Button_width , Button_height-20))
 Singleimg = pygame.transform.scale(Single_Button_img,(Button_width , Button_height-10))
@@ -133,7 +129,7 @@ title_gif = pygame.image.load(os.path.join('Assets', 'mazetitle3.png'))
 Background_menu=pygame.image.load(os.path.join('Assets', 'menubackgrounds.png'))
 def mainloop():
 # Defining the triggers
-
+    
     single_player_clicked = False
     multiplayer_clicked   = False
     escape_screen_active  = False
