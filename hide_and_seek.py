@@ -3,8 +3,8 @@ from main import MazeGame
 
 
 class Hide_and_seek(MazeGame):
-    def __init__(self, maze):
-        super().__init__( maze)
+    def __init__(self, maze,mode):
+        super().__init__( maze,mode)
 
     def check_find_goal(self):
         if self.player_pos[0] == self.goal[0] and self.player_pos[1]==self.goal[1]:

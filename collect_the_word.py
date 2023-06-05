@@ -5,15 +5,18 @@ import pygame.mixer
 from maze_maps import Maze_maps
 from spritesheet_test import animation_list_Tletters,animation_list_Mletters,animation_list_Sletters,animation_list_Aletters,animation_list_Cletters,animation_list_Eletters,animation_list_numbers
 import os
+import pygame.freetype
+
 BLACK = (0, 0, 0)
 WHITE = "white"
 
 class Collect_the_word(MazeGame):
-    def __init__(self, maze, multi=False):
-        super().__init__(maze)
-        # self.word_queue = Queue()
+    def __init__(self, maze,mode, multi=False):
+        super().__init__(maze,mode)
+        pygame.freetype.init()
         self.goal_draw=False  
         self.score_FONT = pygame.font.SysFont('comicsans',30)
+
         self.maze = [[cell for cell in row] for row in maze]
         "Create queue for the blue player "
         self.multi=multi
@@ -76,6 +79,23 @@ class Collect_the_word(MazeGame):
         self.cooldown_M = 200
         self.cooldown_N4 = 200
         self.letter_collect_sound = pygame.mixer.Sound(os.path.join("Assets","Video_game_treasure_sound_effect.wav"))
+        self.paragraph_text = """
+    Welcome to the captivating world of Collect the Word\n\n 
+    mode in single player! Your mission is to collect\n\n
+    the words that appear at the top of the screen\n\n
+    in the exact order they are presented.\n\n
+    Gather them all, and the coveted goal will appear,\n\n
+    leading you to victory. Sharpen your focus\n\n
+    and embark on this word-collecting adventure!
+  """
+        self.paragraph_text2 = """
+    Welcome to multiplayer Collect the Word mode!\n\n
+    Race against opponents to collect words faster\n\n
+    in order and reach the goal.\n\n
+    Stay alert, be quick, and let the excitement begin!\n\n
+    You'll be rewarded for your efforts.\n\n
+    Good luck!
+     """
         # Video_game_treasure_sound_effect.wav
     def check_word(self, player):
         if player == 2: 
@@ -228,8 +248,10 @@ class Collect_the_word(MazeGame):
         return False  
 
 
-    def run(self):
+    def run(self,multi=False):
         self.running = True
+        self.display_buttons = True
+        self.display_game = False
         while self.running:
             
             for event in pygame.event.get():
@@ -255,27 +277,49 @@ class Collect_the_word(MazeGame):
                         self.move_player("a",2)
                     elif event.key == pygame.K_d:
                         self.move_player("d",2)
+
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    mouse_pos = pygame.mouse.get_pos()
+                #   self.Click_sound.play()
+               
+                    if self.ok_button_img_rect.collidepoint(mouse_pos) and self.display_buttons:
+                        self.display_buttons=False
+                        self.display_game = True
             self.window.fill(BLACK)
-            self.draw_the_letter("A",self.A)
-            self.draw_the_letter("S",self.S)
-            self.draw_the_letter("C",self.C)
-            self.draw_the_letter("V",self.T)
-            self.draw_the_letter("E",self.E)
-            self.draw_the_letter("M",self.M)
-            self.draw_the_letter("4",self.N4)
-            self.draw_treasure_maze()
-            self.draw_player(self.player_pos[1],self.player_pos[0],1,self.list_player_blue)
-            self.showing_score(5,5,1)
-            if self.multi:
-                self.showing_score(self.window_width-360,5,2)
-                self.draw_player(self.player_2_pos[1],self.player_2_pos[0],2,self.list_player_2_red)
-            if self.goal_draw:    
-                self.draw_goal()
-                if self.check_find_goal():
-                    pygame.mixer.music.stop()
-                    self.running = False
-                    pygame.mixer.music.load('Assets/menu-_sound.wav')
-                    pygame.mixer.music.play(-1)
+
+
+            if self.display_buttons:
+                self.window.blit(self.info_button_img1 ,(self.info_button_x-450, self.info_button_y-350))
+                self.window.blit(self.ok_button ,(self.ok_button_x-50, self.ok_button_y))
+                self.ok_button_img_rect = pygame.Rect( self.ok_button_x-50, self.ok_button_y, self.ok_button_width, self.ok_button_height)
+                names_button_label,Back_label_rect = self.font.render("OK", self.button_text_color, None)
+                Back_label_rect = names_button_label.get_rect(center=self.ok_button_img_rect.center)
+                self.window.blit(names_button_label, Back_label_rect)
+                if self.multi:
+                    self.draw_para(self.paragraph_text2)
+                else:
+                    self.draw_para(self.paragraph_text)
+            if self.display_game:
+                 self.draw_the_letter("A",self.A)
+                 self.draw_the_letter("S",self.S)
+                 self.draw_the_letter("C",self.C)
+                 self.draw_the_letter("V",self.T)
+                 self.draw_the_letter("E",self.E)
+                 self.draw_the_letter("M",self.M)
+                 self.draw_the_letter("4",self.N4)
+                 self.draw_treasure_maze()
+                 self.draw_player(self.player_pos[1],self.player_pos[0],1,self.list_player_blue)
+                 self.showing_score(5,5,1)
+                 if self.multi:
+                     self.showing_score(self.window_width-360,5,2)
+                     self.draw_player(self.player_2_pos[1],self.player_2_pos[0],2,self.list_player_2_red)
+
+                     self.draw_goal()
+                     if self.check_find_goal():
+                         pygame.mixer.music.stop()
+                         self.running = False
+                         pygame.mixer.music.load('Assets/menu-_sound.wav')
+                         pygame.mixer.music.play(-1)
             # self.draw_the_letter(10,10,1)
             # if self.multi:
             #     self.draw_the_letter(self.window_width-220,10,2)
@@ -287,4 +331,3 @@ if __name__ == "__main__":
     game = Collect_the_word( Maze_maps.complete_the_word_maze,True)
 
     game.run()
-    
