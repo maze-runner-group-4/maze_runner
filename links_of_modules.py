@@ -17,7 +17,8 @@ class links:
         self.treasure = Maze_maps.list_of_treasure_maps
         self.hide = Maze_maps.list_of_hide_maps
         self.collect_the_word = Maze_maps.complete_the_word_maze
-
+        self.start_time = 0
+        self.str_start_time = " "
 
     def get_rand_list (self,list):
        EMHT_index =  random.randint(0,2)

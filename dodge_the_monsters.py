@@ -11,6 +11,8 @@ class Dodge_the_monsters(MazeGame):
     def __init__(self, maze,mode):
         super().__init__( maze,mode)
         pygame.init()
+        self.start_time = 0
+        self.str_start_time = " "
         self.button_text_color = (255, 255, 255)
         self.font_path = "Fonts/font.ttf"
         self.font_size = 14

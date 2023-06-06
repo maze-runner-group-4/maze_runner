@@ -70,7 +70,8 @@ class MazeGame:
         self.offsett = 0
         self.scroll_area = 210
         pygame.mixer.music.play(-1)
-        
+        self.start_time = 0
+        self.str_start_time = " "
 
         
         self.paragraph_text = """
@@ -279,14 +280,15 @@ class MazeGame:
                 self.player_pos = (self.new_row, self.new_col)
                 if self.player_pos[0]*35 + self.offsett >= self.window_height-self.scroll_area and direction =="s" and self.player_pos[0]*35 - self.offsett < len(self.maze)*35 and len(self.maze)*35 > self.window_height :
                     self.offsett -= 140
-                if (len(self.maze)-self.player_pos[0])*35 - self.offsett >= self.window_height+self.scroll_area and direction =="w" and self.player_pos[0]>4:
+                if (len(self.maze)-self.player_pos[0])*35 - self.offsett >= self.window_height+self.scroll_area and direction =="w" and self.player_pos[0]>4 and len(self.maze)*35 > self.window_height :
                     self.offsett += 140
                     
             if player == 1:
                 self.player_2_pos = (self.new_row, self.new_col)
                 if self.player_2_pos[0]*35 + self.offsett >= self.window_height-self.scroll_area and direction =="down" and self.player_2_pos[0]*35 - self.offsett < len(self.maze)*35 and len(self.maze)*35 > self.window_height :
                     self.offsett -= 140
-                if (len(self.maze)-self.player_2_pos[0])*35 - self.offsett >= self.window_height+self.scroll_area and direction =="up" and self.player_2_pos[0]>4:
+                if (len(self.maze)-self.player_2_pos[0])*35 - self.offsett >= self.window_height+self.scroll_area and direction =="up" and self.player_2_pos[0]>4 and len(self.maze)*35 > self.window_height :
+
                     self.offsett += 140
 
     def is_valid_move(self, row, col):
@@ -365,10 +367,10 @@ class MazeGame:
         # pygame.quit()
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    # Create an instance of the MazeGame class
-    game = MazeGame(Maze_maps.maze_hard)
+#     # Create an instance of the MazeGame class
+#     game = MazeGame(Maze_maps.maze_hard)
 
-    # Run the game
-    game.run(True)
+#     # Run the game
+#     game.run(True)
