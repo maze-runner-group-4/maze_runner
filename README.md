@@ -33,7 +33,7 @@ Your goal in this mode is to find the exit of the maze. Navigate through the maz
 
 ### 3. Run and Catch (Multiplayer Mode Only)
 
-- Description: This mode is designed for multiplayer gameplay. Compete against another player in a race to reach a specific point in the maze. The first player to reach the goal wins the game.
+- Description: This mode is designed for multiplayer gameplay. Compete against another player one want to reach the goal and the other will try to catch him.
 
 ### 4. Dodge the Monsters
 
