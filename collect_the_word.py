@@ -21,6 +21,7 @@ class Collect_the_word(MazeGame):
         self.game_over_FONT = pygame.font.SysFont('comicsans', 100)
         self.start_time = 0
         self.str_start_time = " "
+        self.final_text = " "
         self.maze = [[cell for cell in row] for row in maze]
         "Create queue for the blue player "
         self.multi=multi
@@ -88,15 +89,15 @@ class Collect_the_word(MazeGame):
     mode in single player! Your mission is to collect\n\n
     the words that appear at the top of the screen\n\n
     in the exact order they are presented.\n\n
-    Gather them all, and the coveted goal will appear,\n\n
+    Gather them all, and the covered goal will appear,\n\n
     leading you to victory. Sharpen your focus\n\n
-    and embark on this word-collecting adventure!
+    there is a time limit.\n\n    and embark on this word-collecting adventure!
   """
         self.paragraph_text2 = """
     Welcome to multiplayer Collect the Word mode!\n\n
     Race against opponents to collect words faster\n\n
     in order and reach the goal.\n\n
-    Stay alert, be quick, and let the excitement begin!\n\n
+    Stay alert there is a time limit be quick,\n\n    and let the excitement begin!\n\n
     You'll be rewarded for your efforts.\n\n
     Good luck!
      """
@@ -298,9 +299,11 @@ class Collect_the_word(MazeGame):
             pygame.mixer.music.play(-1)
             return True
         return False  
-
+# .replace(".",":")
     def display_time(self,text):
-        draw_text = self.score_FONT.render(text, 1, WHITE)
+        text1 = 60.0 - text
+        self.final_text = str(round(text1,1)).replace(".",":")
+        draw_text = self.score_FONT.render(self.final_text, 1, WHITE)
         self.window.blit(draw_text, (self.window_width/2 - draw_text.get_width() /
                          2,10))
 
@@ -322,7 +325,7 @@ class Collect_the_word(MazeGame):
         self.display_buttons = True
         self.display_game = False
         # start_time_before = pygame.time.get_ticks()
-        time_limit = str(60.0)
+        time_limit = str("0:0")
         # print(time_limit)
         while self.running:
             
@@ -374,11 +377,11 @@ class Collect_the_word(MazeGame):
             if self.display_game:
                  self.start_time = pygame.time.get_ticks()
                  
-                 self.str_start_time = str(round((round((self.start_time/1000),1)-round((reset_timer/1000),1)),1))
+                 self.str_start_time = round((round((self.start_time/1000),1)-round((reset_timer/1000),1)),1)
                 #  print(str(round((start_time/1000),2)))
                  self.draw_treasure_maze()
                  self.display_time(self.str_start_time)
-                 if self.str_start_time == time_limit:
+                 if self.final_text == time_limit:
                     pygame.mixer.music.stop()
                     self.display_game_over()
                     self.running = False
@@ -396,7 +399,7 @@ class Collect_the_word(MazeGame):
                  self.draw_the_letter("4",self.N4)
                  self.showing_score(5,5,1)
                  if self.multi:
-                     self.showing_score(self.window_width-360,5,2)
+                     self.showing_score(self.window_width-480,5,2)
                     #  self.draw_player(self.player_2_pos[1],self.player_2_pos[0],2,self.list_player_2_red)
 
                      self.draw_goal()
