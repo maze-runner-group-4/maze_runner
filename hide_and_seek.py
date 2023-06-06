@@ -5,7 +5,8 @@ from main import MazeGame
 class Hide_and_seek(MazeGame):
     def __init__(self, maze,mode):
         super().__init__( maze,mode)
-
+        self.start_time = 0
+        self.str_start_time = " "
     def check_find_goal(self):
         if self.player_pos[0] == self.goal[0] and self.player_pos[1]==self.goal[1]:
             winner_text = "Congratulations! Blue Win!"

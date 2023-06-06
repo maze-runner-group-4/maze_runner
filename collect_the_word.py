@@ -3,9 +3,11 @@ from queue_word import Queue
 import pygame
 import pygame.mixer
 from maze_maps import Maze_maps
-from spritesheet_test import animation_list_Tletters,animation_list_Mletters,animation_list_Sletters,animation_list_Aletters,animation_list_Cletters,animation_list_Eletters,animation_list_numbers
+# from spritesheet_test import animation_list_Tletters,animation_list_Mletters,animation_list_Sletters,animation_list_Aletters,animation_list_Cletters,animation_list_Eletters,animation_list_numbers
 import os
 import pygame.freetype
+from spritesheet_test import *
+
 
 BLACK = (0, 0, 0)
 WHITE = "white"
@@ -15,8 +17,10 @@ class Collect_the_word(MazeGame):
         super().__init__(maze,mode)
         pygame.freetype.init()
         self.goal_draw=False  
-        self.score_FONT = pygame.font.SysFont('comicsans',30)
-
+        self.score_FONT = pygame.font.SysFont('cambria',25)
+        self.game_over_FONT = pygame.font.SysFont('comicsans', 100)
+        self.start_time = 0
+        self.str_start_time = " "
         self.maze = [[cell for cell in row] for row in maze]
         "Create queue for the blue player "
         self.multi=multi
@@ -118,7 +122,7 @@ class Collect_the_word(MazeGame):
                 self.player_red_score.dequeue()
                 self.letter_collect_sound.play()
                 self.maze[self.new_row][self.new_col] = " " # Remove the letter 
-                print(self.maze[self.new_row][self.new_col])
+                # print(self.maze[self.new_row][self.new_col])
 
             if self.maze[self.new_row][self.new_col] == "V" and front_of_queue2 == "T": # Update the maze 
                 self.player_red_score.dequeue()
@@ -210,7 +214,55 @@ class Collect_the_word(MazeGame):
                         self.window.blit(list[self.frame_N4], (col*35+self.window_width//2-(self.cell_width*len(self.maze[0])//2), row*35+self.offsett)) 
     
     def move_player(self, direction, player): 
-        super().move_player(direction, player)
+        if player == 2:
+         self.new_row = self.player_pos[0]
+         self.new_col = self.player_pos[1]
+        elif player == 1:
+           self. new_row = self.player_2_pos[0]
+           self. new_col = self.player_2_pos[1]
+        if direction == "up":
+            self.new_row -= 1
+            self.change_frame(list_of_frames_red_player_back,2)
+        elif direction == "down":
+           self. new_row += 1
+           self.change_frame(list_of_frames_red_player_front,2)
+        elif direction == "left":
+          self.  new_col -= 1
+          self.change_frame(list_of_frams_red_player_left,2)
+        elif direction == "right":
+          self.  new_col += 1
+          self.change_frame(list_of_frames_red_player_right,2)
+
+        if direction == "w":
+            self. new_row -= 1
+            self.change_frame(animation_list_up_blue_player,1)
+        elif direction == "s":
+          self.  new_row += 1
+          self.change_frame(animation_list_down_blue_player,1)
+          
+        elif direction == "a":
+          self.  new_col -= 1
+          self.change_frame(animation_list_left_blue_player,1)
+        elif direction == "d":
+          self.  new_col += 1
+          self.change_frame(animation_list_right_blue_player,1)
+        if self.is_valid_move(self.new_row,self. new_col):
+            if player == 2:
+                # print(self.player_pos)
+                self.player_pos = (self.new_row, self.new_col)
+                if self.player_pos[0]*35  >= self.window_height and direction =="s" and self.player_pos[0]*35 - self.offsett < len(self.maze)*35 and len(self.maze)*35 > self.window_height and self.player_pos[0] < 24  :
+                    self.offsett -= 140
+                
+                if (len(self.maze)-self.player_pos[0])*35 - self.offsett >= self.window_height and direction =="w" and self.player_pos[0]>4 and len(self.maze)*35 > self.window_height :
+                    self.offsett += 140
+                    
+            if player == 1:
+                self.player_2_pos = (self.new_row, self.new_col)
+                if self.player_2_pos[0]*35  >= self.window_height and direction =="down" and self.player_2_pos[0]*35 - self.offsett < len(self.maze)*35 and len(self.maze)*35 > self.window_height:
+                    self.offsett -= 140
+                
+                if (len(self.maze)-self.player_2_pos[0])*35 - self.offsett >= self.window_height and direction =="up" and self.player_2_pos[0]>4 and len(self.maze)*35 > self.window_height and self.player_2_pos[0] < 24 :
+                    self.offsett += 140
         self.check_word(player)
 
 
@@ -247,11 +299,31 @@ class Collect_the_word(MazeGame):
             return True
         return False  
 
+    def display_time(self,text):
+        draw_text = self.score_FONT.render(text, 1, WHITE)
+        self.window.blit(draw_text, (self.window_width/2 - draw_text.get_width() /
+                         2,10))
 
+    def display_game_over(self):
+        text = "Game Over"
+        draw_text = self.game_over_FONT.render(text, 1, WHITE)
+        pos_x= self.window_width/2 - draw_text.get_width() /2
+        pos_y = self.window_height/2 - draw_text.get_height()/2
+        self.window.blit(draw_text, (pos_x,pos_y+self.offsett))
+        self.game_over_sound.play()
+        pygame.display.update()
+        pygame.time.delay(2000)
+            
     def run(self,multi=False):
+        self.start_time = 0
+        self.str_start_time = " "
+        reset_timer = pygame.time.get_ticks()
         self.running = True
         self.display_buttons = True
         self.display_game = False
+        # start_time_before = pygame.time.get_ticks()
+        time_limit = str(60.0)
+        # print(time_limit)
         while self.running:
             
             for event in pygame.event.get():
@@ -300,6 +372,21 @@ class Collect_the_word(MazeGame):
                 else:
                     self.draw_para(self.paragraph_text)
             if self.display_game:
+                 self.start_time = pygame.time.get_ticks()
+                 
+                 self.str_start_time = str(round((round((self.start_time/1000),1)-round((reset_timer/1000),1)),1))
+                #  print(str(round((start_time/1000),2)))
+                 self.draw_treasure_maze()
+                 self.display_time(self.str_start_time)
+                 if self.str_start_time == time_limit:
+                    pygame.mixer.music.stop()
+                    self.display_game_over()
+                    self.running = False
+                    pygame.mixer.music.load('Assets/menu-_sound.wav')
+                    pygame.mixer.music.play(-1) 
+                 if self.multi:
+                    self.draw_player(self.player_2_pos[1],self.player_2_pos[0],2,self.list_player_2_red)
+                 self.draw_player(self.player_pos[1],self.player_pos[0],1,self.list_player_blue)
                  self.draw_the_letter("A",self.A)
                  self.draw_the_letter("S",self.S)
                  self.draw_the_letter("C",self.C)
@@ -307,12 +394,10 @@ class Collect_the_word(MazeGame):
                  self.draw_the_letter("E",self.E)
                  self.draw_the_letter("M",self.M)
                  self.draw_the_letter("4",self.N4)
-                 self.draw_treasure_maze()
-                 self.draw_player(self.player_pos[1],self.player_pos[0],1,self.list_player_blue)
                  self.showing_score(5,5,1)
                  if self.multi:
                      self.showing_score(self.window_width-360,5,2)
-                     self.draw_player(self.player_2_pos[1],self.player_2_pos[0],2,self.list_player_2_red)
+                    #  self.draw_player(self.player_2_pos[1],self.player_2_pos[0],2,self.list_player_2_red)
 
                      self.draw_goal()
                      if self.check_find_goal():

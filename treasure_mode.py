@@ -11,6 +11,8 @@ class Treasure(MazeGame):
     def __init__(self, maze,mode, multi = False):
         super().__init__( maze,mode)
         pygame.freetype.init()
+        self.start_time = 0
+        self.str_start_time = " "
         self.treasure_score = 0
         self.treasure2_score = 0
         self.half_treasures = self.treasure_counter//2
