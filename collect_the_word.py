@@ -15,6 +15,8 @@ class Collect_the_word(MazeGame):
     def __init__(self, maze,mode, multi=False):
         super().__init__(maze,mode)
         pygame.freetype.init()
+        self.display_buttons = True
+        self.display_game = False
         self.goal_draw=False  
         self.score_FONT = pygame.font.SysFont('cambria',25)
         self.game_over_FONT = pygame.font.SysFont('comicsans', 100)
@@ -67,6 +69,7 @@ class Collect_the_word(MazeGame):
         self.frame_E = 0
         self.frame_M = 0
         self.frame_N4 = 0
+        self.reset_timer = 1
         self.delay_A = pygame.time.get_ticks()
         self.delay_S = pygame.time.get_ticks()
         self.delay_C = pygame.time.get_ticks()
@@ -82,6 +85,7 @@ class Collect_the_word(MazeGame):
         self.cooldown_M = 200
         self.cooldown_N4 = 200
         self.letter_collect_sound = pygame.mixer.Sound(os.path.join("Assets","Video_game_treasure_sound_effect.wav"))
+        self.at_start_ticks = 0
         self.paragraph_text = """
     Welcome to the captivating world of Collect the Word\n\n 
     mode in single player! Your mission is to collect\n\n
@@ -247,7 +251,7 @@ class Collect_the_word(MazeGame):
         if self.is_valid_move(self.new_row,self. new_col):
             if player == 2:
                 self.player_pos = (self.new_row, self.new_col)
-                if self.player_pos[0]*35  >= self.window_height and direction =="s" and self.player_pos[0]*35 - self.offsett < len(self.maze)*35 and len(self.maze)*35 > self.window_height and self.player_pos[0] < 24  :
+                if self.player_pos[0]*35  >= self.window_height and direction =="s" and self.player_pos[0]*35 - self.offsett < len(self.maze)*35 and len(self.maze)*35 > self.window_height :
                     self.offsett -= 140
                 
                 if (len(self.maze)-self.player_pos[0])*35 - self.offsett >= self.window_height and direction =="w" and self.player_pos[0]>4 and len(self.maze)*35 > self.window_height :
@@ -315,10 +319,11 @@ class Collect_the_word(MazeGame):
     def run(self,multi=False):
         self.start_time = 0
         self.str_start_time = " "
-        reset_timer = pygame.time.get_ticks()
+        if self.display_buttons==False:
+            self.reset_timer = pygame.time.get_ticks()
         self.running = True
-        self.display_buttons = True
-        self.display_game = False
+        # self.display_buttons = True
+        # self.display_game = False
         time_limit = str("0:0")
         while self.running:
             
@@ -352,6 +357,7 @@ class Collect_the_word(MazeGame):
                     if self.ok_button_img_rect.collidepoint(mouse_pos) and self.display_buttons:
                         self.display_buttons=False
                         self.display_game = True
+                        self.start_time = 0
             self.window.fill(BLACK)
 
 
@@ -362,15 +368,18 @@ class Collect_the_word(MazeGame):
                 names_button_label,Back_label_rect = self.font.render("OK", self.button_text_color, None)
                 Back_label_rect = names_button_label.get_rect(center=self.ok_button_img_rect.center)
                 self.window.blit(names_button_label, Back_label_rect)
+                self.at_start_ticks = pygame.time.get_ticks()
                 if self.multi:
                     self.draw_para(self.paragraph_text2)
                 else:
                     self.draw_para(self.paragraph_text)
             if self.display_game:
-                 self.start_time = pygame.time.get_ticks()
-                 
-                 self.str_start_time = round((round((self.start_time/1000),1)-round((reset_timer/1000),1)),1)
                  self.draw_treasure_maze()
+                #  if self.display_buttons==True:
+                     
+                 self.start_time = pygame.time.get_ticks()-self.at_start_ticks
+                #  print(self.start_time)
+                 self.str_start_time = round((round((self.start_time/1000),1)-round((self.reset_timer/1000),1)),1)
                  self.display_time(self.str_start_time)
                  if self.final_text == time_limit:
                     pygame.mixer.music.stop()
