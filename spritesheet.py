@@ -1,7 +1,4 @@
 import pygame
-# from maze_maps import Maze_maps
-# from main import MazeGame
-# instance = MazeGame(1600,900,Maze_maps.maze_multi)
 
 class SpriteSheet():
 	def __init__(self, image):

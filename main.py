@@ -1,12 +1,9 @@
 import pygame
 import os
-from maze_maps import Maze_maps
 import pygame.freetype
-# from blue_player import *
-# from coins_sheet import *
+
 from spritesheet_test import *
-# from yellow_monester import *
-# from GUI import mainloop
+
 BLACK = (0, 0, 0)
 WHITE = "white"
 
@@ -110,10 +107,7 @@ class MazeGame:
  and experience the thrill of a lifetime.
          """
         
-    # def get_cell_width(self):
-    #     return self.cell_width
-    # def get_cell_height(self):
-    #     return self.cell_height
+    
     def find_character(self, maze,Char):
         for row in range(len(maze)):
             for col in range(len(maze[row])):
@@ -133,16 +127,13 @@ class MazeGame:
         for row in range(len(self.maze)):
             for col in range(len(self.maze[0])):
                 if self.maze[row][col] == "T":
-                        # current_time = pygame.time.get_ticks()
-                        # if current_time - self.delay_coin >= self.cooldown_coin:
+                        
                             self.frame_coin += 0.15
-                            # self.delay_coin = current_time
+                            
                             if self.frame_coin >= len(animation_list_coins):
                                 self.frame_coin = 0
-                            # if self.frame_coin%1==0:
-                            self.window.blit(animation_list_coins[int(self.frame_coin)], ((col*35)+self.window_width//2-(self.cell_width*len(self.maze[0])//2), (row*35)+self.offsett))                    # treasure_cell_image = pygame.image.load(os.path.join("Assets","IMG_9986.png"))
-                    # treasure_image = pygame.transform.scale(treasure_cell_image,(self.cell_width,self.cell_height))
-                    # self.window.blit(treasure_image,(col* self.cell_width,row* self.cell_height))
+                            
+                            self.window.blit(animation_list_coins[int(self.frame_coin)], ((col*35)+self.window_width//2-(self.cell_width*len(self.maze[0])//2), (row*35)+self.offsett))
                 if self.maze[row][col] == "X":
                     wall_cell_image = pygame.image.load(os.path.join("Assets","wall_cell.png"))
                     wall_cell = pygame.transform.scale(wall_cell_image,(self.cell_width,self.cell_height))
@@ -185,18 +176,6 @@ class MazeGame:
         else:
             self.window.blit(list_player[self.frame], ((pos_x*35)+self.window_width//2-(self.cell_width*len(self.maze[0])//2), pos_y*35+self.offsett))
     
-    # def draw_player(self,pos_x,pos_y,player):
-    #     if player == 1:
-	
-
-    #         player_cell_image = pygame.image.load(os.path.join("Assets","IMG_0011.png"))
-
-    #     else:
-            
-    #         player_cell_image = pygame.image.load(os.path.join("Assets","image.png"))
-    #     player_cell = pygame.transform.scale(player_cell_image,(self.cell_width,self.cell_height))
-    #     self.window.blit(player_cell,(pos_y * self.cell_width, pos_x * self.cell_height))
-
     
 
     def draw_goal(self):
@@ -276,7 +255,7 @@ class MazeGame:
           self.change_frame(animation_list_right_blue_player,1)
         if self.is_valid_move(self.new_row,self. new_col):
             if player == 2:
-                # print(self.player_pos)
+                
                 self.player_pos = (self.new_row, self.new_col)
                 if self.player_pos[0]*35 + self.offsett >= self.window_height-self.scroll_area and direction =="s" and self.player_pos[0]*35 - self.offsett < len(self.maze)*35 and len(self.maze)*35 > self.window_height :
                     self.offsett -= 140
@@ -331,7 +310,7 @@ class MazeGame:
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                         mouse_pos = pygame.mouse.get_pos()
-                    #   self.Click_sound.play()
+                    
                         if self.ok_button_img_rect.collidepoint(mouse_pos) and self.display_buttons:
                             self.display_buttons=False
                             self.display_game = True
@@ -364,7 +343,7 @@ class MazeGame:
                      # mainloop()
             pygame.display.flip()
             self.clock.tick(60)
-        # pygame.quit()
+        
 
 
 # if __name__ == "__main__":

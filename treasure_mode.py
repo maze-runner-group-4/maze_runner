@@ -1,12 +1,12 @@
 from main import MazeGame
-from maze_maps import Maze_maps
+
 import pygame
 import pygame.mixer
 import pygame.freetype
 import os
 BLACK = (0, 0, 0)
 WHITE = "white"
-# from GUI import mainloop
+
 class Treasure(MazeGame):
     def __init__(self, maze,mode, multi = False):
         super().__init__( maze,mode)
@@ -76,7 +76,7 @@ class Treasure(MazeGame):
                     self.maze[self.new_row][self.new_col] = " "# Remove ####Remove 
                     self.treasure_counter-=1
                     self.calculate_score_for_treasure(player)
-                    # self.treasure_sound.play()
+                    
         if self.multi:           
             if self.treasure_score >self.half_treasures * 100 or self.treasure2_score >self.half_treasures * 100 :
                 self.check_winner()
@@ -97,7 +97,7 @@ class Treasure(MazeGame):
             self.running =  False
             pygame.mixer.music.load('Assets/menu-_sound.wav')
             pygame.mixer.music.play(-1)
-            # mainloop()
+            
         elif self.treasure2_score > self.treasure_score:
             winner_text = "Congratulations! Red Win!"
             self.game_win_sound.play()
@@ -106,7 +106,7 @@ class Treasure(MazeGame):
             self.running = False
             pygame.mixer.music.load('Assets/menu-_sound.wav')
             pygame.mixer.music.play(-1)
-            # mainloop()
+            
     def run(self):
         self.running = True
         self.display_buttons = True
@@ -140,11 +140,11 @@ class Treasure(MazeGame):
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_pos = pygame.mouse.get_pos()
-                #   self.Click_sound.play()
+                
                     if self.ok_button_img_rect.collidepoint(mouse_pos) and self.display_buttons:
                         self.display_buttons=False
                         self.display_game = True
-                    #   Click_sound.play()
+                    
             self.window.fill(BLACK)
             if self.display_buttons:
                 self.window.blit(self.info_button_img1 ,(self.info_button_x-450, self.info_button_y-350))
@@ -177,7 +177,7 @@ class Treasure(MazeGame):
                     
             pygame.display.flip()
             self.clock.tick(60)
-        # pygame.quit()
+        
 
 # if __name__ == "__main__":
 #     game = Treasure( Maze_maps.maze_treasure)
