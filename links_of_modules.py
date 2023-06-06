@@ -5,7 +5,6 @@ from dodge_the_monsters import Dodge_the_monsters
 from hide_and_seek import Hide_and_seek
 from collect_the_word import Collect_the_word
 import random
-# from GUI import mainloop
 class links:
     def __init__(self,mode,multiplayer):
         self.mode = mode
@@ -53,9 +52,4 @@ class links:
             game.run(self.check_multi)
         else:
             game.run()
-        # or self.mode =="medium" or self.mode == "hard" or self.mode =="treasure":
-        #     return list[EMHT_index]
-        # elif self.mode == "multi":
-        #    return list[multi_index]
-        # else:
-        #    return list[hide_index]
+       

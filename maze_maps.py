@@ -436,7 +436,7 @@ class Maze_maps:
     "                                      "
     ]
     list_of_multi_maps = [maze_multi,maze_multi2]
-    # list_of_multi_maps = [maze_multi2]
+    
 
     complete_the_word_maze = [
         "                                                    ",

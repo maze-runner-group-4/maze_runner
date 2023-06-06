@@ -164,7 +164,6 @@ def mainloop():
         # Clear the screen
         screen.blit(SPACE, (0, 0))
 
-        # screen.blit(Background_menu, ((screen_width//2)-200,180))
 
         if not escape_screen_active and not About_us_clicked and not Find_treasure_clicked :
             screen.blit(title_gif, ((screen_width - title_gif.get_width()) // 2, 15))
@@ -218,7 +217,7 @@ def mainloop():
 
             # Draw the button labels for text position
 
-            start_label,start_label_rect  = font.render("Find the treasure",button_text_color, None)
+            start_label,start_label_rect  = font.render("Treasure Hunter",button_text_color, None)
             start_label_rect = start_label.get_rect(center=FindTreasure_button.center)
             screen.blit(start_label, start_label_rect)
 
@@ -260,14 +259,12 @@ def mainloop():
              elif event.type == pygame.MOUSEBUTTONDOWN:
                  mouse_pos = pygame.mouse.get_pos()                
                  if FindTreasure_button.collidepoint(mouse_pos):
-                     # if multiplayer_clicked:  
                       Click_sound.play()    
                       Find_treasure_clicked = True
                       escape_screen_active = False  
                       About_us_clicked = False            
                   
                  elif exit_button_rect.collidepoint(mouse_pos):
-                     # print("Exiting the application...")
                      Click_sound.play()  
                      pygame.quit()
                      sys.exit()
@@ -276,7 +273,6 @@ def mainloop():
                      Click_sound.play()  
                      escape_screen_active = True
                  elif multi_button_rect.collidepoint(mouse_pos):
-                     # print("Multiplayer button pressed")
                      Click_sound.play() 
                      multiplayer_clicked = True
                      single_player_clicked = False
@@ -295,13 +291,11 @@ def mainloop():
                      About_us_clicked=True
                       
                  elif dodge_button.collidepoint(mouse_pos):
-                     # print("Starting the game...")
                      Click_sound.play() 
                      game = links("multi",multiplayer_clicked)
                      game.run()
                      
                  elif run_button.collidepoint(mouse_pos):
-                 # print("Starting the game...")
 
                     if multiplayer_clicked:
                         Click_sound.play() 
@@ -364,7 +358,6 @@ def mainloop():
                   Click_sound.play()
                   if Back.collidepoint(mouse_pos):
                       Click_sound.play()
-                      # print("Back button pressed")
                       escape_screen_active = False
                       single_player_clicked = False
                       multiplayer_clicked = False  
@@ -430,7 +423,6 @@ def mainloop():
                 mouse_pos = pygame.mouse.get_pos()
                 if Back.collidepoint(mouse_pos):
                       Click_sound.play()
-                      # print("Back button pressed")
                       escape_screen_active = False
                       single_player_clicked = False
                       multiplayer_clicked = False  

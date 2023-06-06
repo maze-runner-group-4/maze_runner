@@ -114,20 +114,16 @@ class Dodge_the_monsters(MazeGame):
 
         
          """
-        # print(len(self.list_R))
     def draw_hearts(self):
         for row in range(len(self.maze)):
             for col in range(len(self.maze[row])):
                 if self.maze[row][col] == "H":
                     self.frame_heart += 0.5
-                            # self.delay_coin = current_time
                     if self.frame_heart >= len(list_of_frames_hearts):
                         self.frame_heart = 0
-                            # if self.frame_coin%1==0:
 
                     self.window.blit(list_of_frames_hearts[int(self.frame_heart)], ((col*35)+self.window_width//2-(self.cell_width*len(self.maze[0])//2), row*35+self.offsett))                    # treasure_cell_image = pygame.image.load(os.path.join("Assets","heart1.png"))
-                    # treasure_image = pygame.transform.scale(treasure_cell_image,(self.cell_width,self.cell_height))
-                    # self.window.blit(treasure_image,(col* self.cell_width,row* self.cell_height))
+                    
 
     def draw_hearts_points(self,player_health,heart_x): 
         for i in range(player_health):
@@ -200,13 +196,7 @@ class Dodge_the_monsters(MazeGame):
                 self.window.blit(list[self.frame_R], (pos_x*35, pos_y*35+self.offsett))
         
 
-        #     monster_cell_image = pygame.image.load(os.path.join("Assets","green-removebg-preview.png"))
-        #     monster_cell_image = pygame.image.load(os.path.join("Assets","blue-removebg-preview.png"))
-        #     monster_cell_image = pygame.image.load(os.path.join("Assets","yellow-removebg-preview.png"))
-        # else:
-        #     monster_cell_image = pygame.image.load(os.path.join("Assets","wall_cell.png"))         
-        # monster_cell = pygame.transform.scale(monster_cell_image,(self.cell_width,self.cell_height))
-        # self.window.blit(monster_cell,(pos_y * self.cell_width, pos_x * self.cell_height))
+       
 
 
     def monster_movement(self):
@@ -273,7 +263,6 @@ class Dodge_the_monsters(MazeGame):
                 self.list_R = animation_list_right
 
     def game_over(self,multi):
-        # print(self.player_health , self.player_2_health)
         if self.player_health == self.player_2_health ==0 :
             game_over_text = "Game Over"
             self.draw_game_over(game_over_text)
@@ -383,12 +372,10 @@ class Dodge_the_monsters(MazeGame):
                         self.player_2_health += 1
                     
                     self.heart_sound.play()  # Play the sound effect
-                    # self.calculate_score_for_treasure(player)
     
 
 
     def run(self, multi=False):
-        # running = True
         self.display_buttons = True
         self.display_game = False
         while self.running:
@@ -420,7 +407,6 @@ class Dodge_the_monsters(MazeGame):
                             self.move_player("d",2)
                 if event.type == pygame.MOUSEBUTTONDOWN:
                         mouse_pos = pygame.mouse.get_pos()
-                #   self.Click_sound.play()
                
                         if self.ok_button_img_rect.collidepoint(mouse_pos) and self.display_buttons:
                             self.display_buttons=False
@@ -459,14 +445,12 @@ class Dodge_the_monsters(MazeGame):
                  self.monster_movement()
          
                  if self.check_find_goal():
-                # self.game_win_sound.play()
                      pygame.mixer.music.stop()
                      self.running = False
                      pygame.mixer.music.load('Assets/menu-_sound.wav')
                      pygame.mixer.music.play(-1)
             pygame.display.flip()
             self.clock.tick(60)
-        # pygame.quit()
 
 # if __name__ == "__main__":
 

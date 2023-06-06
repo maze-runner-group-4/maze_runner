@@ -1,9 +1,6 @@
 import pygame
 import spritesheet
-# from maze_maps import Maze_maps
-# from yellow_monester import *
-# from blue_player import *
-# from coins_sheet import *
+
 pygame.init()
 animation_steps=3
 SCREEN_WIDTH = 1366
@@ -25,13 +22,13 @@ blue_monster_back_sheet = pygame.image.load('Assets/spriteimages/blue_monster_fr
 blue_monster_back = spritesheet.SpriteSheet(blue_monster_back_sheet)
 
 
-# # front frames blue monster
+# front frames blue monster
 frame_0_blue_monster_front = blue_monster_front.get_image(0, 240, 275, 1, BLACK)
 frame_1_blue_monster_front = blue_monster_front.get_image(1, 240, 275, 1, BLACK)
 frame_2_blue_monster_front = blue_monster_front.get_image(2, 240, 275, 1, BLACK)
 frame_3_blue_monster_front= blue_monster_front.get_image(3, 240, 275, 1, BLACK)
 list_of_frams_blue_monster_front = [frame_0_blue_monster_front, frame_1_blue_monster_front, frame_2_blue_monster_front, frame_3_blue_monster_front]
-# # back frames blue monster
+# back frames blue monster
 frame_0_blue_monster_back = blue_monster_back.get_image(0, 240, 275, 1, BLACK)
 frame_1_blue_monster_back = blue_monster_back.get_image(1, 240, 275, 1, BLACK)
 frame_2_blue_monster_back = blue_monster_back.get_image(2, 240, 275, 1, BLACK)
@@ -48,8 +45,6 @@ red_monster_front = spritesheet.SpriteSheet(red_monster_front_sheet)
 red_monster_back_sheet = pygame.image.load('Assets/spriteimages/red_monster_frams/red monster back.png').convert_alpha()
 red_monster_back = spritesheet.SpriteSheet(red_monster_back_sheet)
 
-# # BG = (0,0,0)
-# # BLACK = (0, 0, 0)
 
 # # front frames red monster
 frame_0_red_monster_front = red_monster_front.get_image(0, 235, 275, 1, BLACK)
@@ -147,8 +142,7 @@ sprite_sheet_up = spritesheet.SpriteSheet(sprite_sheet_image_up)
 
 
 
-# BG = (50, 50, 50)
-# BLACK = (0, 0, 0)
+
 animation_list_down_blue_player= []
 animation_list_left_blue_player= []
 animation_list_right_blue_player= []
@@ -185,12 +179,10 @@ sprite_sheet5 = spritesheet.SpriteSheet(sprite_sheet_image5)
 sprite_sheet6 = spritesheet.SpriteSheet(sprite_sheet_image6)
 
 
-# BG = (50, 50, 50)
-# BLACK = (0, 0, 0)
+
 animation_list_coins= [sprite_sheet1.get_image(0, 234, 234, 1, BLACK),sprite_sheet2.get_image(0, 234, 234, 1, BLACK), sprite_sheet3.get_image(0, 234, 234, 1, BLACK), sprite_sheet4.get_image(0, 234, 234, 1, BLACK),sprite_sheet5.get_image(0, 234, 234, 1, BLACK),sprite_sheet6.get_image(0, 234, 234, 1, BLACK)]
 
-# for x in range(animation_steps+3):
-#  animation_list_coins.append(sprite_sheet.get_image(x, 234, 234, 1, BLACK))
+
 #############################################################################################################################################
 
 sprite_sheet_image = pygame.image.load('Assets/spriteimages/yellow_monster/yellow monster_down.png').convert_alpha()
@@ -206,8 +198,7 @@ sprite_sheet_image_up = pygame.image.load('Assets/spriteimages/yellow_monster/ye
 sprite_sheet_up = spritesheet.SpriteSheet(sprite_sheet_image_up)
 
 
-# BG = (50, 50, 50)
-# BLACK = (0, 0, 0)
+
 animation_list_down= []
 animation_list_left= []
 animation_list_right= []
@@ -354,18 +345,6 @@ animation_list_Tletters =[sprite_letterT1.get_image(0, 80, 80, 1, BLACK),sprite_
 
 
 ############################################################################################################################################
-# sprite_sheet_title1 = pygame.image.load('Assets/spriteimages/title/cool1.png').convert_alpha()
-# sprite_sheet_title2 = pygame.image.load('Assets/spriteimages/title/cool2.png').convert_alpha()
-# sprite_sheet_title3 = pygame.image.load('Assets/spriteimages/title/cool3.png').convert_alpha()
-# sprite_sheet_title4 = pygame.image.load('Assets/spriteimages/title/cool4.png').convert_alpha()
-# sprite_sheet_title5 = pygame.image.load('Assets/spriteimages/title/cool5.png').convert_alpha()
-# sprite_title_f_1=spritesheet.SpriteSheet(sprite_sheet_title1)
-# sprite_title_f_2=spritesheet.SpriteSheet(sprite_sheet_title2)
-# sprite_title_f_3=spritesheet.SpriteSheet(sprite_sheet_title3)
-# sprite_title_f_4=spritesheet.SpriteSheet(sprite_sheet_title4)
-# sprite_title_f_5=spritesheet.SpriteSheet(sprite_sheet_title5)
-
-# animation_list_title =[sprite_title_f_1.get_image2(0, 869, 130, 1, BLACK),sprite_title_f_2.get_image2(0, 869, 130, 1, BLACK), sprite_title_f_3.get_image2(0, 869, 130, 1, BLACK), sprite_title_f_4.get_image2(0, 869, 130, 1, BLACK),sprite_title_f_5.get_image2(0, 869, 130, 1, BLACK)]
 
 ##########################################################################################################################################################################################################################################################################################################
 sprite_sheet_image = pygame.image.load('Assets/spriteimages/blue_player/blue_player_.png').convert_alpha()

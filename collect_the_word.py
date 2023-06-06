@@ -3,7 +3,6 @@ from queue_word import Queue
 import pygame
 import pygame.mixer
 from maze_maps import Maze_maps
-# from spritesheet_test import animation_list_Tletters,animation_list_Mletters,animation_list_Sletters,animation_list_Aletters,animation_list_Cletters,animation_list_Eletters,animation_list_numbers
 import os
 import pygame.freetype
 from spritesheet_test import *
@@ -55,7 +54,6 @@ class Collect_the_word(MazeGame):
         self.E = animation_list_Eletters  
         self.M = animation_list_Mletters  
         self.N4 = animation_list_numbers
-        # self.A_pos = self.find_character(maze,"A")
         self.S_pos = self.find_character(maze,"S")
         self.C_pos = self.find_character(maze,"C")
         self.T_pos = self.find_character(maze,"V")
@@ -123,7 +121,6 @@ class Collect_the_word(MazeGame):
                 self.player_red_score.dequeue()
                 self.letter_collect_sound.play()
                 self.maze[self.new_row][self.new_col] = " " # Remove the letter 
-                # print(self.maze[self.new_row][self.new_col])
 
             if self.maze[self.new_row][self.new_col] == "V" and front_of_queue2 == "T": # Update the maze 
                 self.player_red_score.dequeue()
@@ -249,7 +246,6 @@ class Collect_the_word(MazeGame):
           self.change_frame(animation_list_right_blue_player,1)
         if self.is_valid_move(self.new_row,self. new_col):
             if player == 2:
-                # print(self.player_pos)
                 self.player_pos = (self.new_row, self.new_col)
                 if self.player_pos[0]*35  >= self.window_height and direction =="s" and self.player_pos[0]*35 - self.offsett < len(self.maze)*35 and len(self.maze)*35 > self.window_height and self.player_pos[0] < 24  :
                     self.offsett -= 140
@@ -299,7 +295,6 @@ class Collect_the_word(MazeGame):
             pygame.mixer.music.play(-1)
             return True
         return False  
-# .replace(".",":")
     def display_time(self,text):
         text1 = 60.0 - text
         self.final_text = str(round(text1,1)).replace(".",":")
@@ -324,9 +319,7 @@ class Collect_the_word(MazeGame):
         self.running = True
         self.display_buttons = True
         self.display_game = False
-        # start_time_before = pygame.time.get_ticks()
         time_limit = str("0:0")
-        # print(time_limit)
         while self.running:
             
             for event in pygame.event.get():
@@ -355,7 +348,6 @@ class Collect_the_word(MazeGame):
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_pos = pygame.mouse.get_pos()
-                #   self.Click_sound.play()
                
                     if self.ok_button_img_rect.collidepoint(mouse_pos) and self.display_buttons:
                         self.display_buttons=False
@@ -378,7 +370,6 @@ class Collect_the_word(MazeGame):
                  self.start_time = pygame.time.get_ticks()
                  
                  self.str_start_time = round((round((self.start_time/1000),1)-round((reset_timer/1000),1)),1)
-                #  print(str(round((start_time/1000),2)))
                  self.draw_treasure_maze()
                  self.display_time(self.str_start_time)
                  if self.final_text == time_limit:
@@ -399,21 +390,17 @@ class Collect_the_word(MazeGame):
                  self.draw_the_letter("4",self.N4)
                  self.showing_score(5,5,1)
                  if self.multi:
-                     self.showing_score(self.window_width-480,5,2)
+                    self.showing_score(self.window_width-480,5,2)
                     #  self.draw_player(self.player_2_pos[1],self.player_2_pos[0],2,self.list_player_2_red)
-
+                 if self.goal_draw:
                      self.draw_goal()
                      if self.check_find_goal():
                          pygame.mixer.music.stop()
                          self.running = False
                          pygame.mixer.music.load('Assets/menu-_sound.wav')
                          pygame.mixer.music.play(-1)
-            # self.draw_the_letter(10,10,1)
-            # if self.multi:
-            #     self.draw_the_letter(self.window_width-220,10,2)
             pygame.display.flip()
             self.clock.tick(60)
-        # pygame.quit()
 
 if __name__ == "__main__":
     game = Collect_the_word( Maze_maps.complete_the_word_maze,True)
